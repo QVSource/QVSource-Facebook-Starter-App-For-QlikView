@@ -1,0 +1,1921 @@
+﻿///$tab Change Log
+/*
+1.9.1 - 30/07/13
+----------------
+* Added test to check vLocalTimeZone is recognised.
+* Fiexed error on Comments tab: if(NoOfRows('Params') > 1) then ==> if(NoOfRows('Params') > 0) then
+* Now uses new LikeCountForItem table to get feed item likes.
+* Now configured to require QVSource 1.4.7.1 or later.
+* Should no longer error if no feed items are found on the initial reload. This application is however is only designed to run properly when at least one feeditem and one comment is found.
+* Moved to GitHub.
+* Config file renamed to config.txt.
+
+1.9.0 - 24/06/13
+----------------
+* Added support for Comments and replies to comments (see new fields in FB_Comments table). These are not yet used in the UI.
+
+1.8.9 - 28/05/13
+----------------
+* NOTE - THIS HAS A BREAKING CHANGE
+* Updated to use TextAnalyserV2
+* has_comments added to FeedItems table (BREAKING CHANGE)
+* Now only runs messages through sentiment API which are not empty (i.e. <> '')
+
+1.8.8 - 21/05/13
+----------------
+* Updated to use QVSource 1.4.4.7 which has a work around for recent breaking changes to the Facebook API (removal of comments_count field for FeedItems).
+
+1.8.7 - 06/04/13
+----------------
+* vQVSourceAppId and vWorkingFolder moved into config file.
+* Call to sendEmail now wrapper in errormode = 0;
+* Fixed bug in CheckQVSourceStatus function.
+
+1.8.6 - 27/01/13
+----------------
+* Fixed some bugs with yesterdays release.
+
+1.8.5 - 26/01/13
+----------------
+* Loading comments Async now uses new processParamsAsync technique.
+* Loading sentiment Async now uses new processParamsAsync technique.
+* Loading posters/commenters Async now uses new processParamsAsync technique.
+* Sentiment extration rewritten into sepatate functions, now much shorter, neater and reusable.
+* Added Check Status functionality.
+* Removed AllContentSentiment_Language
+* Moved to using noCache=true parameter rather than using a QVSource load statement to first clear cache.
+* Removed use of and references to urlEncode.
+* appID=$(vQVSourceAppId) added to all requests. This ID is also now used in the subject of the email sent when loaded.
+
+1.8.4 - 15/11/12
+----------------
+* Facebook Feed extraction now uses pageID instead of page - we now recommend using the id in the config file also as the vanity url name can change.
+* Added functionality in to use Saplo API.
+
+1.8.3 - 04/11/12
+----------------
+* Fixed error in summary count of users on intro tab.
+* Added vLocalTimeZone and created _local versions of create times, dates and months.
+* Removed some fields from those loaded for posters/commenters.
+
+1.8.2 - 04/11/12
+----------------
+* Option added in config to load sentiment asynchronously for better performance (vAsyncSentiment).
+* Option added in config to load user info asynchronously for better performance (vLoadPostersAndCommenterInfoAsync).
+* Sentiment now only loaded when status = 'OK'.
+* Commenter_name not Commenter_username now used in AllUsers data set which fixes an issue where the name for some commenters was empty (when loaded from QVDs).
+* AllUsers_language and AllUsers_country added (parsed from locale) (when loaded from QVDs).
+* Added Page_loaddate_Month to FB_Page (when loaded from QVDs).
+* Comments Per Post vs Date no longer accumulative.
+* Likes Per Post vs Date no longer accumulative.
+* Removed print and export to Excel icons on charts.
+* Added country and language charts for All Users.
+* Fixed Sentiment Vs Gender Chart.
+* Fixed error in summary count of posts and comments on intro tab.
+* Various UI rearrangements and improvements on all tabs and many charts.
+
+1.8.1 - 16/08/12
+----------------
+- Company renamed to Site in config file.
+
+1.8 - 10/08/12
+--------------
+* Removed url encode function, now using _urlEncoded column from QVSource.
+* New fields added to FacebookProConnector_Feed.
+* Renamed FacebookProConnector_Feed to FB_Feed. Also renamed other tables.
+* Fixed bug with isFirstTime not being set correctly.
+* qv date columns added to FacebookProConnector_Posters.
+* message_urlEncoded added to FacebookProConnector_Comments.
+* Added call to clear comments cache for a feed item before re-requesting these (clearcache_searchPattern=$(feedID)_comments).
+* Reduced looping where possible.
+* Dropped FB_Pro_posterExistsKey and FB_Pro_commenterExistsKey.
+* Site renamed to Company in config file.
+* Table and columns names shortened and simplified.
+* Simplified config so you now need to set let noDaysToGoBackOnInitialReload and let noDaysToGoBackOnSubsequentReloads = 2;
+* uses QVX format in places and will be flly transitioned to this format soon.
+* improved calls to logQVSourceError
+* replaced http://localhost:5555 with vQVSourceBaseUrl variable from config file.
+* no longer a separate vCompany variable - this is taken as the first line in th facebook sites config table.
+* deleted all old variables which had accumulated and were no longer used.
+* created 3 variables for sentiment colours 
+let vColNeg = 'RGB(255, 0, 0)';
+let vColPos = 'RGB(0, 255, 0)';
+let vColNeu = 'RGB(0, 0, 255)';
+* Open facebook page now users user id rather than profile page link (this is because the config file now allows you to turn off getting detailed info on each user).
+* Renamed QVD files.
+* Fixed issue where it was still re-requesting comments for all feeitems in system rather than just those for feed items refreshed in current load.
+* Now only attempts to load comments when the comment count on the feed item > 0.
+* Retrieving User table for every poster and commenter is now turned off by default - this takes a LONG time and only results in additional gender and locale info for some of the users.
+
+Still to DO:
+------------
+- Add support for replies of comments.
+- Upgrade to use new datetime parsing expression for timestamps.
+- How to show change/delta in site likes over time rather than overall number.
+- If no comments to load = 0 it should ignore those parts of the script completely.
+- Add in notes showing what percentage of comments have actually been loaded and move comment dependent KPIs onto separate tab with notes about this.
+- Company should be named Site again or something different.
+- Allow user to put FB url in config file?
+- make fit in 1024 x 768
+- check if it runs OK if no comments are found for any posts.
+- Make charts on Time Trends tabs so all data is shown in x axis
+- Ablity to take snapshots of comments and feed items each day so trending of likes and comments over time for a given post can be shown.
+- Only reload comments for a feeditem if the updated_date has changed since the last load. According to the docs this is changed when a comment is added. NOTE there appears
+to be a FB bug which might make this unworkable at present - https://developers.facebook.com/bugs/355128274557900 - we will monitor this.
+- add in error table
+- add in more trace statements
+- batch users at 50 a time. This will require change to connector (although we can no run these async).
+- Perhaps user info should be refreshed after the load date since their information was grabbed exceeds X days? (note getting user info is now turned off as default).
+- Store all data to QVDs then reload from these QVDs as the last step.
+- Figure out why date is being formated as yyyy-mm-dd.
+*/
+///$tab Setup
+SET ThousandSep=',';
+SET DecimalSep='.';
+SET MoneyThousandSep=',';
+SET MoneyDecimalSep='.';
+SET MoneyFormat='£#,##0.00;-£#,##0.00';
+SET TimeFormat='hh:mm:ss';
+SET DateFormat='DD/MM/YYYY';
+SET TimestampFormat='DD/MM/YYYY hh:mm:ss[.fff]';
+SET MonthNames='Jan;Feb;Mar;Apr;May;Jun;Jul;Aug;Sep;Oct;Nov;Dec';
+SET DayNames='Mon;Tue;Wed;Thu;Fri;Sat;Sun';
+
+//
+// This external file contains the configuration for which 
+// Facebook sites to analyse.
+//
+$(include=config.txt);
+
+set errormode = 0;
+
+let vCompany = PEEK('Company', 0, 'FacebookSites');
+
+let vtemp = Date(timestamp(now(1)) - vNoDaysToGoBackOnInitialReload);
+let vOldestFeedCreatedDateForInitialReload = Date(vtemp, 'DD-MM-YYYY');
+let vtemp = Date(timestamp(now(1)) - vNoDaysToGoBackOnSubsequentReloads);
+let vOldestFeedCreatedDateForSubsequentReloads = Date(vtemp, 'DD-MM-YYYY');
+
+let vCompany = peek('Site', 0,'FacebookSites');
+
+let vTestvLocalTimeZone = ConvertToLocalTime(UTC(), '$(vLocalTimeZone)');
+
+if (right(vTestvLocalTimeZone, 1) = '?') then
+	trace 'Your setting for vLocalTimeZone in the config file is not recognised as valid';
+	exit script;
+end if
+
+
+
+///$tab QVSource Support
+/*****************************************************************
+/ Standard QVSource library
+/ http://www.QVSource.com
+*****************************************************************/
+
+let vToday = now(1); // 1=at time of function call
+let vDay = day(vToday);
+let vYear = year(vToday);
+//let hour = hour(vToday);
+let vMonth = month(vToday);
+let vTodayAsDate = makedate(vYear, vMonth, vDay);
+let vLocalReloadTime = date(ConvertToLocalTime(gmt(), '$(vLocalTimeZone)'), 'DD/MM/YYYY hh:mm');
+
+/*
+let hourlyTimeStamp = $(day) & '_' & '$(month)' & '_' & $(year) & '_' & $(hour);
+let dailyTimeStamp = $(day) & '_' & '$(month)' & '_' & $(year);
+*/
+//
+// Reusable function to send email. Note that you will need to 
+// set the account details and smtp server in the connector's user interface for this 
+// to work server.
+//
+// Usage:
+// call sendEmail('test subject', 'test', $(vEmailNotificationAddress));
+//
+sub sendEmail(subject, msg, to)
+ 
+    NotificationConnector_SendEmail:
+    LOAD
+        sendemail_status as SendEmail_sendemail_status,
+        sendemail_result as SendEmail_sendemail_result
+    FROM
+    [$(vQVSourceBaseUrl)/QVSource/NotificationConnector/?table=SendEmail&subject=$(subject)&message=$(msg)&to=$(to)&appID=$(vQVSourceAppId)]
+    (txt, utf8, embedded labels, delimiter is '\t', msq);
+ 
+    drop table NotificationConnector_SendEmail; // Comment this out if you need to debug and see the results of the send attempt.
+     
+end sub
+
+let QVSource_log='';
+
+sub logQVSourceError(errorDetails, connectorName)
+
+	if(not isnull(errorDetails)) then
+		let QVSource_log=QVSource_log & ',' & connectorName & ':' & errorDetails;
+		QVSourceError:
+		LOAD
+		QVSourceError_Timestamp,
+		QVSourceError_Status,
+		QVSourceError_Message
+		FROM [$(vQVSourceBaseUrl)/QVSource/?log=error,$(errorDetails),$(connectorName)]
+		(txt, utf8, embedded labels, delimiter is '\t', msq);
+		//drop table QVSourceError;
+	endif
+
+end sub
+
+// Not used.
+sub doesFileExist(fileName)
+
+	let size = filesize(fileName);
+
+	if isnull(size) then
+		call=0;
+	else
+		call=1;
+	endif
+
+endsub
+
+//
+// When this returns there should be a table named ItemsToScore with the remaining idToScore and textToScore fields.
+//
+sub getItemsLeftToScore(qvdFileName, tableContainingCurrentData, idColName, encodedTextColName, textColName, sentimentColName)
+
+	let size = filesize('$(qvdFileName)');
+
+	let vTableNo = TableNumber('ItemsToScore');
+
+	if not isnull(vTableNo) then
+		drop table 'ItemsToScore';
+	endif
+	
+	if isnull(size) then	
+	
+		ItemsToScore:
+		load distinct
+		$(idColName) as idToScore,
+		$(textColName) as textToScore,
+		$(encodedTextColName) as textToScore_urlEncoded
+		resident
+		$(tableContainingCurrentData)
+		where $(textColName) <> '';
+	
+	ELSE
+			
+		temp:
+		LOAD
+		$(idColName) as temp_id,
+		$(sentimentColName) as temp_score
+		FROM '$(qvdFileName)' (qvd);
+		
+		outer join load
+		$(idColName) as temp_id,
+		$(textColName) as temp_text,
+		$(encodedTextColName) as temp_text_urlEncoded
+		resident
+		$(tableContainingCurrentData);
+			
+		ItemsToScore:
+		load distinct
+		temp_id as idToScore,
+		temp_text as textToScore,
+		temp_text_urlEncoded as textToScore_urlEncoded
+		resident
+		temp
+		where IsNull(temp_score) and temp_text <> '';
+		
+		// This must be dropped as we are in a loop.
+		drop table temp;
+		
+	endif
+
+endsub
+
+// After this has run a table named Sentiment should exist with the new scores in.
+sub runSentiment(idColumnAlias, resultsColPrefix, sentimentEngine)
+
+	LET noItems = NoOfRows('ItemsToScore');
+	    
+	if noItems > 0 then
+	
+	 	if vAsyncSentiment = 1 then
+	 						
+			let vParamsFile = '$(vWorkingFolder)$(vQVSourceAppId)' & '_SentimentArgs.txt';
+
+			Params:
+			LOAD
+			    idToScore as rowKey,
+			    textToScore as text,
+			    'es' as Language,
+			    'es' as Sentiment140_Language,
+			    '$(sentimentEngine)' as api
+			resident
+			ItemsToScore;
+			//where textToScore <> '';
+			 
+			store Params into '$(vParamsFile)' (txt);
+			
+			//exit script;
+			drop table Params;
+						
+			let vProcessParam = 'Async';
+			if('$(api)' = 'Sentiment140') then
+				let vProcessParam = 'Batch';			
+			endif
+
+			trace ' Waiting for async Sentiment to run...';
+						
+			Sentiment:
+			LOAD		    
+				rowKey as $(idColumnAlias),
+				'$(api)' as SentimentEngine,
+				'$(api)_' & rowKey as $(resultsColPrefix)_Sentiment_key,
+				timestamp(now(1)) as $(resultsColPrefix)_Sentiment_loadtimestamp,
+				status as $(resultsColPrefix)_Sentiment_status,
+				score as $(resultsColPrefix)_Sentiment_score//,
+				//language as $(resultsColPrefix)_Sentiment_language,
+				//status_info as $(resultsColPrefix)_Sentiment_status_info
+			FROM
+			[$(vQVSourceBaseUrl)/QVSource/TextAnalyserV2/?table=Sentiment&processParams$(vProcessParam)=$(vParamsFile)&format=qvx&appID=$(vQVSourceAppId)]
+			(qvx)
+			where status = 'OK';
+			
+	 	else
+	
+			for j=0 to $(noItems)-1
+			
+				let id = peek('idToScore', $(j), 'ItemsToScore');
+				let text = peek('textToScore_urlEncoded',$(j), 'ItemsToScore');
+				
+				Sentiment:
+				LOAD
+					'$(id)' as $(idColumnAlias),
+					'$(api)' as SentimentEngine,
+					'$(api)_$(id)' as $(resultsColPrefix)_Sentiment_key,
+					timestamp(now(1)) as $(resultsColPrefix)_Sentiment_loadtimestamp,
+					status as $(resultsColPrefix)_Sentiment_status,
+					score as $(resultsColPrefix)_Sentiment_score//,
+					//language as $(resultsColPrefix)_Sentiment_language,
+					//status_info as $(resultsColPrefix)_Sentiment_status_info
+				FROM
+				[$(vQVSourceBaseUrl)/QVSource/TextAnalyserV2/?table=Sentiment&api=$(sentimentEngine)&text=$(text)&Sentiment140_Language=es&format=qvx&appID=$(vQVSourceAppId)]
+				(qvx)
+				where status = 'OK';// and not exists(FeedItem_Sentiment_key, '$(api)_$(id)');
+				
+				call logQVSourceError(scripterrordetails, 'SentimentAnalyser\$(idColumnAlias)\$(sentimentEngine)_$(id)');
+				
+			next j
+	
+		endif
+			
+	endif // noItem > 0		
+	
+	drop table ItemsToScore;
+
+endsub
+
+sub CheckQVSourceStatus
+ 
+    set errormode = 0;
+     
+    QVSourceStatus:
+    LOAD Version,
+        SubField(Version, '.', 1) as Version_Major,
+        SubField(Version, '.', 2) as Version_Minor,
+        SubField(Version, '.', 3) as Version_Build,
+        SubField(Version, '.', 4) as Version_Revision,
+        ServerMode,
+        Path,
+        Licensed,
+        LicenseExpires,
+        IsLicensedAsServer
+    FROM [$(vQVSourceBaseUrl)/QVSource?format=xml] (XmlSimple, Table is [QVSource]);
+          
+    if(ScriptError <> '') then   
+        //
+        // Looks like QVSOurce is not even running.
+        //
+        // Log message here or send email using QVSource Notifier Connector
+        //
+        trace 'QVSource is not running or not running on the requested port number.';
+        exit script;
+    endif     
+      
+    if(peek('Licensed', 0, 'QVSourceStatus') <> 'true') then
+        //
+        // QVSource is running but not licensed.
+        //
+        // Log message here or send email using QVSource Notifier Connector
+        //
+        trace 'QVSource is running but not licensed.';
+        exit script;
+    endif
+ 
+    if(peek('ServerMode', 0, 'QVSourceStatus') = 'true' and peek('IsLicensedAsServer', 0, 'QVSourceStatus') = 'false') then
+        //
+        // QVSource is running but not licensed to run in server mode.
+        //
+        // Log message here or send email using QVSource Notifier Connector
+        //
+        trace 'QVSource is running but not licensed to run in server mode.';
+        exit script;
+    endif     
+     
+    let currentVersionAsInt = (peek('Version_Major', 0, 'QVSourceStatus') * 1000) + (peek('Version_Minor', 0, 'QVSourceStatus') * 100) + (peek('Version_Build', 0, 'QVSourceStatus') * 10) + peek('Version_Revision', 0, 'QVSourceStatus');
+ 
+    // Let's pretend we need QVSource 1.4.2.6 or later....  
+    if(currentVersionAsInt < 1471) then
+        // Log message here or send email using QVSource Notifier Connector
+        trace 'Version too low. Please update QVSource.';
+        exit script;
+    endif
+     
+    QVSourceConnectorStatus:
+    LOAD Name as ConnectorName,
+        Version as ConnectorVersion,
+        Licensed as ConnectorLicensed
+    FROM [$(vQVSourceBaseUrl)/QVSource?format=xml] (XmlSimple, Table is [QVSource/Connectors/Connector]);
+     
+    //
+    // Run other QVSource or connector specific tests here before deciding whether
+    // to proceed and load the rest of the application.
+    //
+     
+    set errormode = 1;
+ 
+endsub
+
+call CheckQVSourceStatus;
+///$tab Saplo Support
+/*
+!! NEEDS REWORKING - THIS WILL NOT WORK WITH THE LATEST QVSOURCE !!
+
+Currently two public models, generated by Saplo is available. If any of those doesn't suit your needs please contact us and describe your specific case.
+MODEL ID 3827 is trained on ~2000 english tweets which reflects the Presidential Election 2012.
+MODEL ID 3830 is trained on ~10 000 english product reviews.
+*/
+
+//
+// Adds contents of ItemsToScore table to Saplo.
+//
+sub addUnscoredItemsToSaplo(vSaploCollectionId)
+
+	LET noItems = NoOfRows('ItemsToScore');
+	    
+	if noItems > 0 then
+	
+		let vAsyncSaploSentiment = 1;
+		
+	 	if vAsyncSaploSentiment = 1 then
+	 			
+	 		let vCurrentAsyncKey = vAsyncKey & '_Saplo_AddTexts';
+	 		
+			Clear_Async_Sentiment_Queue:
+			LOAD
+			    AsyncTableName,
+			    AsyncKey,
+			    Result
+			FROM
+			[$(vQVSourceBaseUrl)/QVSource/SentimentAnalyser/?table=AddText&clearAsyncResults=$(vCurrentAsyncKey)&format=qvx&appID=$(vQVSourceAppId)]
+			(qvx);
+			
+			for j=0 to $(noItems)-1
+			
+				let id = peek('idToScore', $(j), 'ItemsToScore');
+				let text = peek('textToScore',$(j), 'ItemsToScore');
+
+				Queue_Feed_Async_Sentiment:
+				LOAD
+				      AsyncTableName,
+				      AsyncKey,
+				      AsyncRequest,
+				      AsyncStatus
+				FROM
+			    [$(vQVSourceBaseUrl)/QVSource/SentimentAnalyser/?table=AddText&SentimentEngine=Saplo&Saplo_collection_id=$(vSaploCollectionId)&Message=$(text)&format=qvx&asyncKey=$(vCurrentAsyncKey)&asyncRowKey=$(id)&appID=$(vQVSourceAppId)]
+			   	(qvx);
+			   								 
+				call logQVSourceError(scripterrordetails, 'SentimentAnalyser\Queue_Feed_Async_Sentiment\$(api)_$(id)');
+								
+			next j
+			
+			drop table Clear_Async_Sentiment_Queue;
+			drop table Queue_Feed_Async_Sentiment;
+			
+			trace 'Waiting for async Saplo add texts to run...';
+			
+			Saplo_AddText:
+		    LOAD
+				asyncRowKey as itemId,
+//					'$(api)' as SentimentEngine,
+//					'$(api)_' & asyncRowKey as FeedItem_Sentiment_key,
+				status as AddText_status,
+		        headline as AddText_headline,
+		        ext_text_id as AddText_ext_text_id,
+		        collection_id as AddText_collection_id,
+		        publish_date as AddText_publish_date,
+		        text_id as AddText_text_id,
+		        url as AddText_url
+		    FROM
+		    [$(vQVSourceBaseUrl)/QVSource/SentimentAnalyser/?table=AddText&getAsyncResults=$(vCurrentAsyncKey)&format=qvx&appID=$(vQVSourceAppId)]
+		    (qvx);
+					    				
+			Saplo_StillToScore_WithAddedStatusOK:
+			load
+			itemId as idToScore,
+			AddText_text_id as saploIdToScore
+			resident
+			Saplo_AddText
+			where
+			AddText_status = 'OK';
+			 
+			Saplo_TextWhichCouldNotBeAdded:
+			load
+			AddText_status as Saplo_TextWhichCouldNotBeAdded_Status,
+			itemId as Saplo_TextWhichCouldNotBeAdded_id,
+			AddText_text as Saplo_TextWhichCouldNotBeAdded_text
+			resident
+			Saplo_AddText
+			where
+			AddText_status <> 'OK';
+			
+		endif
+		
+	endif
+
+endsub
+
+
+sub runSaploSentimentBulk(idColumnAlias, resultsColPrefix, vSaploCollectionId, vSaploModelId)
+
+	SaploCollections:
+	LOAD
+		collection_id as ListCollections_collection_id,
+		count as ListCollections_count,
+		description as ListCollections_description,
+		name as ListCollections_name,
+		next_id as ListCollections_next_id,
+		permission as ListCollections_permission,
+		language as ListCollections_language
+	FROM
+	[$(vQVSourceBaseUrl)/QVSource/TextAnalyser/?table=ListCollections&SentimentEngine=Saplo&format=qvx]
+	(qvx);
+	
+	let vMaxId = Lookup('ListCollections_next_id', 'ListCollections_collection_id', vSaploCollectionId, 'SaploCollections');// - 1;
+	
+	drop table SaploCollections;
+		
+	let vCurrentId = 1;
+	
+	do while vCurrentId < (vMaxId-1)
+	
+		TextAnalyser_CollectionPredict:
+		LOAD
+			status as CollectionPredict_status,
+			collection_id as CollectionPredict_collection_id,
+			target_word as CollectionPredict_target_word,
+			model_id as CollectionPredict_model_id,
+			value as CollectionPredict_value,
+			text_id as CollectionPredict_text_id
+		FROM
+		[$(vQVSourceBaseUrl)/QVSource/TextAnalyser/?table=CollectionPredict&SentimentEngine=Saplo&Saplo_model_id=$(vSaploModelId)&Saplo_collection_id=$(vSaploCollectionId)&Saplo_text_id=$(vCurrentId)&format=qvx&appID=$(vQVSourceAppId)]
+		(qvx)
+		Order by CollectionPredict_text_id asc;
+		
+		tmp:
+		load
+		max(CollectionPredict_text_id) as tempMax
+		resident
+		TextAnalyser_CollectionPredict
+		Order by CollectionPredict_text_id asc;
+	
+		let vCurrentId = peek('tempMax', 0, 'tmp') + 1;
+		drop table tmp;
+	
+	loop
+
+endsub
+
+sub runSaploSentiment(idColumnAlias, resultsColPrefix)
+
+	let api = 'Saplo';
+	let vAsyncSentiment = 1;
+		
+	let vSaploCollectionId = '5426';
+	let vSaploModelId = '3978';
+	
+	LET noItems = NoOfRows('ItemsToScore');
+	    
+	if noItems > 0 then
+	
+			let vAsyncSaploSentiment = 1;
+			
+		 	if vAsyncSaploSentiment = 1 then
+		 			
+		 		let vCurrentAsyncKey = vAsyncKey & '_Saplo_AddTexts';
+		 		
+				Clear_Async_Sentiment_Queue:
+				LOAD
+				    AsyncTableName,
+				    AsyncKey,
+				    Result
+				FROM
+				[$(vQVSourceBaseUrl)/QVSource/SentimentAnalyser/?table=AddText&clearAsyncResults=$(vCurrentAsyncKey)&format=qvx&appID=$(vQVSourceAppId)]
+				(qvx);
+				
+				for j=0 to 10//$(noItems)-1
+				
+					let id = peek('idToScore', $(j), 'ItemsToScore');
+					let text = peek('textToScore',$(j), 'ItemsToScore');
+	
+					Queue_Feed_Async_Sentiment:
+					LOAD
+					      AsyncTableName,
+					      AsyncKey,
+					      AsyncRequest,
+					      AsyncStatus
+					FROM
+				    [$(vQVSourceBaseUrl)/QVSource/SentimentAnalyser/?table=AddText&SentimentEngine=Saplo&Saplo_collection_id=$(vSaploCollectionId)&Message=$(text)&format=qvx&asyncKey=$(vCurrentAsyncKey)&asyncRowKey=$(id)&appID=$(vQVSourceAppId)]
+				   	(qvx);
+				   								 
+					call logQVSourceError(scripterrordetails, 'SentimentAnalyser\Queue_Feed_Async_Sentiment\$(api)_$(id)');
+									
+				next j
+				
+				drop table Clear_Async_Sentiment_Queue;
+				drop table Queue_Feed_Async_Sentiment;
+				
+				trace 'Waiting for async Saplo add texts to run...';
+				
+				Saplo_AddText:
+			    LOAD
+					asyncRowKey as itemId,
+//					'$(api)' as SentimentEngine,
+//					'$(api)_' & asyncRowKey as FeedItem_Sentiment_key,
+					status as AddText_status,
+			        headline as AddText_headline,
+			        ext_text_id as AddText_ext_text_id,
+			        collection_id as AddText_collection_id,
+			        publish_date as AddText_publish_date,
+			        text_id as AddText_text_id,
+			        url as AddText_url
+			    FROM
+			    [$(vQVSourceBaseUrl)/QVSource/SentimentAnalyser/?table=AddText&getAsyncResults=$(vCurrentAsyncKey)&format=qvx&appID=$(vQVSourceAppId)]
+			    (qvx);
+						    				
+				Saplo_StillToScore_WithAddedStatusOK:
+				load
+				itemId as idToScore,
+				AddText_text_id as saploIdToScore
+				resident
+				Saplo_AddText
+				where
+				AddText_status = 'OK';
+				 
+				Saplo_TextWhichCouldNotBeAdded:
+				load
+				AddText_status as Saplo_TextWhichCouldNotBeAdded_Status,
+				itemId as Saplo_TextWhichCouldNotBeAdded_id,
+				AddText_text as Saplo_TextWhichCouldNotBeAdded_text
+				resident
+				Saplo_AddText
+				where
+				AddText_status <> 'OK';
+				 
+		 		let vCurrentAsyncKey = vAsyncKey & '_Saplo_RunSentiment';
+		 		
+				Clear_Async_Sentiment_Queue:
+				LOAD
+				    AsyncTableName,
+				    AsyncKey,
+				    Result
+				FROM
+				[$(vQVSourceBaseUrl)/QVSource/SentimentAnalyser/?table=Predict&clearAsyncResults=$(vCurrentAsyncKey)&format=qvx&appID=$(vQVSourceAppId)]
+				(qvx);
+	
+				LET noRows = NoOfRows('Saplo_StillToScore_WithAddedStatusOK');
+				 
+				for i=0 to $(noRows)-1
+				 
+				    let id = peek('idToScore',$(i),'Saplo_StillToScore_WithAddedStatusOK');
+				    let saploId = peek('saploIdToScore',$(i),'Saplo_StillToScore_WithAddedStatusOK');
+				         
+				    Queue_Feed_Async_Sentiment:
+				    LOAD
+					      AsyncTableName,
+					      AsyncKey,
+					      AsyncRequest,
+					      AsyncStatus
+				    FROM
+				    [$(vQVSourceBaseUrl)/QVSource/SentimentAnalyser/?table=Predict&SentimentEngine=Saplo&Saplo_collection_id=$(vSaploCollectionId)&Saplo_text_id=$(saploId)&Saplo_model_id=$(vSaploModelId)&asyncKey=$(vCurrentAsyncKey)&asyncRowKey=$(id)&format=qvx&appID=$(vQVSourceAppId)]
+				    (qvx);
+				     
+				next
+	
+				drop table Clear_Async_Sentiment_Queue;
+				drop table Queue_Feed_Async_Sentiment;
+	
+				trace 'Waiting for async Saplo sentiment to run...';
+				
+			    SaploSentiment:
+			    LOAD
+				asyncRowKey as $(idColumnAlias),
+				'$(api)' as SentimentEngine,
+				'$(api)_' & asyncRowKey as $(resultsColPrefix)_Sentiment_key,
+				timestamp(now(1)) as $(resultsColPrefix)_Sentiment_loadtimestamp,
+				status as $(resultsColPrefix)_Sentiment_status,
+				if(value = 'positive', 1, if(value = 'neutral', 0, -1)) as $(resultsColPrefix)_Sentiment_score,
+				value as $(resultsColPrefix)_Sentiment_value,
+				'sv' as $(resultsColPrefix)_Sentiment_language,
+				'' as $(resultsColPrefix)_Sentiment_status_info
+			    FROM
+			    [$(vQVSourceBaseUrl)/QVSource/SentimentAnalyser/?table=Predict&getAsyncResults=$(vCurrentAsyncKey)&format=qvx&appID=$(vQVSourceAppId)]
+			    (qvx);
+		
+		 	else
+
+				// Sync not yet supported.		
+//				for j=0 to $(noItems)-1
+//			
+//					let id = peek('$(idColName)', $(j), 'ItemsToScore');
+//					let text = peek('$(encodedTextColName)',$(j), 'ItemsToScore');
+//					
+//				    Saplo_AddText:
+//				    LOAD
+//				        '$(id)' as itemId,
+//						'$(api)' as SentimentEngine,
+//				        '$(text)' as AddText_text,
+//				        status as AddText_status,
+//				        headline as AddText_headline,
+//				        ext_text_id as AddText_ext_text_id,
+//				        collection_id as AddText_collection_id,
+//				        publish_date as AddText_publish_date,
+//				        text_id as AddText_text_id,
+//				        url as AddText_url
+//				    FROM
+//				    [http://localhost:5555/QVSource/SentimentAnalyser/?table=AddText&SentimentEngine=Saplo&Saplo_collection_id=$(vSaploCollectionId)&Message=$(text)&format=qvx&appID=$(vQVSourceAppId)]
+//				    (qvx);
+//				 
+//					call logQVSourceError(scripterrordetails, 'SentimentAnalyser\Feed\$(api)_$(id)');
+//				
+//				next j
+	
+		endif	
+	
+//		if vDeleteTempTables = 1 then
+//			drop table FeedItemsToScore;
+//		endif
+
+	endif
+
+endsub
+
+//let vSaploCollectionId = '3926';
+//let vSaploModelId = '3827';
+//
+//call runSaploSentimentBulk('','',vSaploCollectionId,vSaploModelId);
+//
+//exit script;
+//
+//call getItemsLeftToScore('Saplo_FB_Feed_Sentiment.qvd', 'FB_Feed', 'FeedItem_id', 'FeedItem_message_urlEncoded', 'FeedItem_Sentiment_score');
+//call addUnscoredItemsToSaplo('3926');
+//exit script;
+
+///$tab FacebookPages
+let fb_pro_pages = 'FB_Page.qvd';
+
+let size = filesize('$(fb_pro_pages)');
+
+if isnull(size) then
+	let vIsFirstTime=1;
+ELSE
+	let vIsFirstTime=0; // If this file is present then the script has run before.
+
+	FB_Page:
+	LOAD * FROM '$(fb_pro_pages)' (qvd);
+	
+end if
+
+if(vGetLatestData=1) then
+
+	LET noRows = NoOfRows('FacebookSites'); // get the total number of rows in the table
+	   
+	for i=0 to $(noRows)-1 // loop through every row
+	
+		let page = peek('page', $(i), 'FacebookSites'); // get the value for "text" field on each row
+		
+		FB_Page:
+		LOAD		
+			//
+			// Added
+			//
+			'$(page)' as page,
+			
+			'$(vToday)' as Page_loaddatetime,
+			//makedate(year(today), month(today), day(today)) as Page_loaddate,
+			'$(vTodayAsDate)' as Page_loaddate,
+			timestamp(now(1)) as Page_loadtimestamp,
+			//
+			// From Connector
+			//
+			page_id as Page_page_id,
+			name as Page_name,
+			picture as Page_picture,
+			link as Page_link,
+			likes as Page_likes,
+			category as Page_category,
+			website as Page_website,
+			username as Page_username,
+			founded as Page_founded,
+			company_overview as Page_company_overview,
+			mission as Page_mission,
+			products as Page_products,
+			can_post as Page_can_post
+		FROM
+		[$(vQVSourceBaseUrl)/QVSource/FacebookProConnector/?table=Page&FacebookPageOrId=$(page)&noCache=true&format=qvx&appID=$(vQVSourceAppId)]
+		(qvx); 			
+
+		call logQVSourceError(scripterrordetails, 'FacebookPro\Page\$(page)');
+			
+	next
+	
+	STORE FB_Page INTO '$(fb_pro_pages)';
+	
+end if
+///$tab Facebook Feed
+temp_pagesID:   
+load 
+	page, 
+	Page_page_id as page_id, 
+	sum(Page_likes) 
+resident FB_Page 
+group by page, Page_page_id;
+
+drop table FB_Page;
+
+let fb_pro_feed = 'FB_Feed.qvd';
+
+let size = filesize('$(fb_pro_feed)');
+
+let vIgnoreCache = 'false';
+	    
+if(vGetLatestData=1) then
+
+	LET noRows = NoOfRows('temp_pagesID');
+	   
+	for i=0 to $(noRows)-1
+	
+		let page = peek('page', $(i), 'temp_pagesID');
+	    let pageID = peek('page_id', $(i), 'temp_pagesID');
+	       
+	    if(vIsFirstTime=1) then
+	    	let loadUrl='$(vQVSourceBaseUrl)/QVSource/FacebookProConnector/?table=FeedItems&FacebookPageOrId=$(pageID)&since=$(vOldestFeedCreatedDateForInitialReload)&noCache=$(vIgnoreCache)&format=qvx&appID=$(vQVSourceAppId)';
+	    else
+	    	let loadUrl='$(vQVSourceBaseUrl)/QVSource/FacebookProConnector/?table=FeedItems&FacebookPageOrId=$(pageID)&since=$(vOldestFeedCreatedDateForSubsequentReloads)&noCache=$(vIgnoreCache)&format=qvx&appID=$(vQVSourceAppId)';	    	
+	    endif
+	    
+ 		FB_Feed:
+		LOAD
+			'$(vToday)' as FeedItem_loaddate,
+			timestamp(now(1)) as FeedItem_loadtimestamp,
+			//page as page,
+			'$(page)' as page,
+			feeditem_id as FeedItem_id,
+			poster_id as Poster_id,
+			if(poster_id = '$(pageID)', 'Yes', 'No') as FeedItem_is_self_posted,
+			from_name as FeedItem_from_name,
+			from_category as FeedItem_from_category,
+			type as FeedItem_UpdateType,
+			message as FeedItem_message,
+			message_urlEncoded as FeedItem_message_urlEncoded,
+			picture as FeedItem_picture,
+			link as FeedItem_link,
+			source as FeedItem_source,
+			name as FeedItem_name,
+			caption as FeedItem_caption,
+			description as FeedItem_description,
+			icon as FeedItem_icon,
+			created as FeedItem_created,
+			updated as FeedItem_updated,
+			object_id as FeedItem_object_id,
+			//likes_count as FeedItem_likes_count,  removed from Facebook API now returns warning in QVSource. We now use LikeCountForItem table
+			shares_count as FeedItem_shares_count,
+			has_comments
+			// comments_count as FeedItem_comments_count removed from Facebook API now returns warning in QVSource. We now use CommentCountForItem table.
+		FROM
+		[$(loadUrl)]
+		(qvx); 
+		
+		// call logQVSourceError(scripterrordetails, 'FacebookPro\FeedItems\$(page)');
+		
+	next
+
+	let vParamsFile = '$(vWorkingFolder)$(vQVSourceAppId)' & '_FeedItemIds.txt';
+
+	// --------------------------------------------------------------------------------------------------------------------------------------------------------------
+	// ------------- As of 21/05/2013 and QVSource 1.4.4.7, due to changes in the FB API we have to use the CommentCountForItem table to get comments_count ---------
+	Params:
+	LOAD distinct
+	    FeedItem_id as rowKey,
+	    FeedItem_id as ObjectId
+	resident
+	FB_Feed;
+	 
+	store Params into '$(vParamsFile)' (txt);
+
+	let vCount = NoOfRows('Params');
+	
+	DROP table Params;
+		
+	if (vCount > 0) then
+	
+		trace 'About to check comment count for $(vCount) feed items asynchronously';
+		
+		join (FB_Feed)
+		LOAD
+			rowKey as FeedItem_id,
+			total_count as FeedItem_comments_count
+			//order as CommentCountForItem_order
+		FROM																										 
+		[$(vQVSourceBaseUrl)/QVSource/FacebookFanPagesConnector/?table=CommentCountForItem&appID=$(vQVSourceAppId)&processParamsAsync=$(vParamsFile)&format=qvx]
+		(qvx);
+		
+		trace 'About to check like count for $(vCount) feed items asynchronously';
+		
+		join (FB_Feed)
+		LOAD
+			rowKey as FeedItem_id,
+			total_count as FeedItem_likes_count
+		FROM																										 
+		[$(vQVSourceBaseUrl)/QVSource/FacebookFanPagesConnector/?table=LikeCountForItem&appID=$(vQVSourceAppId)&processParamsAsync=$(vParamsFile)&format=qvx]
+		(qvx);
+		//
+		// --------------------------------------------------------------------------------------------------------------------------------------------------------------
+	
+		trace 'Establishing number of feed items with comments to load in this run...';
+	
+		FB_FeedItemsLoadedInThisRun:
+		load
+		page as FB_FeedItemsLoadedInThisRun_page,
+		FeedItem_id as FB_FeedItemsLoadedInThisRun_id
+		resident
+		FB_Feed
+		where FeedItem_comments_count > 0; 
+		
+		if not isnull(size) then	
+			FB_Feed:
+			LOAD * FROM '$(fb_pro_feed)' (qvd)
+			where not exists (FeedItem_id);
+		endif	
+	
+		STORE FB_Feed INTO '$(fb_pro_feed)';
+
+	ELSE
+		trace 'No Feeditems';
+		exit script;
+	endif
+	
+ELSE
+	FB_Feed:
+	LOAD * FROM '$(fb_pro_feed)' (qvd);
+endif
+
+if vDeleteTempTables = 1 then
+	drop table temp_pagesID;
+endif
+
+//PosterIdsToLoad:
+//load distinct
+//Poster_id as PosterIdsToLoad_id
+//resident
+//FB_Feed;
+
+//LET noRows = NoOfRows('PosterIdsToLoad');
+
+/*
+//for i=0 to $(noRows)-1 // loop through every row
+for i=0 to 500
+
+	let posterID = peek('PosterIdsToLoad_id', $(i), 'PosterIdsToLoad'); // get the value for "text" field on each row
+
+	ThirdPartyId:
+	LOAD
+		'$(posterID)' as xxx,
+		status,
+		status_info,
+		third_party_id
+	FROM
+	[http://localhost:5555/QVSource/FacebookFanPagesConnector/?table=ThirdPartyId&format=qvx&&UserId=$(posterID)]
+	(qvx);
+	
+next i
+
+LET noRows = NoOfRows('ThirdPartyId');
+
+for i=0 to $(noRows)-1 // loop through every row
+
+	let posterID = peek('third_party_id', $(i), 'ThirdPartyId'); // get the value for "text" field on each row
+
+	KloutConnectorV2_KloutIDFromFacebookThirdPartyId:
+	LOAD
+		status as KloutIDFromFacebookThirdPartyId_status,
+		KloutID as KloutIDFromFacebookThirdPartyId_KloutID
+	FROM
+	[http://localhost:5555/QVSource/KloutConnectorV2/?table=KloutIDFromFacebookThirdPartyId&TwitterId=$(posterID)&format=qvx]
+	(qvx);
+	
+next i
+exit script;
+*/
+///$tab Comments
+// Load Comments
+let fb_pro_comments = 'FB_Comments.qvd';
+
+let size = filesize('$(fb_pro_comments)');
+
+if(vGetLatestData=1) then
+
+	LET noRows = NoOfRows('FB_FeedItemsLoadedInThisRun');
+
+	if vAsyncComments = 1 then
+		
+		let vParamsFile = '$(vWorkingFolder)$(vQVSourceAppId)' & '_FeedItems.txt';
+
+		Params:
+		LOAD
+		    FB_FeedItemsLoadedInThisRun_page as rowKey,
+		    FB_FeedItemsLoadedInThisRun_id as rowKey2,
+		    FB_FeedItemsLoadedInThisRun_id as ObjectId,
+		    '$(vNoOfCommentsToLoadPerFeedItem)' as MaxNumberOfItems
+		resident
+		FB_FeedItemsLoadedInThisRun;
+		 
+		store Params into '$(vParamsFile)' (txt);
+				
+		if(NoOfRows('Params') > 0) then
+		
+			Trace 'About to extract comments and comment replies asynchronously...';
+						
+			TempCommentAndReplies:
+			LOAD
+				'$(vToday)' as Comment_loaddate,
+				rowKey as Comment_page, // Needed for AllContent table. Not really the right way to use rowKey but works for us in this instance.
+				timestamp(now(1)) as Comment_loadtimestamp,
+				rowKey2 as FeedItem_id,
+				id as CommentsAndRepliesForItem_id,
+				commentor_id as commentor_id,
+				commentor_name as CommentsAndRepliesForItem_commentor_name,
+				message as CommentsAndRepliesForItem_message,
+				message_urlEncoded as CommentsAndRepliesForItem_message_urlEncoded,
+				created_time as Comment_created,
+				likes_count as CommentsAndRepliesForItem_likes_count,
+				comment_count as CommentsAndRepliesForItem_comment_count,
+				parent_id as CommentsAndRepliesForItem_parent_id,
+				parent_commentor_id as CommentsAndRepliesForItem_parent_commentor_id,
+				parent_commentor_name as CommentsAndRepliesForItem_parent_commentor_name,
+				parent_message as CommentsAndRepliesForItem_parent_message,
+				parent_message_urlEncoded as CommentsAndRepliesForItem_parent_message_urlEncoded,
+				parent_created_time as CommentsAndRepliesForItem_parent_created_time,
+				parent_likes_count as CommentsAndRepliesForItem_parent_likes_count
+			FROM
+			[http://localhost:5555/QVSource/FacebookFanPagesConnector/?table=CommentsAndRepliesForItem&appID=$(vQVSourceAppId)&processParamsAsync=$(vParamsFile)&format=qvx]
+			(qvx);
+
+		endif
+
+		drop table Params; // Optional.
+				
+	else
+		
+		for i=0 to $(noRows)-1
+				
+			let feedID = peek('FB_FeedItemsLoadedInThisRun_id', $(i), 'FB_FeedItemsLoadedInThisRun');
+			let page = peek('FB_FeedItemsLoadedInThisRun_page', $(i), 'FB_FeedItemsLoadedInThisRun');
+						
+			TempCommentAndReplies:
+			LOAD
+				'$(vToday)' as Comment_loaddate,
+				'$(page)' as Comment_page, // Needed for AllContent table.
+				timestamp(now(1)) as Comment_loadtimestamp,
+				$(feedID) as FeedItem_id,
+				id as CommentsAndRepliesForItem_id,
+				commentor_id as commentor_id,
+				commentor_name as CommentsAndRepliesForItem_commentor_name,
+				message as CommentsAndRepliesForItem_message,
+				message_urlEncoded as CommentsAndRepliesForItem_message_urlEncoded,
+				created_time as Comment_created,
+				likes_count as CommentsAndRepliesForItem_likes_count,
+				comment_count as CommentsAndRepliesForItem_comment_count,
+				parent_id as CommentsAndRepliesForItem_parent_id,
+				parent_commentor_id as CommentsAndRepliesForItem_parent_commentor_id,
+				parent_commentor_name as CommentsAndRepliesForItem_parent_commentor_name,
+				parent_message as CommentsAndRepliesForItem_parent_message,
+				parent_message_urlEncoded as CommentsAndRepliesForItem_parent_message_urlEncoded,
+				parent_created_time as CommentsAndRepliesForItem_parent_created_time,
+				parent_likes_count as CommentsAndRepliesForItem_parent_likes_count
+			FROM
+			[http://localhost:5555/QVSource/FacebookFanPagesConnector/?table=CommentsAndRepliesForItem&ObjectId=$(feedID)&MaxNumberOfItems=$(vNoOfCommentsToLoadPerFeedItem)&noCache=$(vIgnoreCache)&format=qvx]
+			(qvx);
+
+			//call logQVSourceError(scripterrordetails, 'FacebookPro\Comments');
+		
+		next
+	
+	endif
+	
+	FB_Comments:
+	LOAD	
+		Comment_loaddate,
+		Comment_page, // Needed for AllContent table. Not really the right way to use rowKey but works for us in this instance.
+		Comment_loadtimestamp,
+		FeedItem_id,
+		Comment_created,
+		CommentsAndRepliesForItem_id as Comment_id,
+		commentor_id as Commenter_id,
+		CommentsAndRepliesForItem_commentor_name as Comment_user_name,
+		CommentsAndRepliesForItem_message as Comment_message,
+		CommentsAndRepliesForItem_message_urlEncoded as Comment_message_urlEncoded,
+		CommentsAndRepliesForItem_likes_count as Comment_likes_count,
+		CommentsAndRepliesForItem_comment_count as 'Comment_count',
+		'' as 'InReplyToCommentId',
+		'false' as Comment_isReplyToComment
+	resident TempCommentAndReplies
+	where CommentsAndRepliesForItem_parent_id = '';
+
+	FB_Comments:
+	LOAD	
+		Comment_loaddate,
+		Comment_page, // Needed for AllContent table. Not really the right way to use rowKey but works for us in this instance.
+		Comment_loadtimestamp,
+		FeedItem_id,
+		Comment_created,
+		CommentsAndRepliesForItem_id as Comment_id,
+		CommentsAndRepliesForItem_parent_commentor_id as Commenter_id,
+		CommentsAndRepliesForItem_parent_commentor_name as Comment_user_name,
+		CommentsAndRepliesForItem_parent_message as Comment_message,
+		CommentsAndRepliesForItem_parent_message_urlEncoded as Comment_message_urlEncoded,
+		CommentsAndRepliesForItem_parent_likes_count as Comment_likes_count,
+		0 as 'Comment_count',
+		CommentsAndRepliesForItem_parent_id as 'InReplyToCommentId',
+		'true' as Comment_isReplyToComment
+	resident TempCommentAndReplies
+	where CommentsAndRepliesForItem_parent_id <> '';
+	
+	drop table TempCommentAndReplies;
+
+	//exit script;
+	
+	if not isnull(size) then	
+		FB_Comments:
+		LOAD * FROM '$(fb_pro_comments)' (qvd)
+		WHERE NOT EXISTS (Comment_id);
+	endif	
+
+	let vSentimentTableNo = TableNumber('Sentiment');
+		
+	if not isnull(TableNumber('FB_Comments')) then
+		STORE FB_Comments INTO '$(fb_pro_comments)';
+	endif
+	
+	//exit script;
+	
+end if 
+
+if vDeleteTempTables = 1 then
+	drop table FB_FeedItemsLoadedInThisRun;
+endif
+///$tab Sentiment
+LET noRows = NoOfRows('SentimentAPIs');
+	    
+for i=0 to $(noRows)-1
+
+	let api = peek('SentimentAPI',$(i), 'SentimentAPIs');
+
+	//
+	// Feed
+	//
+	call getItemsLeftToScore('$(api)_FB_Feed_Sentiment.qvd', 'FB_Feed', 'FeedItem_id', 'FeedItem_message_urlEncoded', 'FeedItem_message', 'FeedItem_Sentiment_score');
+		
+	if api = 'Saplo' then
+		// Needs fixing
+		//call runSaploSentiment('FeedItem_id', 'FeedItem');
+	ELSE
+		call runSentiment('FeedItem_id', 'FeedItem', api);
+	endif
+		
+	let vSentimentTableNo = TableNumber('Sentiment');
+
+	if not isnull(vSentimentTableNo) then
+		store Sentiment into '$(api)_FB_Feed_Sentiment.qvd';
+		drop table Sentiment;
+	endif
+	
+	//
+	// Comments
+	//
+	call getItemsLeftToScore('$(api)_FB_Comment_Sentiment.qvd', 'FB_Comments', 'Comment_id', 'Comment_message_urlEncoded', 'Comment_message', 'CommentItem_Sentiment_score');
+		
+	if api = 'Saplo' then
+		// Needs fixing
+		//call runSaploSentiment('Comment_id', 'CommentItem');
+	ELSE
+		call runSentiment('Comment_id', 'CommentItem', api);
+	endif
+
+	let vSentimentTableNo = TableNumber('Sentiment');
+		
+	if not isnull(vSentimentTableNo) then
+		store Sentiment into '$(api)_FB_Comment_Sentiment.qvd';
+		drop table Sentiment;
+	endif
+
+next
+
+sub loadSentimentQVDs
+
+	LET noRows = NoOfRows('SentimentAPIs');
+	
+	for i=0 to $(noRows)-1
+	
+		let api = peek('SentimentAPI',$(i), 'SentimentAPIs');
+	
+		let qvdFeedItemSentiment = '$(api)'&'_FB_Feed_Sentiment.qvd';
+	
+		let size = filesize('$(qvdFeedItemSentiment)');
+		
+		if not isnull(size) then	
+			
+			FB_Feed_Sentiment:
+			LOAD
+			//*
+			FeedItem_id,
+			'$(api)' as SentimentEngine,
+			FeedItem_Sentiment_status,
+			FeedItem_Sentiment_score
+			FROM '$(qvdFeedItemSentiment)' (qvd);
+			
+		end if
+			
+		let qvdCommentItemSentiment = '$(api)'&'_FB_Comment_Sentiment.qvd';
+	
+		let size = filesize('$(qvdCommentItemSentiment)');
+		
+		if not isnull(size) then	
+			
+			FB_Comment_Sentiment:
+			LOAD
+			//*
+			Comment_id,
+			SentimentEngine as SentimentEngineComment,
+			CommentItem_Sentiment_status,
+			CommentItem_Sentiment_score
+			FROM '$(qvdCommentItemSentiment)' (qvd);
+	
+		end if
+		
+	next i
+
+endsub
+
+call loadSentimentQVDs;
+///$tab Facebook Posters
+set errormode = 0;
+
+if vLoadPostersAndCommenterInfo = 1 then
+
+	let fb_pro_posters = 'FB_Posters.qvd';
+	
+	let size = filesize('$(fb_pro_posters)');
+	
+	if isnull(size) then	
+	
+		PosterIdsToLoad:
+		load distinct
+		Poster_id as PosterIdsToLoad_id
+		resident
+		FB_Feed;
+	
+	ELSE
+	
+		FB_Posters:
+		LOAD
+		*
+		FROM '$(fb_pro_posters)' (qvd);
+		
+		temp:
+		LOAD
+		Poster_id as temp_id,
+		Poster_name as temp_name
+		FROM '$(fb_pro_posters)' (qvd);
+		
+		outer join load
+		Poster_id as temp_id
+		resident
+		FB_Feed;
+	
+		PosterIdsToLoad:
+		load distinct
+		temp_id as PosterIdsToLoad_id
+		resident
+		temp
+		where IsNull(temp_name);
+		
+		drop table temp;
+		
+	endif	
+	
+	if(vGetLatestData=1) then
+	
+		LET noRows = NoOfRows('PosterIdsToLoad');
+		
+		if noRows > 0 then
+		
+			if vLoadPostersAndCommenterInfoAsync = 1 then
+			
+				Params:
+				load Distinct
+				PosterIdsToLoad_id as rowKey,
+				PosterIdsToLoad_id as UserId
+				resident
+				PosterIdsToLoad;
+				
+				let vParamsFile = '$(vWorkingFolder)$(vQVSourceAppId)' & '_PosterIds.txt';
+			 
+				store Params into '$(vParamsFile)' (txt);				
+				drop table Params;
+			
+				trace ' Waiting for async poster info extraction to run...';
+							
+				FB_Posters:
+				LOAD
+					'$(vToday)' as Poster_loaddate,
+					timestamp(now(1)) as Poster_loadtimestamp,
+					user_id as Poster_id,
+					name as Poster_name,
+					first_name as Poster_first_name,
+					middle_name as Poster_middle_name,
+					last_name as Poster_last_name,
+					link as Poster_link,
+					username as Poster_username,
+					gender as Poster_gender,
+					locale as Poster_locale,
+					updated_time as Poster_updated_time,
+	//				date#(updated_time, 'YYYY-MM-DDThh:mm:ss+0000') as Poster_updated_time_qvdatetime,
+	//				date#(subfield(updated_time, 'T', 1), 'YYYY-MM-DD') as Poster_updated_time_qvdate,
+	//				time#(subfield(updated_time, 'T', 2), 'hh:mm:ss+0000') as Poster_updated_time_qvtime,
+					picture as Poster_picture,
+					likes as Poster_likes,
+					category as Poster_category,
+					website as Poster_website,
+					founded as Poster_founded,
+					company_overview as Poster_company_overview,
+					mission as Poster_mission,
+					products as Poster_products,
+					can_post as Poster_can_post,
+					location_street as Poster_location_street,
+					location_city as Poster_location_city,
+					location_state as Poster_location_state,
+					location_country as Poster_location_country,
+					location_zip as Poster_location_zip,
+					location_latitude as Poster_location_latitude,
+					location_longitude as Poster_location_longitude,
+					phone as Poster_phone,
+					awards as Poster_awards,
+					hometown as Poster_hometown,
+					bio as Poster_bio,
+					work as Poster_work,
+					education as Poster_education,
+					interested_in as Poster_interested_in,
+					relationship_status as Poster_relationship_status,
+					significant_other as Poster_significant_other,
+					description as Poster_description,
+					general_info as Poster_general_info
+				FROM
+				[$(vQVSourceBaseUrl)/QVSource/FacebookProConnector/?table=User&processParamsAsync=$(vParamsFile)&format=qvx&appID=$(vQVSourceAppId)]
+				(qvx);
+			
+			else
+			
+				for i=0 to $(noRows)-1 // loop through every row
+				
+					let posterID = peek('PosterIdsToLoad_id', $(i), 'PosterIdsToLoad'); // get the value for "text" field on each row
+					
+					FB_Posters:
+					LOAD
+						'$(vToday)' as Poster_loaddate,
+						timestamp(now(1)) as Poster_loadtimestamp,
+						user_id as Poster_id,
+						name as Poster_name,
+						first_name as Poster_first_name,
+						middle_name as Poster_middle_name,
+						last_name as Poster_last_name,
+						link as Poster_link,
+						username as Poster_username,
+						gender as Poster_gender,
+						locale as Poster_locale,
+						updated_time as Poster_updated_time,
+		//				date#(updated_time, 'YYYY-MM-DDThh:mm:ss+0000') as Poster_updated_time_qvdatetime,
+		//				date#(subfield(updated_time, 'T', 1), 'YYYY-MM-DD') as Poster_updated_time_qvdate,
+		//				time#(subfield(updated_time, 'T', 2), 'hh:mm:ss+0000') as Poster_updated_time_qvtime,
+						picture as Poster_picture,
+						likes as Poster_likes,
+						category as Poster_category,
+						website as Poster_website,
+						founded as Poster_founded,
+						company_overview as Poster_company_overview,
+						mission as Poster_mission,
+						products as Poster_products,
+						can_post as Poster_can_post,
+						location_street as Poster_location_street,
+						location_city as Poster_location_city,
+						location_state as Poster_location_state,
+						location_country as Poster_location_country,
+						location_zip as Poster_location_zip,
+						location_latitude as Poster_location_latitude,
+						location_longitude as Poster_location_longitude,
+						phone as Poster_phone,
+						awards as Poster_awards,
+						hometown as Poster_hometown,
+						bio as Poster_bio,
+						work as Poster_work,
+						education as Poster_education,
+						interested_in as Poster_interested_in,
+						relationship_status as Poster_relationship_status,
+						significant_other as Poster_significant_other,
+						description as Poster_description,
+						general_info as Poster_general_info
+					FROM
+					[$(vQVSourceBaseUrl)/QVSource/FacebookProConnector/?table=User&UserId=$(posterID)&format=qvx&appID=$(vQVSourceAppId)]
+					(qvx);
+					
+					call logQVSourceError(scripterrordetails, 'FacebookPro\Posters\$(posterID)');		
+			
+				next i
+			
+			endif
+		
+			STORE FB_Posters INTO '$(fb_pro_posters)';
+			
+		endif
+		
+	end if
+	
+	if vDeleteTempTables = 1 then
+		drop table PosterIdsToLoad;
+	endif
+
+endif
+
+drop table FB_Feed;
+
+if vLoadPostersAndCommenterInfo = 1 then
+	drop table FB_Posters;
+end if
+
+set errormode = 1;
+///$tab Facebook Commenters
+if vLoadPostersAndCommenterInfo = 1 then
+
+	let fb_pro_commenters = 'FB_Commenters.qvd';
+	
+	let size = filesize('$(fb_pro_commenters)');
+	
+	if isnull(size) then	
+	
+		CommentorIdsToLoad:
+		load distinct
+		Commenter_id as CommentorIdsToLoad_id
+		resident
+		FB_Comments;
+	
+	ELSE
+	
+		FB_Commenters:
+		LOAD
+		*
+		FROM '$(fb_pro_commenters)' (qvd);
+		
+		temp2:
+		LOAD
+		Commenter_id as temp2_id,
+		Commenter_name as temp2_name
+		FROM '$(fb_pro_commenters)' (qvd);
+		
+		outer join load
+		Commenter_id as temp2_id
+		resident
+		FB_Commenters;
+	
+		CommentorIdsToLoad:
+		load distinct
+		temp2_id as CommentorIdsToLoad_id
+		resident
+		temp2
+		where IsNull(temp2_name);
+		
+		drop table temp2;
+		
+	endif	
+	
+	if(vGetLatestData=1) then
+	
+		LET noRows = NoOfRows('CommentorIdsToLoad');
+		
+		if noRows > 0 then
+		
+			if vLoadPostersAndCommenterInfoAsync = 1 then
+			
+				Params:
+				load Distinct
+				CommentorIdsToLoad_id as rowKey,
+				CommentorIdsToLoad_id as UserId
+				resident
+				CommentorIdsToLoad;
+				
+				let vParamsFile = '$(vWorkingFolder)$(vQVSourceAppId)' & '_CommenterIds.txt';
+			 
+				store Params into '$(vParamsFile)' (txt);				
+				drop table Params;
+	
+				trace ' Waiting for async poster info extraction to run...';
+				
+				FB_Commenters:
+				LOAD
+					'$(vToday)' as Commenter_loaddate,
+					timestamp(now(1)) as Commenter_loadtimestamp,
+					user_id as Commenter_id,
+					name as Commenter_name,
+					first_name as Commenter_first_name,
+					middle_name as Commenter_middle_name,
+					last_name as Commenter_last_name,
+					link as Commenter_link,
+					username as Commenter_username,
+					gender as Commenter_gender,
+					locale as Commenter_locale,
+					updated_time as Commenter_updated_time,
+	//				date#(updated_time, 'YYYY-MM-DDThh:mm:ss+0000') as Commenter_updated_time_qvdatetime,
+	//				date#(subfield(updated_time, 'T', 1), 'YYYY-MM-DD') as Commenter_updated_time_qvdate,
+	//				time#(subfield(updated_time, 'T', 2), 'hh:mm:ss+0000') as Commenter_time_qvtime,
+					picture as Commenter_picture,
+					likes as Commenter_likes,
+					category as Commenter_category,
+					website as Commenter_website,
+					founded as Commenter_founded,
+					company_overview as Commenter_company_overview,
+					mission as Commenter_mission,
+					products as Commenter_products,
+					can_post as Commenter_can_post,
+					location_street as Commenter_location_street,
+					location_city as Commenter_location_city,
+					location_state as Commenter_location_state,
+					location_country as Commenter_location_country,
+					location_zip as Commenter_location_zip,
+					location_latitude as Commenter_location_latitude,
+					location_longitude as Commenter_location_longitude,
+					phone as Commenter_phone,
+					awards as Commenter_awards,
+					hometown as Commenter_hometown,
+					bio as Commenter_bio,
+					work as Commenter_work,
+					education as Commenter_education,
+					interested_in as Commenter_interested_in,
+					relationship_status as Commenter_relationship_status,
+					significant_other as Commenter_significant_other,
+					description as Commenter_description,
+					general_info as Commenter_general_info
+				FROM
+				[$(vQVSourceBaseUrl)/QVSource/FacebookProConnector/?table=User&processParamsAsync=$(vParamsFile)&format=qvx&appID=$(vQVSourceAppId)]
+				(qvx);
+				
+			else
+			
+				for i=0 to $(noRows)-1 // loop through every row
+				
+					let commenterID = peek('CommentorIdsToLoad_id', $(i), 'CommentorIdsToLoad'); // get the value for "text" field on each row
+	
+					FB_Commenters:
+					LOAD
+						'$(vToday)' as Commenter_loaddate,
+						timestamp(now(1)) as Commenter_loadtimestamp,
+						user_id as Commenter_id,
+						name as Commenter_name,
+						first_name as Commenter_first_name,
+						middle_name as Commenter_middle_name,
+						last_name as Commenter_last_name,
+						link as Commenter_link,
+						username as Commenter_username,
+						gender as Commenter_gender,
+						locale as Commenter_locale,
+						updated_time as Commenter_updated_time,
+		//				date#(updated_time, 'YYYY-MM-DDThh:mm:ss+0000') as Commenter_updated_time_qvdatetime,
+		//				date#(subfield(updated_time, 'T', 1), 'YYYY-MM-DD') as Commenter_updated_time_qvdate,
+		//				time#(subfield(updated_time, 'T', 2), 'hh:mm:ss+0000') as Commenter_time_qvtime,
+						picture as Commenter_picture,
+						likes as Commenter_likes,
+						category as Commenter_category,
+						website as Commenter_website,
+						founded as Commenter_founded,
+						company_overview as Commenter_company_overview,
+						mission as Commenter_mission,
+						products as Commenter_products,
+						can_post as Commenter_can_post,
+						location_street as Commenter_location_street,
+						location_city as Commenter_location_city,
+						location_state as Commenter_location_state,
+						location_country as Commenter_location_country,
+						location_zip as Commenter_location_zip,
+						location_latitude as Commenter_location_latitude,
+						location_longitude as Commenter_location_longitude,
+						phone as Commenter_phone,
+						awards as Commenter_awards,
+						hometown as Commenter_hometown,
+						bio as Commenter_bio,
+						work as Commenter_work,
+						education as Commenter_education,
+						interested_in as Commenter_interested_in,
+						relationship_status as Commenter_relationship_status,
+						significant_other as Commenter_significant_other,
+						description as Commenter_description,
+						general_info as Commenter_general_info
+					FROM
+					[$(vQVSourceBaseUrl)/QVSource/FacebookProConnector/?table=User&UserId=$(commenterID)&format=qvx&appID=$(vQVSourceAppId)]
+					(qvx); 
+					
+					call logQVSourceError(scripterrordetails, 'FacebookPro\Commenters\$(commenterID)');		
+				
+				next i
+				
+			endif
+		
+			STORE FB_Commenters INTO '$(fb_pro_commenters)';
+			
+		endif
+		
+	end if 
+
+	if vDeleteTempTables = 1 then
+		drop table CommentorIdsToLoad;
+	endif
+
+endif
+
+drop table FB_Comments;
+
+if vLoadPostersAndCommenterInfo = 1 then
+	drop table FB_Commenters;
+end if
+
+//drop table SentimentAPIs;
+///$tab Finish
+//
+// Send email alert that this has been loaded
+//
+if vEmailNotificationAddress <> '' then
+	
+	set errormode = 0;
+	call sendEmail('QVSource App $(vQVSourceAppId) Loaded', 'Loaded', '$(vEmailNotificationAddress)');
+	set errormode = 1;
+	
+end if
+///$tab Load From QVDs
+let fb_pro_pages = 'FB_Page.qvd';
+
+let size = filesize('$(fb_pro_pages)');
+
+if not isnull(size) then	
+
+	FB_Page:
+	LOAD
+	*,
+	// DD/MM/YYYY
+	dual(mid(Page_loaddate, 4, 2) & '-' & mid(Page_loaddate, 7, 4), 100 * mid(Page_loaddate, 7, 4) + mid(Page_loaddate, 4, 2)) as Page_loaddate_Month
+	FROM '$(fb_pro_pages)' (qvd);
+
+endif
+	
+let fb_pro_feed = 'FB_Feed.qvd';
+
+let size = filesize('$(fb_pro_feed)');
+
+if not isnull(size) then	
+
+	tmp:
+	LOAD
+	*,
+	timestamp#(mid(FeedItem_created, 1, 10) & ' ' & mid(FeedItem_created, 12, 8), 'YYYY-MM-DD hh:mm:ss') as FeedItem_created_qvdatetime_GMT,
+	ConvertToLocalTime(timestamp#(mid(FeedItem_created, 1, 10) & ' ' & mid(FeedItem_created, 12, 8), 'YYYY-MM-DD hh:mm:ss'), '$(vLocalTimeZone)') as FeedItem_created_qvdatetime_local
+	FROM '$(fb_pro_feed)' (qvd);
+			
+	FB_Feed:
+	load
+	*,
+	dual(month(FeedItem_created_qvdatetime_local) & '-' & year(FeedItem_created_qvdatetime_local), 100 * year(FeedItem_created_qvdatetime_local) + month(FeedItem_created_qvdatetime_local)) as FeedItem_created_month_local,
+	makedate(year(FeedItem_created_qvdatetime_local), month(FeedItem_created_qvdatetime_local), day(FeedItem_created_qvdatetime_local)) as FeedItem_created_qvdate_local
+	resident
+	tmp;
+	
+	drop table tmp;
+	
+endif
+
+let fb_pro_comments = 'FB_Comments.qvd';
+
+let size = filesize('$(fb_pro_comments)');
+
+if not isnull(size) then	
+	tmp:
+	LOAD
+	*,
+	timestamp#(mid(Comment_created, 1, 10) & ' ' & mid(Comment_created, 12, 8), 'YYYY-MM-DD hh:mm:ss') as Comment_created_qvdatetime_GMT,
+	ConvertToLocalTime(timestamp#(mid(Comment_created, 1, 10) & ' ' & mid(Comment_created, 12, 8), 'YYYY-MM-DD hh:mm:ss'), '$(vLocalTimeZone)') as Comment_created_qvdatetime_local
+	FROM '$(fb_pro_comments)' (qvd);
+	
+	FB_Comments:
+	load
+	*,
+	dual(month(Comment_created_qvdatetime_local) & '-' & year(Comment_created_qvdatetime_local), 100 * year(Comment_created_qvdatetime_local) + month(Comment_created_qvdatetime_local)) as Comment_created_month_local,
+	makedate(year(Comment_created_qvdatetime_local), month(Comment_created_qvdatetime_local), day(Comment_created_qvdatetime_local)) as Comment_created_qvdate_local
+	resident
+	tmp;
+	
+	drop table tmp;
+
+endif		
+
+call loadSentimentQVDs;	
+
+if vDeleteTempTables = 1 then
+	drop table SentimentAPIs;
+endif
+
+let fb_pro_posters = 'FB_Posters.qvd';
+
+let size = filesize('$(fb_pro_posters)');
+
+if not isnull(size) then	
+	
+	FB_Posters:
+	LOAD
+	*
+//	date#(Poster_updated_time, 'YYYY-MM-DDThh:mm:ss+0000') as Poster_updated_time_qvdatetime,
+//	date#(subfield(Poster_updated_time, 'T', 1), 'YYYY-MM-DD') as Poster_updated_time_qvdate,
+//	time#(subfield(Poster_updated_time, 'T', 2), 'hh:mm:ss+0000') as Poster_updated_time_qvtime
+	FROM '$(fb_pro_posters)' (qvd);
+
+endif
+
+let fb_pro_commenters = 'FB_Commenters.qvd';
+
+let size = filesize('$(fb_pro_commenters)');
+
+if not isnull(size) then	
+	
+	FB_Commenters:
+	LOAD
+	*
+//	date#(Commenter_updated_time, 'YYYY-MM-DDThh:mm:ss+0000') as Commenter_updated_time_qvdatetime,
+//	date#(subfield(Commenter_updated_time, 'T', 1), 'YYYY-MM-DD') as Commenter_updated_time_qvdate,
+//	time#(subfield(Commenter_updated_time, 'T', 2), 'hh:mm:ss+0000') as Commenter_time_qvtime
+	FROM '$(fb_pro_commenters)' (qvd);
+
+endif
+
+if vLoadPostersAndCommenterInfo = 1 then
+
+	AllContent:
+	load
+	page as page,
+	'Post' as AllContent_type,
+	FeedItem_id as AllContent_id,
+	Poster_id as AllUsers_id,
+	FeedItem_message as AllContent_message,
+	FeedItem_created_qvdate_local as AllContent_created_date_local,
+	FeedItem_created_qvdatetime_local as AllContent_created_datetime_local,
+	FeedItem_created_month_local as AllContent_created_month_local,
+	FeedItem_likes_count as AllContent_likes_count
+	resident 
+	FB_Feed;
+
+	AllContent:
+	load
+	Comment_page as page,
+	//'Comment' as AllContent_type,
+	if(Comment_isReplyToComment = 'true', 'CommentReply', 'Comment') as AllContent_type,
+	Comment_id as AllContent_id,
+	Commenter_id as AllUsers_id,
+	Comment_message as AllContent_message,
+	Comment_created_qvdate_local as AllContent_created_date_local,
+	Comment_created_qvdatetime_local as AllContent_created_datetime_local,
+	Comment_created_month_local as AllContent_created_month_local,
+	Comment_likes_count as AllContent_likes_count
+	resident 
+	FB_Comments;
+	
+	AllUsers:
+	load Distinct
+	Poster_id as AllUsers_id,
+	Poster_name as AllUsers_name,
+	Poster_gender as  AllUsers_gender,
+	Poster_link as AllUsers_profilepage,
+	Poster_locale as AllUsers_locale,
+	SubField(Poster_locale, '_', 1) as AllUsers_language,
+	SubField(Poster_locale, '_', 2) as AllUsers_country
+	resident
+	FB_Posters;
+	
+	AllUsers:
+	load distinct
+	Commenter_id as AllUsers_id,
+	Commenter_name as AllUsers_name,
+	Commenter_gender as AllUsers_gender,
+	Commenter_link as AllUsers_profilepage,
+	Commenter_locale as AllUsers_locale,
+	SubField(Commenter_locale, '_', 1) as AllUsers_language,
+	SubField(Commenter_locale, '_', 2) as AllUsers_country
+	resident
+	FB_Commenters;
+	
+ELSE
+
+	AllContent:
+	load
+	page as page,
+	'Post' as AllContent_type,
+	FeedItem_id as AllContent_id,
+	Poster_id as AllUsers_id,
+	FeedItem_message as AllContent_message,
+	FeedItem_created_qvdate_local as AllContent_created_date_local,
+	FeedItem_created_qvdatetime_local as AllContent_created_datetime_local,
+	FeedItem_created_month_local as AllContent_created_month_local,
+	FeedItem_likes_count as AllContent_likes_count
+	resident 
+	FB_Feed;
+	
+	AllContent:
+	load
+	Comment_page as page,
+	//'Comment' as AllContent_type,
+	if(Comment_isReplyToComment = 'true', 'CommentReply', 'Comment') as AllContent_type,
+	Comment_id as AllContent_id,
+	Commenter_id as AllUsers_id,
+	Comment_message as AllContent_message,
+	Comment_created_qvdate_local as AllContent_created_date_local,
+	Comment_created_qvdatetime_local as AllContent_created_datetime_local,
+	Comment_created_month_local as AllContent_created_month_local,
+	Comment_likes_count as AllContent_likes_count
+	resident 
+	FB_Comments;
+	
+	AllUsers:
+	load distinct
+	Poster_id as AllUsers_id,
+	FeedItem_from_name as AllUsers_name,
+	'not enabled' as AllUsers_gender,
+	'not enabled' as AllUsers_profilepage,
+	'not enabled' as AllUsers_locale,
+	'not enabled' as AllUsers_language,
+	'not enabled' as AllUsers_country
+	resident
+	FB_Feed;
+	
+	AllUsers:
+	load distinct
+	Commenter_id as AllUsers_id,
+	Comment_user_name as AllUsers_name,
+	'not enabled' as AllUsers_gender,
+	'not enabled' as AllUsers_profilepage,
+	'not enabled' as AllUsers_locale,
+	'not enabled' as AllUsers_language,
+	'not enabled' as AllUsers_country
+	resident
+	FB_Comments;
+	
+endif	
+
+// -----------------------------------------------------------------------------------
+//
+// All Content Sentiment
+//
+// -----------------------------------------------------------------------------------
+AllContentSentiment:
+LOAD distinct
+FeedItem_id as AllContent_id,
+SentimentEngine as AllContentSentiment_Engine,
+FeedItem_Sentiment_status as AllContentSentiment_Status,
+FeedItem_Sentiment_score as AllContentSentiment_Score,
+//FeedItem_Sentiment_language as AllContentSentiment_Language,
+if(FeedItem_Sentiment_score > 0, 'Positive', if(FeedItem_Sentiment_score < 0, 'Negative', 'Neutral')) as AllContentSentiment_SentimentType
+resident
+FB_Feed_Sentiment;
+
+AllContentSentiment:
+LOAD distinct
+Comment_id as AllContent_id,
+SentimentEngineComment as AllContentSentiment_Engine,
+CommentItem_Sentiment_status as AllContentSentiment_Status,
+CommentItem_Sentiment_score as AllContentSentiment_Score,
+//CommentItem_Sentiment_language as AllContentSentiment_Language,
+if(CommentItem_Sentiment_score > 0, 'Positive', if(CommentItem_Sentiment_score < 0, 'Negative', 'Neutral')) as AllContentSentiment_SentimentType
+resident
+FB_Comment_Sentiment;
