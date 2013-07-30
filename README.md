@@ -1,5 +1,6 @@
 QVSource Facebook Fan Page Starter App For QlikView
 ===================================================
+IMPORTANT - You will need QVSource 1.4.7.1 or later to run this application. Please contact us for advanced access to this, otherwise it should be released in early August 2013.
 
 Change Log
 ----------
