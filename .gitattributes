@@ -22,3 +22,5 @@
 *.RTF	 diff=astextplain
 
 *.txt eol=crlf
+.gitattributes eol=crlf
+.gitignore eol=crlf
