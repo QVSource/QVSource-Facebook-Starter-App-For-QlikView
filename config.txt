@@ -50,12 +50,6 @@ googlechrome, Chrome
 Firefox, Firefox
 ];
 
-/*
-internetexplorer, IE
-googlechrome, Chrome
-Firefox, Firefox
-*/
-
 //
 // The first time the app is loaded (i.e. when there are no saved QVD files) it will go back from 
 // the current day this many days and retrieve all the feed items. Note that if the facebook fan 
