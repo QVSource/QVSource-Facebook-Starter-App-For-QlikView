@@ -2,7 +2,7 @@ QVSource Facebook Fan Page Starter App For QlikView
 ===================================================
 IMPORTANT - You will need QVSource 1.4.7.1 or later to run this application. Please contact us for advanced access to this, otherwise it should be released in early August 2013.
 
-A starter application pack showing how to get started using the [QVSource Facebook Pages and Groups Connector](http://wiki.qvsource.com/Facebook-Pages-Connector-for-QlikView.ashx) for QlikView.
+This is a starter QlikView application showing how to get started using the [QVSource Facebook Pages and Groups Connector](http://wiki.qvsource.com/Facebook-Pages-Connector-for-QlikView.ashx) for QlikView.
 
 Full documentation for this template application can be found [here](http://wiki.qvsource.com/QlikView-Connector-for-Facebook-Pages-Demo-Application.ashx).
 
