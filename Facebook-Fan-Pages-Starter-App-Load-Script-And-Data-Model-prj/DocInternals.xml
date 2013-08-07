@@ -225,7 +225,7 @@
     <String>FB_Feed</String>
     <String>73</String>
     <String>1</String>
-    <String>FB_Comments</String>
+    <String>FB_Feed</String>
     <String>74</String>
     <String>1</String>
     <String>FB_Comments</String>
@@ -273,18 +273,18 @@
     <String>FB_Comments</String>
     <String>89</String>
     <String>1</String>
-    <String>AllContent</String>
+    <String>FB_Comments</String>
     <String>90</String>
-    <String>2</String>
+    <String>1</String>
     <String>AllContent</String>
-    <String>AllContentSentiment</String>
     <String>91</String>
     <String>2</String>
     <String>AllContent</String>
-    <String>AllUsers</String>
+    <String>AllContentSentiment</String>
     <String>92</String>
-    <String>1</String>
+    <String>2</String>
     <String>AllContent</String>
+    <String>AllUsers</String>
     <String>93</String>
     <String>1</String>
     <String>AllContent</String>
@@ -299,7 +299,7 @@
     <String>AllContent</String>
     <String>97</String>
     <String>1</String>
-    <String>AllUsers</String>
+    <String>AllContent</String>
     <String>98</String>
     <String>1</String>
     <String>AllUsers</String>
@@ -317,7 +317,7 @@
     <String>AllUsers</String>
     <String>103</String>
     <String>1</String>
-    <String>AllContentSentiment</String>
+    <String>AllUsers</String>
     <String>104</String>
     <String>1</String>
     <String>AllContentSentiment</String>
@@ -325,6 +325,9 @@
     <String>1</String>
     <String>AllContentSentiment</String>
     <String>106</String>
+    <String>1</String>
+    <String>AllContentSentiment</String>
+    <String>107</String>
     <String>1</String>
     <String>AllContentSentiment</String>
   </FieldSrcTables>
@@ -722,8 +725,8 @@
           </TableViewTableWinSaveInfo>
           <TableViewTableWinSaveInfo>
             <Pos>
-              <Left>732</Left>
-              <Top>181</Top>
+              <Left>652</Left>
+              <Top>81</Top>
               <Width>170</Width>
               <Height>64</Height>
             </Pos>
@@ -776,8 +779,8 @@
           </TableViewTableWinSaveInfo>
           <TableViewTableWinSaveInfo>
             <Pos>
-              <Left>1335</Left>
-              <Top>259</Top>
+              <Left>1368</Left>
+              <Top>204</Top>
               <Width>137</Width>
               <Height>46</Height>
             </Pos>
@@ -785,8 +788,8 @@
           </TableViewTableWinSaveInfo>
           <TableViewTableWinSaveInfo>
             <Pos>
-              <Left>873</Left>
-              <Top>18</Top>
+              <Left>1424</Left>
+              <Top>197</Top>
               <Width>208</Width>
               <Height>186</Height>
             </Pos>
@@ -1334,8 +1337,8 @@
           </TableViewTableWinSaveInfo>
           <TableViewTableWinSaveInfo>
             <Pos>
-              <Left>1365</Left>
-              <Top>537</Top>
+              <Left>1398</Left>
+              <Top>482</Top>
               <Width>200</Width>
               <Height>82</Height>
             </Pos>
@@ -1442,8 +1445,8 @@
           </TableViewTableWinSaveInfo>
           <TableViewTableWinSaveInfo>
             <Pos>
-              <Left>779</Left>
-              <Top>412</Top>
+              <Left>796</Left>
+              <Top>385</Top>
               <Width>214</Width>
               <Height>100</Height>
             </Pos>
@@ -1451,8 +1454,8 @@
           </TableViewTableWinSaveInfo>
           <TableViewTableWinSaveInfo>
             <Pos>
-              <Left>518</Left>
-              <Top>990</Top>
+              <Left>405</Left>
+              <Top>945</Top>
               <Width>266</Width>
               <Height>100</Height>
             </Pos>
@@ -1478,8 +1481,8 @@
           </TableViewTableWinSaveInfo>
           <TableViewTableWinSaveInfo>
             <Pos>
-              <Left>1025</Left>
-              <Top>306</Top>
+              <Left>1028</Left>
+              <Top>282</Top>
               <Width>201</Width>
               <Height>352</Height>
             </Pos>
@@ -1487,19 +1490,19 @@
           </TableViewTableWinSaveInfo>
           <TableViewTableWinSaveInfo>
             <Pos>
-              <Left>534</Left>
-              <Top>379</Top>
+              <Left>461</Left>
+              <Top>237</Top>
               <Width>271</Width>
-              <Height>462</Height>
+              <Height>549</Height>
             </Pos>
             <Caption>FB_Feed</Caption>
           </TableViewTableWinSaveInfo>
           <TableViewTableWinSaveInfo>
             <Pos>
-              <Left>887</Left>
-              <Top>739</Top>
+              <Left>774</Left>
+              <Top>659</Top>
               <Width>263</Width>
-              <Height>306</Height>
+              <Height>341</Height>
             </Pos>
             <Caption>FB_Comments</Caption>
           </TableViewTableWinSaveInfo>
@@ -1595,8 +1598,8 @@
           </TableViewTableWinSaveInfo>
           <TableViewTableWinSaveInfo>
             <Pos>
-              <Left>1443</Left>
-              <Top>63</Top>
+              <Left>1330</Left>
+              <Top>18</Top>
               <Width>239</Width>
               <Height>118</Height>
             </Pos>
@@ -1632,7 +1635,7 @@
           <TableViewTableWinSaveInfo>
             <Pos>
               <Left>330</Left>
-              <Top>70</Top>
+              <Top>71</Top>
               <Width>386</Width>
               <Height>64</Height>
             </Pos>
@@ -1649,8 +1652,8 @@
           </TableViewTableWinSaveInfo>
           <TableViewTableWinSaveInfo>
             <Pos>
-              <Left>1228</Left>
-              <Top>142</Top>
+              <Left>1115</Left>
+              <Top>97</Top>
               <Width>166</Width>
               <Height>154</Height>
             </Pos>
@@ -1793,8 +1796,8 @@
           </TableViewTableWinSaveInfo>
           <TableViewTableWinSaveInfo>
             <Pos>
-              <Left>298</Left>
-              <Top>516</Top>
+              <Left>218</Left>
+              <Top>416</Top>
               <Width>200</Width>
               <Height>202</Height>
             </Pos>
@@ -1802,8 +1805,8 @@
           </TableViewTableWinSaveInfo>
           <TableViewTableWinSaveInfo>
             <Pos>
-              <Left>116</Left>
-              <Top>298</Top>
+              <Left>36</Left>
+              <Top>198</Top>
               <Width>264</Width>
               <Height>81</Height>
             </Pos>
@@ -2029,10 +2032,10 @@
           <String>FeedItem_created</String>
           <String>FeedItem_updated</String>
           <String>FeedItem_object_id</String>
-          <String>has_comments</String>
+          <String>FeedItem_has_comments</String>
+          <String>FeedItem_has_likes</String>
           <String>Comment_page</String>
           <String>Comment_created</String>
-          <String>Comment_message_urlEncoded</String>
           <String>InReplyToCommentId</String>
           <String>Comment_isReplyToComment</String>
           <String>AllContent_type</String>
@@ -2095,12 +2098,11 @@
           <String>FeedItem_created</String>
           <String>FeedItem_updated</String>
           <String>FeedItem_object_id</String>
-          <String>has_comments</String>
+          <String>FeedItem_has_comments</String>
+          <String>FeedItem_has_likes</String>
           <String>Comment_page</String>
           <String>Comment_created</String>
           <String>Comment_user_name</String>
-          <String>Comment_message</String>
-          <String>Comment_message_urlEncoded</String>
           <String>InReplyToCommentId</String>
           <String>Comment_isReplyToComment</String>
           <String>AllContent_type</String>

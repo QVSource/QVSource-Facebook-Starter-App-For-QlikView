@@ -175,7 +175,10 @@
       <Rainbow>false</Rainbow>
       <TextAdjustHorizontal>0</TextAdjustHorizontal>
       <TextAdjustVertical>4</TextAdjustVertical>
-      <Show></Show>
+      <Show>
+        <Always>false</Always>
+        <Expression></Expression>
+      </Show>
       <AllowMoveSize>true</AllowMoveSize>
       <AllowCopyClone>true</AllowCopyClone>
       <dummy></dummy>
@@ -222,7 +225,18 @@
       <v>Likes Per Post</v>
     </WindowTitle>
     <GraphMode>GRAPH_MODE_BAR</GraphMode>
-    <ErrorMessageOverrides></ErrorMessageOverrides>
+    <ErrorMessageOverrides>
+      <StringExpr>
+        <v>vLikeCountForFeedItems not set to 1 in config file.
+
+It is actually recommended at present not to use this.</v>
+      </StringExpr>
+      <StringExpr></StringExpr>
+      <StringExpr></StringExpr>
+      <StringExpr></StringExpr>
+      <StringExpr></StringExpr>
+      <StringExpr></StringExpr>
+    </ErrorMessageOverrides>
     <MiniChartLook>false</MiniChartLook>
   </GraphLayout>
   <_ExpressionDatas>
@@ -1197,7 +1211,10 @@
       <ColWidth>300</ColWidth>
       <OverrideGroupSort>false</OverrideGroupSort>
       <Show></Show>
-      <EnableCondition></EnableCondition>
+      <EnableCondition>
+        <Type>COND_EX_COND</Type>
+        <Expression></Expression>
+      </EnableCondition>
       <Comment></Comment>
       <OtherTotalSpec>
         <OtherMode>OTHER_OFF</OtherMode>
@@ -1312,14 +1329,16 @@
     <SheetPrintDrawBackGround>false</SheetPrintDrawBackGround>
     <StrDevModeExtra></StrDevModeExtra>
   </PrintSettings>
-  <ActivePropertyPage>12</ActivePropertyPage>
+  <ActivePropertyPage>0</ActivePropertyPage>
   <DoctorSpecial>0</DoctorSpecial>
   <DoctorMapField></DoctorMapField>
   <Detached>false</Detached>
   <CubeData></CubeData>
   <SuppressZero>false</SuppressZero>
   <SuppressMissing>true</SuppressMissing>
-  <EvaluationCondition></EvaluationCondition>
+  <EvaluationCondition>
+    <v>vLoadLikeCountForFeedItems=1</v>
+  </EvaluationCondition>
   <ChartProperties>
     <FastChangeInChart>false</FastChangeInChart>
     <ChartMarginSize>21</ChartMarginSize>
@@ -2077,6 +2096,8 @@
         <SecondaryCol></SecondaryCol>
         <Alpha>255</Alpha>
       </ColorAreaDef>
+      <ColorAreaDef></ColorAreaDef>
+      <ColorAreaDef></ColorAreaDef>
     </ColorMap>
     <MaxNumbersShownInChart>100</MaxNumbersShownInChart>
     <LeftAxisPosition>

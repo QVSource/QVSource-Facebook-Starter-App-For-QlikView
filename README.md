@@ -15,6 +15,14 @@ The content below is copied from the change log in the first tab of the load scr
 Change Log
 ----------
 
+1.9.1.2 - 02/08/13
+------------------
+* Added let vLoadCommentCountForFeedItems and vLoadLikeCountForFeedItems flags to config file. Currently recommended that these are turned off.
+
+1.9.1.1 - 01/08/13
+------------------
+* vIsFirstTime flag is now based on the existence of FB_Feed.qvd instead of FB_Page.qvd
+
 1.9.1 - 30/07/13
 ----------------
 * Added test to check vLocalTimeZone is recognised.

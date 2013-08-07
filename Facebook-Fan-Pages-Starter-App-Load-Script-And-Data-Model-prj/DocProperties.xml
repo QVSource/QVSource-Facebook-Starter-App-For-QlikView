@@ -1272,6 +1272,10 @@
       <bufferName></bufferName>
       <lineIx>1008</lineIx>
     </EditorBreakpoint>
+    <EditorBreakpoint>
+      <bufferName></bufferName>
+      <lineIx>855</lineIx>
+    </EditorBreakpoint>
   </breakpointList>
   <IdleSecondsBeforeClose>0</IdleSecondsBeforeClose>
   <ElapsedSecondsBeforeClose>0</ElapsedSecondsBeforeClose>

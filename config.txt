@@ -55,7 +55,7 @@ Firefox, Firefox
 // the current day this many days and retrieve all the feed items. Note that if the facebook fan 
 // page has a lot of activity then it can be very slow to load the further back you set this.
 //
-let vNoDaysToGoBackOnInitialReload = 1;
+let vNoDaysToGoBackOnInitialReload = 7;
 
 //
 // After the first reload (i.e. when there are some saved QVD files) we still want to go back a short 
@@ -73,6 +73,20 @@ let vNoDaysToGoBackOnSubsequentReloads = 1;
 // text you could set this to 0.
 //
 let vNoOfCommentsToLoadPerFeedItem = 10;
+
+//
+// Changes to the Facebook API means that the comment count for a feed item now needs to be extracted using 
+// a separate table and API call - one for each item. This is very costly in terms of API calls and we 
+// currently recommend turning this off.
+//
+let vLoadCommentCountForFeedItems = 0;
+
+//
+// Changes to the Facebook API means that the like count for a feed item now needs to be extracted using 
+// a separate table and API call - one for each item. This is very costly in terms of API calls and we 
+// currently recommend turning this off.
+//
+let vLoadLikeCountForFeedItems = 0;
 
 //
 // Configure this table with one or more of the following sentiment APIs:
@@ -97,8 +111,9 @@ SentimentAPIs:
 LOAD * INLINE [
 SentimentAPI
 Random
-Repustate
 ];
+
+// Repustate
 
 //
 // Enter something like: GMT, GMT-01:00, GMT+04:00 etc. here.

@@ -222,7 +222,18 @@
       <v>Comments Per Post</v>
     </WindowTitle>
     <GraphMode>GRAPH_MODE_BAR</GraphMode>
-    <ErrorMessageOverrides></ErrorMessageOverrides>
+    <ErrorMessageOverrides>
+      <StringExpr>
+        <v>vLoadCommentCountForFeedItems not set to 1 in config file.
+
+It is actually recommended at present not to use this.</v>
+      </StringExpr>
+      <StringExpr></StringExpr>
+      <StringExpr></StringExpr>
+      <StringExpr></StringExpr>
+      <StringExpr></StringExpr>
+      <StringExpr></StringExpr>
+    </ErrorMessageOverrides>
     <MiniChartLook>false</MiniChartLook>
   </GraphLayout>
   <_ExpressionDatas>
@@ -912,14 +923,16 @@
     <SheetPrintDrawBackGround>false</SheetPrintDrawBackGround>
     <StrDevModeExtra></StrDevModeExtra>
   </PrintSettings>
-  <ActivePropertyPage>1</ActivePropertyPage>
+  <ActivePropertyPage>0</ActivePropertyPage>
   <DoctorSpecial>0</DoctorSpecial>
   <DoctorMapField></DoctorMapField>
   <Detached>false</Detached>
   <CubeData></CubeData>
   <SuppressZero>true</SuppressZero>
   <SuppressMissing>true</SuppressMissing>
-  <EvaluationCondition></EvaluationCondition>
+  <EvaluationCondition>
+    <v>vLoadCommentCountForFeedItems=1</v>
+  </EvaluationCondition>
   <ChartProperties>
     <FastChangeInChart>false</FastChangeInChart>
     <ChartMarginSize>21</ChartMarginSize>

@@ -1,5 +1,13 @@
 ﻿///$tab Change Log
 /*
+1.9.1.2 - 02/08/13
+------------------
+* Added let vLoadCommentCountForFeedItems and vLoadLikeCountForFeedItems flags to config file. Currently recommended that these are turned off.
+
+1.9.1.1 - 01/08/13
+------------------
+* vIsFirstTime flag is now based on the existence of FB_Feed.qvd instead of FB_Page.qvd
+
 1.9.1 - 30/07/13
 ----------------
 * Added test to check vLocalTimeZone is recognised.
@@ -458,343 +466,339 @@ MODEL ID 3830 is trained on ~10 000 english product reviews.
 */
 
 //
-// Adds contents of ItemsToScore table to Saplo.
+////
+//// Adds contents of ItemsToScore table to Saplo.
+////
+//sub addUnscoredItemsToSaplo(vSaploCollectionId)
 //
-sub addUnscoredItemsToSaplo(vSaploCollectionId)
-
-	LET noItems = NoOfRows('ItemsToScore');
-	    
-	if noItems > 0 then
-	
-		let vAsyncSaploSentiment = 1;
-		
-	 	if vAsyncSaploSentiment = 1 then
-	 			
-	 		let vCurrentAsyncKey = vAsyncKey & '_Saplo_AddTexts';
-	 		
-			Clear_Async_Sentiment_Queue:
-			LOAD
-			    AsyncTableName,
-			    AsyncKey,
-			    Result
-			FROM
-			[$(vQVSourceBaseUrl)/QVSource/SentimentAnalyser/?table=AddText&clearAsyncResults=$(vCurrentAsyncKey)&format=qvx&appID=$(vQVSourceAppId)]
-			(qvx);
-			
-			for j=0 to $(noItems)-1
-			
-				let id = peek('idToScore', $(j), 'ItemsToScore');
-				let text = peek('textToScore',$(j), 'ItemsToScore');
-
-				Queue_Feed_Async_Sentiment:
-				LOAD
-				      AsyncTableName,
-				      AsyncKey,
-				      AsyncRequest,
-				      AsyncStatus
-				FROM
-			    [$(vQVSourceBaseUrl)/QVSource/SentimentAnalyser/?table=AddText&SentimentEngine=Saplo&Saplo_collection_id=$(vSaploCollectionId)&Message=$(text)&format=qvx&asyncKey=$(vCurrentAsyncKey)&asyncRowKey=$(id)&appID=$(vQVSourceAppId)]
-			   	(qvx);
-			   								 
-				call logQVSourceError(scripterrordetails, 'SentimentAnalyser\Queue_Feed_Async_Sentiment\$(api)_$(id)');
-								
-			next j
-			
-			drop table Clear_Async_Sentiment_Queue;
-			drop table Queue_Feed_Async_Sentiment;
-			
-			trace 'Waiting for async Saplo add texts to run...';
-			
-			Saplo_AddText:
-		    LOAD
-				asyncRowKey as itemId,
-//					'$(api)' as SentimentEngine,
-//					'$(api)_' & asyncRowKey as FeedItem_Sentiment_key,
-				status as AddText_status,
-		        headline as AddText_headline,
-		        ext_text_id as AddText_ext_text_id,
-		        collection_id as AddText_collection_id,
-		        publish_date as AddText_publish_date,
-		        text_id as AddText_text_id,
-		        url as AddText_url
-		    FROM
-		    [$(vQVSourceBaseUrl)/QVSource/SentimentAnalyser/?table=AddText&getAsyncResults=$(vCurrentAsyncKey)&format=qvx&appID=$(vQVSourceAppId)]
-		    (qvx);
-					    				
-			Saplo_StillToScore_WithAddedStatusOK:
-			load
-			itemId as idToScore,
-			AddText_text_id as saploIdToScore
-			resident
-			Saplo_AddText
-			where
-			AddText_status = 'OK';
-			 
-			Saplo_TextWhichCouldNotBeAdded:
-			load
-			AddText_status as Saplo_TextWhichCouldNotBeAdded_Status,
-			itemId as Saplo_TextWhichCouldNotBeAdded_id,
-			AddText_text as Saplo_TextWhichCouldNotBeAdded_text
-			resident
-			Saplo_AddText
-			where
-			AddText_status <> 'OK';
-			
-		endif
-		
-	endif
-
-endsub
-
-
-sub runSaploSentimentBulk(idColumnAlias, resultsColPrefix, vSaploCollectionId, vSaploModelId)
-
-	SaploCollections:
-	LOAD
-		collection_id as ListCollections_collection_id,
-		count as ListCollections_count,
-		description as ListCollections_description,
-		name as ListCollections_name,
-		next_id as ListCollections_next_id,
-		permission as ListCollections_permission,
-		language as ListCollections_language
-	FROM
-	[$(vQVSourceBaseUrl)/QVSource/TextAnalyser/?table=ListCollections&SentimentEngine=Saplo&format=qvx]
-	(qvx);
-	
-	let vMaxId = Lookup('ListCollections_next_id', 'ListCollections_collection_id', vSaploCollectionId, 'SaploCollections');// - 1;
-	
-	drop table SaploCollections;
-		
-	let vCurrentId = 1;
-	
-	do while vCurrentId < (vMaxId-1)
-	
-		TextAnalyser_CollectionPredict:
-		LOAD
-			status as CollectionPredict_status,
-			collection_id as CollectionPredict_collection_id,
-			target_word as CollectionPredict_target_word,
-			model_id as CollectionPredict_model_id,
-			value as CollectionPredict_value,
-			text_id as CollectionPredict_text_id
-		FROM
-		[$(vQVSourceBaseUrl)/QVSource/TextAnalyser/?table=CollectionPredict&SentimentEngine=Saplo&Saplo_model_id=$(vSaploModelId)&Saplo_collection_id=$(vSaploCollectionId)&Saplo_text_id=$(vCurrentId)&format=qvx&appID=$(vQVSourceAppId)]
-		(qvx)
-		Order by CollectionPredict_text_id asc;
-		
-		tmp:
-		load
-		max(CollectionPredict_text_id) as tempMax
-		resident
-		TextAnalyser_CollectionPredict
-		Order by CollectionPredict_text_id asc;
-	
-		let vCurrentId = peek('tempMax', 0, 'tmp') + 1;
-		drop table tmp;
-	
-	loop
-
-endsub
-
-sub runSaploSentiment(idColumnAlias, resultsColPrefix)
-
-	let api = 'Saplo';
-	let vAsyncSentiment = 1;
-		
-	let vSaploCollectionId = '5426';
-	let vSaploModelId = '3978';
-	
-	LET noItems = NoOfRows('ItemsToScore');
-	    
-	if noItems > 0 then
-	
-			let vAsyncSaploSentiment = 1;
-			
-		 	if vAsyncSaploSentiment = 1 then
-		 			
-		 		let vCurrentAsyncKey = vAsyncKey & '_Saplo_AddTexts';
-		 		
-				Clear_Async_Sentiment_Queue:
-				LOAD
-				    AsyncTableName,
-				    AsyncKey,
-				    Result
-				FROM
-				[$(vQVSourceBaseUrl)/QVSource/SentimentAnalyser/?table=AddText&clearAsyncResults=$(vCurrentAsyncKey)&format=qvx&appID=$(vQVSourceAppId)]
-				(qvx);
-				
-				for j=0 to 10//$(noItems)-1
-				
-					let id = peek('idToScore', $(j), 'ItemsToScore');
-					let text = peek('textToScore',$(j), 'ItemsToScore');
-	
-					Queue_Feed_Async_Sentiment:
-					LOAD
-					      AsyncTableName,
-					      AsyncKey,
-					      AsyncRequest,
-					      AsyncStatus
-					FROM
-				    [$(vQVSourceBaseUrl)/QVSource/SentimentAnalyser/?table=AddText&SentimentEngine=Saplo&Saplo_collection_id=$(vSaploCollectionId)&Message=$(text)&format=qvx&asyncKey=$(vCurrentAsyncKey)&asyncRowKey=$(id)&appID=$(vQVSourceAppId)]
-				   	(qvx);
-				   								 
-					call logQVSourceError(scripterrordetails, 'SentimentAnalyser\Queue_Feed_Async_Sentiment\$(api)_$(id)');
-									
-				next j
-				
-				drop table Clear_Async_Sentiment_Queue;
-				drop table Queue_Feed_Async_Sentiment;
-				
-				trace 'Waiting for async Saplo add texts to run...';
-				
-				Saplo_AddText:
-			    LOAD
-					asyncRowKey as itemId,
-//					'$(api)' as SentimentEngine,
-//					'$(api)_' & asyncRowKey as FeedItem_Sentiment_key,
-					status as AddText_status,
-			        headline as AddText_headline,
-			        ext_text_id as AddText_ext_text_id,
-			        collection_id as AddText_collection_id,
-			        publish_date as AddText_publish_date,
-			        text_id as AddText_text_id,
-			        url as AddText_url
-			    FROM
-			    [$(vQVSourceBaseUrl)/QVSource/SentimentAnalyser/?table=AddText&getAsyncResults=$(vCurrentAsyncKey)&format=qvx&appID=$(vQVSourceAppId)]
-			    (qvx);
-						    				
-				Saplo_StillToScore_WithAddedStatusOK:
-				load
-				itemId as idToScore,
-				AddText_text_id as saploIdToScore
-				resident
-				Saplo_AddText
-				where
-				AddText_status = 'OK';
-				 
-				Saplo_TextWhichCouldNotBeAdded:
-				load
-				AddText_status as Saplo_TextWhichCouldNotBeAdded_Status,
-				itemId as Saplo_TextWhichCouldNotBeAdded_id,
-				AddText_text as Saplo_TextWhichCouldNotBeAdded_text
-				resident
-				Saplo_AddText
-				where
-				AddText_status <> 'OK';
-				 
-		 		let vCurrentAsyncKey = vAsyncKey & '_Saplo_RunSentiment';
-		 		
-				Clear_Async_Sentiment_Queue:
-				LOAD
-				    AsyncTableName,
-				    AsyncKey,
-				    Result
-				FROM
-				[$(vQVSourceBaseUrl)/QVSource/SentimentAnalyser/?table=Predict&clearAsyncResults=$(vCurrentAsyncKey)&format=qvx&appID=$(vQVSourceAppId)]
-				(qvx);
-	
-				LET noRows = NoOfRows('Saplo_StillToScore_WithAddedStatusOK');
-				 
-				for i=0 to $(noRows)-1
-				 
-				    let id = peek('idToScore',$(i),'Saplo_StillToScore_WithAddedStatusOK');
-				    let saploId = peek('saploIdToScore',$(i),'Saplo_StillToScore_WithAddedStatusOK');
-				         
-				    Queue_Feed_Async_Sentiment:
-				    LOAD
-					      AsyncTableName,
-					      AsyncKey,
-					      AsyncRequest,
-					      AsyncStatus
-				    FROM
-				    [$(vQVSourceBaseUrl)/QVSource/SentimentAnalyser/?table=Predict&SentimentEngine=Saplo&Saplo_collection_id=$(vSaploCollectionId)&Saplo_text_id=$(saploId)&Saplo_model_id=$(vSaploModelId)&asyncKey=$(vCurrentAsyncKey)&asyncRowKey=$(id)&format=qvx&appID=$(vQVSourceAppId)]
-				    (qvx);
-				     
-				next
-	
-				drop table Clear_Async_Sentiment_Queue;
-				drop table Queue_Feed_Async_Sentiment;
-	
-				trace 'Waiting for async Saplo sentiment to run...';
-				
-			    SaploSentiment:
-			    LOAD
-				asyncRowKey as $(idColumnAlias),
-				'$(api)' as SentimentEngine,
-				'$(api)_' & asyncRowKey as $(resultsColPrefix)_Sentiment_key,
-				timestamp(now(1)) as $(resultsColPrefix)_Sentiment_loadtimestamp,
-				status as $(resultsColPrefix)_Sentiment_status,
-				if(value = 'positive', 1, if(value = 'neutral', 0, -1)) as $(resultsColPrefix)_Sentiment_score,
-				value as $(resultsColPrefix)_Sentiment_value,
-				'sv' as $(resultsColPrefix)_Sentiment_language,
-				'' as $(resultsColPrefix)_Sentiment_status_info
-			    FROM
-			    [$(vQVSourceBaseUrl)/QVSource/SentimentAnalyser/?table=Predict&getAsyncResults=$(vCurrentAsyncKey)&format=qvx&appID=$(vQVSourceAppId)]
-			    (qvx);
-		
-		 	else
-
-				// Sync not yet supported.		
-//				for j=0 to $(noItems)-1
+//	LET noItems = NoOfRows('ItemsToScore');
+//	    
+//	if noItems > 0 then
+//	
+//		let vAsyncSaploSentiment = 1;
+//		
+//	 	if vAsyncSaploSentiment = 1 then
+//	 			
+//	 		let vCurrentAsyncKey = vAsyncKey & '_Saplo_AddTexts';
+//	 		
+//			Clear_Async_Sentiment_Queue:
+//			LOAD
+//			    AsyncTableName,
+//			    AsyncKey,
+//			    Result
+//			FROM
+//			[$(vQVSourceBaseUrl)/QVSource/SentimentAnalyser/?table=AddText&clearAsyncResults=$(vCurrentAsyncKey)&format=qvx&appID=$(vQVSourceAppId)]
+//			(qvx);
 //			
-//					let id = peek('$(idColName)', $(j), 'ItemsToScore');
-//					let text = peek('$(encodedTextColName)',$(j), 'ItemsToScore');
-//					
-//				    Saplo_AddText:
-//				    LOAD
-//				        '$(id)' as itemId,
-//						'$(api)' as SentimentEngine,
-//				        '$(text)' as AddText_text,
-//				        status as AddText_status,
-//				        headline as AddText_headline,
-//				        ext_text_id as AddText_ext_text_id,
-//				        collection_id as AddText_collection_id,
-//				        publish_date as AddText_publish_date,
-//				        text_id as AddText_text_id,
-//				        url as AddText_url
-//				    FROM
-//				    [http://localhost:5555/QVSource/SentimentAnalyser/?table=AddText&SentimentEngine=Saplo&Saplo_collection_id=$(vSaploCollectionId)&Message=$(text)&format=qvx&appID=$(vQVSourceAppId)]
-//				    (qvx);
-//				 
-//					call logQVSourceError(scripterrordetails, 'SentimentAnalyser\Feed\$(api)_$(id)');
-//				
-//				next j
-	
-		endif	
-	
-//		if vDeleteTempTables = 1 then
-//			drop table FeedItemsToScore;
+//			for j=0 to $(noItems)-1
+//			
+//				let id = peek('idToScore', $(j), 'ItemsToScore');
+//				let text = peek('textToScore',$(j), 'ItemsToScore');
+//
+//				Queue_Feed_Async_Sentiment:
+//				LOAD
+//				      AsyncTableName,
+//				      AsyncKey,
+//				      AsyncRequest,
+//				      AsyncStatus
+//				FROM
+//			    [$(vQVSourceBaseUrl)/QVSource/SentimentAnalyser/?table=AddText&SentimentEngine=Saplo&Saplo_collection_id=$(vSaploCollectionId)&Message=$(text)&format=qvx&asyncKey=$(vCurrentAsyncKey)&asyncRowKey=$(id)&appID=$(vQVSourceAppId)]
+//			   	(qvx);
+//			   								 
+//				call logQVSourceError(scripterrordetails, 'SentimentAnalyser\Queue_Feed_Async_Sentiment\$(api)_$(id)');
+//								
+//			next j
+//			
+//			drop table Clear_Async_Sentiment_Queue;
+//			drop table Queue_Feed_Async_Sentiment;
+//			
+//			trace 'Waiting for async Saplo add texts to run...';
+//			
+//			Saplo_AddText:
+//		    LOAD
+//				asyncRowKey as itemId,
+////					'$(api)' as SentimentEngine,
+////					'$(api)_' & asyncRowKey as FeedItem_Sentiment_key,
+//				status as AddText_status,
+//		        headline as AddText_headline,
+//		        ext_text_id as AddText_ext_text_id,
+//		        collection_id as AddText_collection_id,
+//		        publish_date as AddText_publish_date,
+//		        text_id as AddText_text_id,
+//		        url as AddText_url
+//		    FROM
+//		    [$(vQVSourceBaseUrl)/QVSource/SentimentAnalyser/?table=AddText&getAsyncResults=$(vCurrentAsyncKey)&format=qvx&appID=$(vQVSourceAppId)]
+//		    (qvx);
+//					    				
+//			Saplo_StillToScore_WithAddedStatusOK:
+//			load
+//			itemId as idToScore,
+//			AddText_text_id as saploIdToScore
+//			resident
+//			Saplo_AddText
+//			where
+//			AddText_status = 'OK';
+//			 
+//			Saplo_TextWhichCouldNotBeAdded:
+//			load
+//			AddText_status as Saplo_TextWhichCouldNotBeAdded_Status,
+//			itemId as Saplo_TextWhichCouldNotBeAdded_id,
+//			AddText_text as Saplo_TextWhichCouldNotBeAdded_text
+//			resident
+//			Saplo_AddText
+//			where
+//			AddText_status <> 'OK';
+//			
 //		endif
-
-	endif
-
-endsub
-
-//let vSaploCollectionId = '3926';
-//let vSaploModelId = '3827';
+//		
+//	endif
 //
-//call runSaploSentimentBulk('','',vSaploCollectionId,vSaploModelId);
+//endsub
 //
-//exit script;
 //
-//call getItemsLeftToScore('Saplo_FB_Feed_Sentiment.qvd', 'FB_Feed', 'FeedItem_id', 'FeedItem_message_urlEncoded', 'FeedItem_Sentiment_score');
-//call addUnscoredItemsToSaplo('3926');
-//exit script;
-
+//sub runSaploSentimentBulk(idColumnAlias, resultsColPrefix, vSaploCollectionId, vSaploModelId)
+//
+//	SaploCollections:
+//	LOAD
+//		collection_id as ListCollections_collection_id,
+//		count as ListCollections_count,
+//		description as ListCollections_description,
+//		name as ListCollections_name,
+//		next_id as ListCollections_next_id,
+//		permission as ListCollections_permission,
+//		language as ListCollections_language
+//	FROM
+//	[$(vQVSourceBaseUrl)/QVSource/TextAnalyser/?table=ListCollections&SentimentEngine=Saplo&format=qvx]
+//	(qvx);
+//	
+//	let vMaxId = Lookup('ListCollections_next_id', 'ListCollections_collection_id', vSaploCollectionId, 'SaploCollections');// - 1;
+//	
+//	drop table SaploCollections;
+//		
+//	let vCurrentId = 1;
+//	
+//	do while vCurrentId < (vMaxId-1)
+//	
+//		TextAnalyser_CollectionPredict:
+//		LOAD
+//			status as CollectionPredict_status,
+//			collection_id as CollectionPredict_collection_id,
+//			target_word as CollectionPredict_target_word,
+//			model_id as CollectionPredict_model_id,
+//			value as CollectionPredict_value,
+//			text_id as CollectionPredict_text_id
+//		FROM
+//		[$(vQVSourceBaseUrl)/QVSource/TextAnalyser/?table=CollectionPredict&SentimentEngine=Saplo&Saplo_model_id=$(vSaploModelId)&Saplo_collection_id=$(vSaploCollectionId)&Saplo_text_id=$(vCurrentId)&format=qvx&appID=$(vQVSourceAppId)]
+//		(qvx)
+//		Order by CollectionPredict_text_id asc;
+//		
+//		tmp:
+//		load
+//		max(CollectionPredict_text_id) as tempMax
+//		resident
+//		TextAnalyser_CollectionPredict
+//		Order by CollectionPredict_text_id asc;
+//	
+//		let vCurrentId = peek('tempMax', 0, 'tmp') + 1;
+//		drop table tmp;
+//	
+//	loop
+//
+//endsub
+//
+//sub runSaploSentiment(idColumnAlias, resultsColPrefix)
+//
+//	let api = 'Saplo';
+//	let vAsyncSentiment = 1;
+//		
+//	let vSaploCollectionId = '5426';
+//	let vSaploModelId = '3978';
+//	
+//	LET noItems = NoOfRows('ItemsToScore');
+//	    
+//	if noItems > 0 then
+//	
+//			let vAsyncSaploSentiment = 1;
+//			
+//		 	if vAsyncSaploSentiment = 1 then
+//		 			
+//		 		let vCurrentAsyncKey = vAsyncKey & '_Saplo_AddTexts';
+//		 		
+//				Clear_Async_Sentiment_Queue:
+//				LOAD
+//				    AsyncTableName,
+//				    AsyncKey,
+//				    Result
+//				FROM
+//				[$(vQVSourceBaseUrl)/QVSource/SentimentAnalyser/?table=AddText&clearAsyncResults=$(vCurrentAsyncKey)&format=qvx&appID=$(vQVSourceAppId)]
+//				(qvx);
+//				
+//				for j=0 to 10//$(noItems)-1
+//				
+//					let id = peek('idToScore', $(j), 'ItemsToScore');
+//					let text = peek('textToScore',$(j), 'ItemsToScore');
+//	
+//					Queue_Feed_Async_Sentiment:
+//					LOAD
+//					      AsyncTableName,
+//					      AsyncKey,
+//					      AsyncRequest,
+//					      AsyncStatus
+//					FROM
+//				    [$(vQVSourceBaseUrl)/QVSource/SentimentAnalyser/?table=AddText&SentimentEngine=Saplo&Saplo_collection_id=$(vSaploCollectionId)&Message=$(text)&format=qvx&asyncKey=$(vCurrentAsyncKey)&asyncRowKey=$(id)&appID=$(vQVSourceAppId)]
+//				   	(qvx);
+//				   								 
+//					call logQVSourceError(scripterrordetails, 'SentimentAnalyser\Queue_Feed_Async_Sentiment\$(api)_$(id)');
+//									
+//				next j
+//				
+//				drop table Clear_Async_Sentiment_Queue;
+//				drop table Queue_Feed_Async_Sentiment;
+//				
+//				trace 'Waiting for async Saplo add texts to run...';
+//				
+//				Saplo_AddText:
+//			    LOAD
+//					asyncRowKey as itemId,
+////					'$(api)' as SentimentEngine,
+////					'$(api)_' & asyncRowKey as FeedItem_Sentiment_key,
+//					status as AddText_status,
+//			        headline as AddText_headline,
+//			        ext_text_id as AddText_ext_text_id,
+//			        collection_id as AddText_collection_id,
+//			        publish_date as AddText_publish_date,
+//			        text_id as AddText_text_id,
+//			        url as AddText_url
+//			    FROM
+//			    [$(vQVSourceBaseUrl)/QVSource/SentimentAnalyser/?table=AddText&getAsyncResults=$(vCurrentAsyncKey)&format=qvx&appID=$(vQVSourceAppId)]
+//			    (qvx);
+//						    				
+//				Saplo_StillToScore_WithAddedStatusOK:
+//				load
+//				itemId as idToScore,
+//				AddText_text_id as saploIdToScore
+//				resident
+//				Saplo_AddText
+//				where
+//				AddText_status = 'OK';
+//				 
+//				Saplo_TextWhichCouldNotBeAdded:
+//				load
+//				AddText_status as Saplo_TextWhichCouldNotBeAdded_Status,
+//				itemId as Saplo_TextWhichCouldNotBeAdded_id,
+//				AddText_text as Saplo_TextWhichCouldNotBeAdded_text
+//				resident
+//				Saplo_AddText
+//				where
+//				AddText_status <> 'OK';
+//				 
+//		 		let vCurrentAsyncKey = vAsyncKey & '_Saplo_RunSentiment';
+//		 		
+//				Clear_Async_Sentiment_Queue:
+//				LOAD
+//				    AsyncTableName,
+//				    AsyncKey,
+//				    Result
+//				FROM
+//				[$(vQVSourceBaseUrl)/QVSource/SentimentAnalyser/?table=Predict&clearAsyncResults=$(vCurrentAsyncKey)&format=qvx&appID=$(vQVSourceAppId)]
+//				(qvx);
+//	
+//				LET noRows = NoOfRows('Saplo_StillToScore_WithAddedStatusOK');
+//				 
+//				for i=0 to $(noRows)-1
+//				 
+//				    let id = peek('idToScore',$(i),'Saplo_StillToScore_WithAddedStatusOK');
+//				    let saploId = peek('saploIdToScore',$(i),'Saplo_StillToScore_WithAddedStatusOK');
+//				         
+//				    Queue_Feed_Async_Sentiment:
+//				    LOAD
+//					      AsyncTableName,
+//					      AsyncKey,
+//					      AsyncRequest,
+//					      AsyncStatus
+//				    FROM
+//				    [$(vQVSourceBaseUrl)/QVSource/SentimentAnalyser/?table=Predict&SentimentEngine=Saplo&Saplo_collection_id=$(vSaploCollectionId)&Saplo_text_id=$(saploId)&Saplo_model_id=$(vSaploModelId)&asyncKey=$(vCurrentAsyncKey)&asyncRowKey=$(id)&format=qvx&appID=$(vQVSourceAppId)]
+//				    (qvx);
+//				     
+//				next
+//	
+//				drop table Clear_Async_Sentiment_Queue;
+//				drop table Queue_Feed_Async_Sentiment;
+//	
+//				trace 'Waiting for async Saplo sentiment to run...';
+//				
+//			    SaploSentiment:
+//			    LOAD
+//				asyncRowKey as $(idColumnAlias),
+//				'$(api)' as SentimentEngine,
+//				'$(api)_' & asyncRowKey as $(resultsColPrefix)_Sentiment_key,
+//				timestamp(now(1)) as $(resultsColPrefix)_Sentiment_loadtimestamp,
+//				status as $(resultsColPrefix)_Sentiment_status,
+//				if(value = 'positive', 1, if(value = 'neutral', 0, -1)) as $(resultsColPrefix)_Sentiment_score,
+//				value as $(resultsColPrefix)_Sentiment_value,
+//				'sv' as $(resultsColPrefix)_Sentiment_language,
+//				'' as $(resultsColPrefix)_Sentiment_status_info
+//			    FROM
+//			    [$(vQVSourceBaseUrl)/QVSource/SentimentAnalyser/?table=Predict&getAsyncResults=$(vCurrentAsyncKey)&format=qvx&appID=$(vQVSourceAppId)]
+//			    (qvx);
+//		
+//		 	else
+//
+//				// Sync not yet supported.		
+////				for j=0 to $(noItems)-1
+////			
+////					let id = peek('$(idColName)', $(j), 'ItemsToScore');
+////					let text = peek('$(encodedTextColName)',$(j), 'ItemsToScore');
+////					
+////				    Saplo_AddText:
+////				    LOAD
+////				        '$(id)' as itemId,
+////						'$(api)' as SentimentEngine,
+////				        '$(text)' as AddText_text,
+////				        status as AddText_status,
+////				        headline as AddText_headline,
+////				        ext_text_id as AddText_ext_text_id,
+////				        collection_id as AddText_collection_id,
+////				        publish_date as AddText_publish_date,
+////				        text_id as AddText_text_id,
+////				        url as AddText_url
+////				    FROM
+////				    [http://localhost:5555/QVSource/SentimentAnalyser/?table=AddText&SentimentEngine=Saplo&Saplo_collection_id=$(vSaploCollectionId)&Message=$(text)&format=qvx&appID=$(vQVSourceAppId)]
+////				    (qvx);
+////				 
+////					call logQVSourceError(scripterrordetails, 'SentimentAnalyser\Feed\$(api)_$(id)');
+////				
+////				next j
+//	
+//		endif	
+//	
+////		if vDeleteTempTables = 1 then
+////			drop table FeedItemsToScore;
+////		endif
+//
+//	endif
+//
+//endsub
+//
+////let vSaploCollectionId = '3926';
+////let vSaploModelId = '3827';
+////
+////call runSaploSentimentBulk('','',vSaploCollectionId,vSaploModelId);
+////
+////exit script;
+////
+////call getItemsLeftToScore('Saplo_FB_Feed_Sentiment.qvd', 'FB_Feed', 'FeedItem_id', 'FeedItem_message_urlEncoded', 'FeedItem_Sentiment_score');
+////call addUnscoredItemsToSaplo('3926');
+////exit script;
+//
 ///$tab FacebookPages
 let fb_pro_pages = 'FB_Page.qvd';
 
 let size = filesize('$(fb_pro_pages)');
 
-if isnull(size) then
-	let vIsFirstTime=1;
-ELSE
-	let vIsFirstTime=0; // If this file is present then the script has run before.
-
+if not isnull(size) then
 	FB_Page:
 	LOAD * FROM '$(fb_pro_pages)' (qvd);
-	
 end if
 
 if(vGetLatestData=1) then
@@ -858,7 +862,16 @@ let fb_pro_feed = 'FB_Feed.qvd';
 
 let size = filesize('$(fb_pro_feed)');
 
-let vIgnoreCache = 'false';
+if isnull(size) then
+	let vIsFirstTime = 1;
+ELSE
+	let vIsFirstTime = 0; // If this file is present then the script has run before.
+end if
+
+//
+// Could set this to false for debugging (would be faster to retrieve results but they might be out of date).
+//
+let vIgnoreCache = 'true';
 	    
 if(vGetLatestData=1) then
 
@@ -899,9 +912,12 @@ if(vGetLatestData=1) then
 			created as FeedItem_created,
 			updated as FeedItem_updated,
 			object_id as FeedItem_object_id,
+			'?' as FeedItem_likes_count,
+			'?' as FeedItem_comments_count,
 			//likes_count as FeedItem_likes_count,  removed from Facebook API now returns warning in QVSource. We now use LikeCountForItem table
 			shares_count as FeedItem_shares_count,
-			has_comments
+			has_comments as FeedItem_has_comments,
+			has_likes as FeedItem_has_likes
 			// comments_count as FeedItem_comments_count removed from Facebook API now returns warning in QVSource. We now use CommentCountForItem table.
 		FROM
 		[$(loadUrl)]
@@ -913,8 +929,6 @@ if(vGetLatestData=1) then
 
 	let vParamsFile = '$(vWorkingFolder)$(vQVSourceAppId)' & '_FeedItemIds.txt';
 
-	// --------------------------------------------------------------------------------------------------------------------------------------------------------------
-	// ------------- As of 21/05/2013 and QVSource 1.4.4.7, due to changes in the FB API we have to use the CommentCountForItem table to get comments_count ---------
 	Params:
 	LOAD distinct
 	    FeedItem_id as rowKey,
@@ -929,29 +943,43 @@ if(vGetLatestData=1) then
 	DROP table Params;
 		
 	if (vCount > 0) then
-	
-		trace 'About to check comment count for $(vCount) feed items asynchronously';
 		
-		join (FB_Feed)
-		LOAD
-			rowKey as FeedItem_id,
-			total_count as FeedItem_comments_count
-			//order as CommentCountForItem_order
-		FROM																										 
-		[$(vQVSourceBaseUrl)/QVSource/FacebookFanPagesConnector/?table=CommentCountForItem&appID=$(vQVSourceAppId)&processParamsAsync=$(vParamsFile)&format=qvx]
-		(qvx);
+		if vLoadCommentCountForFeedItems = 1 then
 		
-		trace 'About to check like count for $(vCount) feed items asynchronously';
+			trace 'About to check comment count for $(vCount) feed items asynchronously. Might take some time...';
+			
+			drop field FeedItem_comments_count;
+			
+			join (FB_Feed)
+			LOAD
+				rowKey as FeedItem_id,
+				total_count as FeedItem_comments_count
+				//order as CommentCountForItem_order
+			FROM																										 
+			[$(vQVSourceBaseUrl)/QVSource/FacebookFanPagesConnector/?table=CommentCountForItem&appID=$(vQVSourceAppId)&processParamsAsync=$(vParamsFile)&format=qvx]
+			(qvx);
+			
+		ELSE
 		
-		join (FB_Feed)
-		LOAD
-			rowKey as FeedItem_id,
-			total_count as FeedItem_likes_count
-		FROM																										 
-		[$(vQVSourceBaseUrl)/QVSource/FacebookFanPagesConnector/?table=LikeCountForItem&appID=$(vQVSourceAppId)&processParamsAsync=$(vParamsFile)&format=qvx]
-		(qvx);
-		//
-		// --------------------------------------------------------------------------------------------------------------------------------------------------------------
+		
+		
+		endif
+
+		if vLikeCountForFeedItems = 1 then
+					
+			trace 'About to check like count for $(vCount) feed items asynchronously. Might take some time...';
+			
+			drop field FeedItem_likes_count;
+			
+			join (FB_Feed)
+			LOAD
+				rowKey as FeedItem_id,
+				total_count as FeedItem_likes_count
+			FROM																										 
+			[$(vQVSourceBaseUrl)/QVSource/FacebookFanPagesConnector/?table=LikeCountForItem&appID=$(vQVSourceAppId)&processParamsAsync=$(vParamsFile)&format=qvx]
+			(qvx);
+			
+		endif
 	
 		trace 'Establishing number of feed items with comments to load in this run...';
 	
@@ -961,7 +989,8 @@ if(vGetLatestData=1) then
 		FeedItem_id as FB_FeedItemsLoadedInThisRun_id
 		resident
 		FB_Feed
-		where FeedItem_comments_count > 0; 
+		//where FeedItem_comments_count > 0; 
+		where FeedItem_has_comments = 'true';
 		
 		if not isnull(size) then	
 			FB_Feed:
@@ -975,8 +1004,8 @@ if(vGetLatestData=1) then
 		trace 'No Feeditems';
 		exit script;
 	endif
-	
-ELSE
+	 
+ELSE // vGetLatestData != 1
 	FB_Feed:
 	LOAD * FROM '$(fb_pro_feed)' (qvd);
 endif
@@ -984,50 +1013,6 @@ endif
 if vDeleteTempTables = 1 then
 	drop table temp_pagesID;
 endif
-
-//PosterIdsToLoad:
-//load distinct
-//Poster_id as PosterIdsToLoad_id
-//resident
-//FB_Feed;
-
-//LET noRows = NoOfRows('PosterIdsToLoad');
-
-/*
-//for i=0 to $(noRows)-1 // loop through every row
-for i=0 to 500
-
-	let posterID = peek('PosterIdsToLoad_id', $(i), 'PosterIdsToLoad'); // get the value for "text" field on each row
-
-	ThirdPartyId:
-	LOAD
-		'$(posterID)' as xxx,
-		status,
-		status_info,
-		third_party_id
-	FROM
-	[http://localhost:5555/QVSource/FacebookFanPagesConnector/?table=ThirdPartyId&format=qvx&&UserId=$(posterID)]
-	(qvx);
-	
-next i
-
-LET noRows = NoOfRows('ThirdPartyId');
-
-for i=0 to $(noRows)-1 // loop through every row
-
-	let posterID = peek('third_party_id', $(i), 'ThirdPartyId'); // get the value for "text" field on each row
-
-	KloutConnectorV2_KloutIDFromFacebookThirdPartyId:
-	LOAD
-		status as KloutIDFromFacebookThirdPartyId_status,
-		KloutID as KloutIDFromFacebookThirdPartyId_KloutID
-	FROM
-	[http://localhost:5555/QVSource/KloutConnectorV2/?table=KloutIDFromFacebookThirdPartyId&TwitterId=$(posterID)&format=qvx]
-	(qvx);
-	
-next i
-exit script;
-*/
 ///$tab Comments
 // Load Comments
 let fb_pro_comments = 'FB_Comments.qvd';
@@ -1079,7 +1064,7 @@ if(vGetLatestData=1) then
 				parent_created_time as CommentsAndRepliesForItem_parent_created_time,
 				parent_likes_count as CommentsAndRepliesForItem_parent_likes_count
 			FROM
-			[http://localhost:5555/QVSource/FacebookFanPagesConnector/?table=CommentsAndRepliesForItem&appID=$(vQVSourceAppId)&processParamsAsync=$(vParamsFile)&format=qvx]
+			[http://localhost:5555/QVSource/FacebookFanPagesConnector/?table=CommentsAndRepliesForItem&appID=$(vQVSourceAppId)&processParamsAsync=$(vParamsFile)&noCache=$(vIgnoreCache)&format=qvx]
 			(qvx);
 
 		endif
