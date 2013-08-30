@@ -239,7 +239,7 @@ It is actually recommended at present not to use this.</v>
   <_ExpressionDatas>
     <ExpressionData>
       <Definition>
-        <v>=sum(FeedItem_comments_count)/Count(FeedItem_id)</v>
+        <v>=sum(FeedItem_comments_count2)/Count(FeedItem_id)</v>
       </Definition>
       <Enable>true</Enable>
       <Present>false</Present>
@@ -2495,7 +2495,7 @@ It is actually recommended at present not to use this.</v>
           <InternalId>-1</InternalId>
           <ExpressionData>
             <Definition>
-              <v>=sum(FeedItem_comments_count)/Count(FeedItem_id)</v>
+              <v>=sum(FeedItem_comments_count2)/Count(FeedItem_id)</v>
             </Definition>
             <Enable>true</Enable>
             <Present>false</Present>

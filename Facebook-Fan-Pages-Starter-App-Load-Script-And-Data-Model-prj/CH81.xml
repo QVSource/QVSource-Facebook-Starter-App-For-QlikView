@@ -243,7 +243,7 @@
     </ExpressionData>
     <ExpressionData>
       <Definition>
-        <v>Sum(FeedItem_comments_count)</v>
+        <v>Sum(FeedItem_comments_count2)</v>
       </Definition>
       <Enable>false</Enable>
       <Present>false</Present>
@@ -3628,7 +3628,7 @@
           <InternalId>-1</InternalId>
           <ExpressionData>
             <Definition>
-              <v>Sum(FeedItem_comments_count)</v>
+              <v>Sum(FeedItem_comments_count2)</v>
             </Definition>
             <Enable>false</Enable>
             <Present>false</Present>

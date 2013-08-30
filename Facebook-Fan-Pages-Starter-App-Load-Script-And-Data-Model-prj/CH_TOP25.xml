@@ -628,7 +628,7 @@
     <ChartDimensionDataDef>
       <PseudoDef>
         <Name>AllUsers_name</Name>
-        <Type>PRESENT</Type>
+        <Type>NOT_PRESENT</Type>
       </PseudoDef>
       <Title>
         <v>Name</v>
@@ -805,7 +805,7 @@
     <ChartDimensionDataDef>
       <PseudoDef>
         <Name>AllContent_type</Name>
-        <Type>PRESENT</Type>
+        <Type>NOT_PRESENT</Type>
       </PseudoDef>
       <Title>
         <v>Content Type</v>
@@ -2080,8 +2080,6 @@
   <TableProperties>
     <VerticalLabels>false</VerticalLabels>
     <ColWidths>
-      <int>300</int>
-      <int>300</int>
       <int>300</int>
     </ColWidths>
     <Striping>

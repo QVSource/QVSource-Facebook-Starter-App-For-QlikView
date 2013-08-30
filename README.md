@@ -15,6 +15,27 @@ The content below is copied from the change log in the first tab of the load scr
 Change Log
 ----------
 
+1.9.2.0 - 30/08/13
+------------------
+* BREAKING CHANGES - This new version will not be compatible with QVDs from a previous version.
+* IMPORTANT - This version requires QVSource 1.4.7.5 or later.
+* Added columns to feed table:
+from_id as FeedItem_from_id,
+status_type as FeedItem_status_type,
+to_id as FeedItem_to_id,
+to_name as FeedItem_to_name,
+to_category as FeedItem_to_category,
+story as FeedItem_story,
+application_name as FeedItem_application_name,
+application_namespace as FeedItem_application_namespace,
+application_id as FeedItem_application_id,
+has_at_least_this_many_likes as FeedItem_has_at_least_this_many_likes,
+has_at_least_this_many_comments as FeedItem_has_at_least_this_many_comments,
+* Added new vLikeCountThreshold and vCommentCountThreshold to config file and associated logic/loadscript. See notes in config file for more detail.
+* vIgnoreCache moved to config file.
+* Added warning notes on intro tab when vLoadCommentCountForFeedItems or vLoadLikeCountForFeedItems are not set to 1.
+* App is now set to require QVSource 1.4.7.5.
+
 1.9.1.2 - 02/08/13
 ------------------
 * Added let vLoadCommentCountForFeedItems and vLoadLikeCountForFeedItems flags to config file. Currently recommended that these are turned off.

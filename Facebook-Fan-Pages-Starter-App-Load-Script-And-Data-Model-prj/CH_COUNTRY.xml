@@ -633,7 +633,7 @@ See docs.</v>
     <ChartDimensionDataDef>
       <PseudoDef>
         <Name>AllUsers_country</Name>
-        <Type>PRESENT</Type>
+        <Type>NOT_PRESENT</Type>
       </PseudoDef>
       <Title></Title>
       <TotalString></TotalString>
@@ -1931,7 +1931,6 @@ See docs.</v>
   <TableProperties>
     <VerticalLabels>false</VerticalLabels>
     <ColWidths>
-      <int>300</int>
       <int>300</int>
     </ColWidths>
     <Striping>

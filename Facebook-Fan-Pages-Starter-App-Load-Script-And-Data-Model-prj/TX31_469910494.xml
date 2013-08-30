@@ -253,9 +253,9 @@
     <Bmp enctype="base64"></Bmp>
     <BkgAlpha>255</BkgAlpha>
     <Text>
-      <v>Please see the change log on the first tab of the load script for changes and suggestions for improvements.
-
-This is a free starter application for QVSource users which can easily be loaded with your own set of Facebook Fan Pages or Groups.</v>
+      <v>=if($(vLoadCommentCountForFeedItems) = 1, '', 'Please note that as vLoadCommentCountForFeedItems is not set to 1, any posts which have a comment count greater than $(vCommentCountThreshold) (i.e. the vCommentCountThreshold value) will have their comment count set to &gt; $(vCommentCountThreshold). This means that some of the charts using this value will not work correctly.') &amp; 
+if($(vLoadCommentCountForFeedItems) = 1, '', '\n\n') &amp; 
+if($(vLoadLikeCountForFeedItems) = 1, '', 'Please note that as vLoadLikeCountForFeedItems is not set to 1, any posts which have a comment count greater than $(vLoadLikeCountForFeedItems) (i.e. the vLoadLikeCountForFeedItems value) will have their comment count set to &gt; $(vLikeCountThreshold). This means that some of the charts using this value will not work correctly.') &amp; </v>
     </Text>
     <ImageRepresentation></ImageRepresentation>
     <AllowVerticalScrollBar>false</AllowVerticalScrollBar>

@@ -45,9 +45,9 @@ let vQVSourceAppId = 'FacebookDemo';
 FacebookSites:
 LOAD * INLINE [
 page, Site
+Firefox, Firefox
 internetexplorer, IE
 googlechrome, Chrome
-Firefox, Firefox
 ];
 
 //
@@ -55,7 +55,7 @@ Firefox, Firefox
 // the current day this many days and retrieve all the feed items. Note that if the facebook fan 
 // page has a lot of activity then it can be very slow to load the further back you set this.
 //
-let vNoDaysToGoBackOnInitialReload = 7;
+let vNoDaysToGoBackOnInitialReload = 5;
 
 //
 // After the first reload (i.e. when there are some saved QVD files) we still want to go back a short 
@@ -79,14 +79,14 @@ let vNoOfCommentsToLoadPerFeedItem = 10;
 // a separate table and API call - one for each item. This is very costly in terms of API calls and we 
 // currently recommend turning this off.
 //
-let vLoadCommentCountForFeedItems = 0;
+let vLoadCommentCountForFeedItems = 1;
 
 //
 // Changes to the Facebook API means that the like count for a feed item now needs to be extracted using 
 // a separate table and API call - one for each item. This is very costly in terms of API calls and we 
 // currently recommend turning this off.
 //
-let vLoadLikeCountForFeedItems = 0;
+let vLoadLikeCountForFeedItems = 1;
 
 //
 // Configure this table with one or more of the following sentiment APIs:
@@ -191,3 +191,17 @@ let vDeleteTempTables = 1;
 // Turns on some rough working sheets.
 //
 let vShowScrapSheets = 0;
+
+//
+// Could set this to false for debugging (would be faster to retrieve 
+// results but they might be out of date).
+//
+let vIgnoreCache = 'true';
+	    
+// If the has_at_least_this_many_likes value is less than or equal to this we assume this is 
+// the actual like count. If it is greater than this we make extra table requests (and therefore 
+// API calls) to establish correct number.
+let vLikeCountThreshold = 25;
+
+// Same as above but for comments.
+let vCommentCountThreshold = 25;

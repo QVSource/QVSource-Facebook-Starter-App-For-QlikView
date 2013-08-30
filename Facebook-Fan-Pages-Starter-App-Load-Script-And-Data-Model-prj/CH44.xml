@@ -1924,7 +1924,6 @@ See docs.</v>
     <VerticalLabels>false</VerticalLabels>
     <ColWidths>
       <int>300</int>
-      <int>300</int>
     </ColWidths>
     <Striping>
       <int>1</int>

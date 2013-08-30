@@ -1,5 +1,26 @@
 ﻿///$tab Change Log
 /*
+1.9.2.0 - 30/08/13
+------------------
+* BREAKING CHANGES - This new version will not be compatible with QVDs from a previous version.
+* IMPORTANT - This version requires QVSource 1.4.7.5 or later.
+* Added columns to feed table:
+from_id as FeedItem_from_id,
+status_type as FeedItem_status_type,
+to_id as FeedItem_to_id,
+to_name as FeedItem_to_name,
+to_category as FeedItem_to_category,
+story as FeedItem_story,
+application_name as FeedItem_application_name,
+application_namespace as FeedItem_application_namespace,
+application_id as FeedItem_application_id,
+has_at_least_this_many_likes as FeedItem_has_at_least_this_many_likes,
+has_at_least_this_many_comments as FeedItem_has_at_least_this_many_comments,
+* Added new vLikeCountThreshold and vCommentCountThreshold to config file and associated logic/loadscript. See notes in config file for more detail.
+* vIgnoreCache moved to config file.
+* Added warning notes on intro tab when vLoadCommentCountForFeedItems or vLoadLikeCountForFeedItems are not set to 1.
+* App is now set to require QVSource 1.4.7.5.
+
 1.9.1.2 - 02/08/13
 ------------------
 * Added let vLoadCommentCountForFeedItems and vLoadLikeCountForFeedItems flags to config file. Currently recommended that these are turned off.
@@ -434,7 +455,7 @@ sub CheckQVSourceStatus
     let currentVersionAsInt = (peek('Version_Major', 0, 'QVSourceStatus') * 1000) + (peek('Version_Minor', 0, 'QVSourceStatus') * 100) + (peek('Version_Build', 0, 'QVSourceStatus') * 10) + peek('Version_Revision', 0, 'QVSourceStatus');
  
     // Let's pretend we need QVSource 1.4.2.6 or later....  
-    if(currentVersionAsInt < 1471) then
+    if(currentVersionAsInt < 1475) then
         // Log message here or send email using QVSource Notifier Connector
         trace 'Version too low. Please update QVSource.';
         exit script;
@@ -867,11 +888,6 @@ if isnull(size) then
 ELSE
 	let vIsFirstTime = 0; // If this file is present then the script has run before.
 end if
-
-//
-// Could set this to false for debugging (would be faster to retrieve results but they might be out of date).
-//
-let vIgnoreCache = 'true';
 	    
 if(vGetLatestData=1) then
 
@@ -892,7 +908,6 @@ if(vGetLatestData=1) then
 		LOAD
 			'$(vToday)' as FeedItem_loaddate,
 			timestamp(now(1)) as FeedItem_loadtimestamp,
-			//page as page,
 			'$(page)' as page,
 			feeditem_id as FeedItem_id,
 			poster_id as Poster_id,
@@ -912,103 +927,146 @@ if(vGetLatestData=1) then
 			created as FeedItem_created,
 			updated as FeedItem_updated,
 			object_id as FeedItem_object_id,
-			'?' as FeedItem_likes_count,
-			'?' as FeedItem_comments_count,
-			//likes_count as FeedItem_likes_count,  removed from Facebook API now returns warning in QVSource. We now use LikeCountForItem table
-			shares_count as FeedItem_shares_count,
+			has_likes as FeedItem_has_likes,
+			has_at_least_this_many_likes as FeedItem_has_at_least_this_many_likes,
+			if(has_at_least_this_many_likes <= $(vLikeCountThreshold), has_at_least_this_many_likes, '> $(vLikeCountThreshold)') as FeedItem_likes_count_tmp,
 			has_comments as FeedItem_has_comments,
-			has_likes as FeedItem_has_likes
-			// comments_count as FeedItem_comments_count removed from Facebook API now returns warning in QVSource. We now use CommentCountForItem table.
+			has_at_least_this_many_comments as FeedItem_has_at_least_this_many_comments,
+			if(has_at_least_this_many_comments <= $(vCommentCountThreshold), has_at_least_this_many_comments, '> $(vCommentCountThreshold)') as FeedItem_comments_count_tmp,
+			shares_count as FeedItem_shares_count,
+			from_id as FeedItem_from_id,
+			status_type as FeedItem_status_type,
+			to_id as FeedItem_to_id,
+			to_name as FeedItem_to_name,
+			to_category as FeedItem_to_category,
+			story as FeedItem_story,
+			application_name as FeedItem_application_name,
+			application_namespace as FeedItem_application_namespace,
+			application_id as FeedItem_application_id
 		FROM
 		[$(loadUrl)]
 		(qvx); 
 		
 		// call logQVSourceError(scripterrordetails, 'FacebookPro\FeedItems\$(page)');
-		
-	next
 
-	let vParamsFile = '$(vWorkingFolder)$(vQVSourceAppId)' & '_FeedItemIds.txt';
+	next
+	
+	let vParamsFile = '$(vWorkingFolder)$(vQVSourceAppId)' & '_FeedItemIdsToCountComments.txt';
 
 	Params:
 	LOAD distinct
 	    FeedItem_id as rowKey,
 	    FeedItem_id as ObjectId
 	resident
-	FB_Feed;
+	FB_Feed
+	where FeedItem_has_at_least_this_many_comments > $(vCommentCountThreshold);
+	
+	store Params into '$(vParamsFile)' (txt);
+
+	let vCount = NoOfRows('Params');
+	
+	DROP table Params;
+
+	if (vCount > 0 and vLoadCommentCountForFeedItems = 1) then
+			
+			trace 'About to check comment count for $(vCount) feed items asynchronously. Might take some time...';
+			
+			join (FB_Feed)
+			LOAD
+				rowKey as FeedItem_id,
+				total_count as FeedItem_comments_count_aboveThresholdCount
+			FROM																										 
+			[$(vQVSourceBaseUrl)/QVSource/FacebookFanPagesConnector/?table=CommentCountForItem&appID=$(vQVSourceAppId)&processParamsAsync=$(vParamsFile)&format=qvx]
+			(qvx);
+			
+			FB_Feed2:
+			load
+			*,
+			if(isnull(FeedItem_comments_count_aboveThresholdCount), FeedItem_comments_count_tmp, FeedItem_comments_count_aboveThresholdCount) as FeedItem_comments_count
+			resident
+			FB_Feed;
+			
+			drop table FB_Feed;
+			drop field FeedItem_comments_count_tmp;
+			drop field FeedItem_comments_count_aboveThresholdCount;
+			rename table FB_Feed2 to FB_Feed;
+			
+	else
+			rename field FeedItem_comments_count_tmp to FeedItem_comments_count;
+	endif
+					
+	let vParamsFile = '$(vWorkingFolder)$(vQVSourceAppId)' & '_FeedItemIdsToCountLikes.txt';
+
+	Params:
+	LOAD distinct
+	    FeedItem_id as rowKey,
+	    FeedItem_id as ObjectId
+	resident
+	FB_Feed
+	where FeedItem_has_at_least_this_many_likes > $(vLikeCountThreshold);
 	 
 	store Params into '$(vParamsFile)' (txt);
 
 	let vCount = NoOfRows('Params');
 	
 	DROP table Params;
-		
-	if (vCount > 0) then
-		
-		if vLoadCommentCountForFeedItems = 1 then
-		
-			trace 'About to check comment count for $(vCount) feed items asynchronously. Might take some time...';
-			
-			drop field FeedItem_comments_count;
-			
-			join (FB_Feed)
-			LOAD
-				rowKey as FeedItem_id,
-				total_count as FeedItem_comments_count
-				//order as CommentCountForItem_order
-			FROM																										 
-			[$(vQVSourceBaseUrl)/QVSource/FacebookFanPagesConnector/?table=CommentCountForItem&appID=$(vQVSourceAppId)&processParamsAsync=$(vParamsFile)&format=qvx]
-			(qvx);
-			
-		ELSE
-		
-		
-		
-		endif
 
-		if vLikeCountForFeedItems = 1 then
+	if (vCount > 0 and vLoadLikeCountForFeedItems = 1) then
 					
 			trace 'About to check like count for $(vCount) feed items asynchronously. Might take some time...';
-			
-			drop field FeedItem_likes_count;
-			
+					
 			join (FB_Feed)
 			LOAD
 				rowKey as FeedItem_id,
-				total_count as FeedItem_likes_count
+				total_count as FeedItem_likes_count_aboveThresholdCount
 			FROM																										 
 			[$(vQVSourceBaseUrl)/QVSource/FacebookFanPagesConnector/?table=LikeCountForItem&appID=$(vQVSourceAppId)&processParamsAsync=$(vParamsFile)&format=qvx]
 			(qvx);
-			
-		endif
-	
-		trace 'Establishing number of feed items with comments to load in this run...';
-	
-		FB_FeedItemsLoadedInThisRun:
-		load
-		page as FB_FeedItemsLoadedInThisRun_page,
-		FeedItem_id as FB_FeedItemsLoadedInThisRun_id
-		resident
-		FB_Feed
-		//where FeedItem_comments_count > 0; 
-		where FeedItem_has_comments = 'true';
-		
-		if not isnull(size) then	
-			FB_Feed:
-			LOAD * FROM '$(fb_pro_feed)' (qvd)
-			where not exists (FeedItem_id);
-		endif	
-	
-		STORE FB_Feed INTO '$(fb_pro_feed)';
 
-	ELSE
-		trace 'No Feeditems';
-		exit script;
+			FB_Feed2:
+			load
+			*,
+			if(isnull(FeedItem_likes_count_aboveThresholdCount), FeedItem_likes_count_tmp, FeedItem_likes_count_aboveThresholdCount) as FeedItem_likes_count
+			resident
+			FB_Feed;
+			
+			drop table FB_Feed;
+			drop field FeedItem_likes_count_tmp;
+			drop field FeedItem_likes_count_aboveThresholdCount;
+			rename table FB_Feed2 to FB_Feed;
+	else
+			rename field FeedItem_likes_count_tmp to FeedItem_likes_count;
 	endif
+	
+	FB_Feed2:
+	load
+	*
+	resident FB_Feed;
+	
+	trace 'Establishing number of feed items with comments to load in this run...';
+
+	FB_FeedItemsLoadedInThisRun:
+	load
+	page as FB_FeedItemsLoadedInThisRun_page,
+	FeedItem_id as FB_FeedItemsLoadedInThisRun_id
+	resident
+	FB_Feed
+	where FeedItem_has_comments = 'true';
+	
+	if not isnull(size) then	
+		FB_Feed:
+		LOAD * FROM '$(fb_pro_feed)' (qvd)
+		where not exists (FeedItem_id);
+	endif	
+
+	STORE FB_Feed INTO '$(fb_pro_feed)';
 	 
 ELSE // vGetLatestData != 1
+
 	FB_Feed:
 	LOAD * FROM '$(fb_pro_feed)' (qvd);
-endif
+	
+endif 
 
 if vDeleteTempTables = 1 then
 	drop table temp_pagesID;

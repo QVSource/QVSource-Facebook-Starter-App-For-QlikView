@@ -1929,7 +1929,6 @@
   <TableProperties>
     <VerticalLabels>false</VerticalLabels>
     <ColWidths>
-      <int>900</int>
       <int>1047</int>
     </ColWidths>
     <Striping>
