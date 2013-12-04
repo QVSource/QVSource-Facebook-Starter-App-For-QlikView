@@ -3787,7 +3787,7 @@
     <ChartDimensionDataDef>
       <PseudoDef>
         <Name>AllContent_id</Name>
-        <Type>NOT_PRESENT</Type>
+        <Type>PRESENT</Type>
       </PseudoDef>
       <Title></Title>
       <TotalString></TotalString>

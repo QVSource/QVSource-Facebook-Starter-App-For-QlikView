@@ -272,7 +272,7 @@
         <Type>TYPE_OPEN_URL</Type>
         <Parameters>
           <StringExpr>
-            <v>http://www.qvsource.com/wiki/QlikView-Connector-for-Facebook-Pages-Demo-Application.ashx</v>
+            <v>http://wiki.qvsource.com/QlikView-Connector-for-Facebook-Pages-Demo-Application.ashx</v>
           </StringExpr>
           <StringExpr></StringExpr>
         </Parameters>

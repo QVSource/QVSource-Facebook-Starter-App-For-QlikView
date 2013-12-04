@@ -15,6 +15,10 @@ The content below is copied from the change log in the first tab of the load scr
 Change Log
 ----------
 
+1.9.2.1 - 04/12/13
+------------------
+* Updated badge.
+
 1.9.2.0 - 30/08/13
 ------------------
 * BREAKING CHANGES - This new version will not be compatible with QVDs from a previous version.
