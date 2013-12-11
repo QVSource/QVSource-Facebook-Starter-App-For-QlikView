@@ -219,7 +219,7 @@
   <_ExpressionDatas>
     <ExpressionData>
       <Definition>
-        <v>sum(FeedItem_comments_count2)</v>
+        <v>sum(FeedItem_comments_count)</v>
       </Definition>
       <Enable>true</Enable>
       <Present>false</Present>
@@ -3411,7 +3411,7 @@
           <InternalId>-1</InternalId>
           <ExpressionData>
             <Definition>
-              <v>sum(FeedItem_comments_count2)</v>
+              <v>sum(FeedItem_comments_count)</v>
             </Definition>
             <Enable>true</Enable>
             <Present>false</Present>

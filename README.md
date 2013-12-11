@@ -14,6 +14,9 @@ The content below is copied from the change log in the first tab of the load scr
 
 Change Log
 ----------
+1.9.2.2 - 11/12/13
+------------------
+* Changed FeedItem_comments_count2 to FeedItem_comments_count in CH26, CH27 y CH32.
 
 1.9.2.1 - 04/12/13
 ------------------

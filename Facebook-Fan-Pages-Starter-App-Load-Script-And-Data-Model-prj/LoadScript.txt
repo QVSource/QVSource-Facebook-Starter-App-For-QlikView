@@ -1,5 +1,9 @@
 ﻿///$tab Change Log
 /*
+1.9.2.2 - 11/12/13
+------------------
+* Changed FeedItem_comments_count2 to FeedItem_comments_count in CH26, CH27 y CH32.
+
 1.9.2.1 - 04/12/13
 ------------------
 * Updated badge.
