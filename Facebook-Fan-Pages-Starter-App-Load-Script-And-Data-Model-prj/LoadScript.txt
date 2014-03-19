@@ -1,5 +1,10 @@
 ﻿///$tab Change Log
 /*
+1.9.2.3 - 19/03/14
+------------------
+* Added FeedItems_comment_link and FeedItems_like_link fields to Feed Item data. This is a link which allows you to open the specific post in a browser.
+* Added response_status fields to Poster and Commenter tables.
+
 1.9.2.2 - 11/12/13
 ------------------
 * Changed FeedItem_comments_count2 to FeedItem_comments_count in CH26, CH27 y CH32.
@@ -925,6 +930,8 @@ if(vGetLatestData=1) then
 			type as FeedItem_UpdateType,
 			message as FeedItem_message,
 			message_urlEncoded as FeedItem_message_urlEncoded,
+			comment_link as FeedItems_comment_link,
+			like_link as FeedItems_like_link,
 			picture as FeedItem_picture,
 			link as FeedItem_link,
 			source as FeedItem_source,
@@ -1401,6 +1408,7 @@ if vLoadPostersAndCommenterInfo = 1 then
 				FB_Posters:
 				LOAD
 					'$(vToday)' as Poster_loaddate,
+					response_status as Poster_response_status,
 					timestamp(now(1)) as Poster_loadtimestamp,
 					user_id as Poster_id,
 					name as Poster_name,
@@ -1455,6 +1463,7 @@ if vLoadPostersAndCommenterInfo = 1 then
 					FB_Posters:
 					LOAD
 						'$(vToday)' as Poster_loaddate,
+						response_status as Poster_response_status,
 						timestamp(now(1)) as Poster_loadtimestamp,
 						user_id as Poster_id,
 						name as Poster_name,
@@ -1594,6 +1603,7 @@ if vLoadPostersAndCommenterInfo = 1 then
 				FB_Commenters:
 				LOAD
 					'$(vToday)' as Commenter_loaddate,
+					response_status as Commenter_response_status,
 					timestamp(now(1)) as Commenter_loadtimestamp,
 					user_id as Commenter_id,
 					name as Commenter_name,
@@ -1648,6 +1658,7 @@ if vLoadPostersAndCommenterInfo = 1 then
 					FB_Commenters:
 					LOAD
 						'$(vToday)' as Commenter_loaddate,
+						response_status as Commenter_response_status,
 						timestamp(now(1)) as Commenter_loadtimestamp,
 						user_id as Commenter_id,
 						name as Commenter_name,

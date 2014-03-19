@@ -14,6 +14,11 @@ The content below is copied from the change log in the first tab of the load scr
 
 Change Log
 ----------
+1.9.2.3 - 19/03/14
+------------------
+* Added FeedItems_comment_link and FeedItems_like_link fields to Feed Item data. This is a link which allows you to open the specific post in a browser.
+* Added response_status fields to Poster and Commenter tables.
+
 1.9.2.2 - 11/12/13
 ------------------
 * Changed FeedItem_comments_count2 to FeedItem_comments_count in CH26, CH27 y CH32.
