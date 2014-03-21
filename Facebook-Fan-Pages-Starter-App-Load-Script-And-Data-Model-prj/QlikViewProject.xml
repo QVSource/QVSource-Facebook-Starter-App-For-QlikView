@@ -1,4 +1,4 @@
-﻿<!-- Last project change: 2014-03-19 11:17:31 (2014-03-19 10:17:31) -->
+﻿<!-- Last project change: 2014-03-21 09:49:06 (2014-03-21 08:49:06) -->
 <PrjQlikViewProject>
   <GLOBAL>
     <AllPropertiesFileName>AllProperties.xml</AllPropertiesFileName>
@@ -805,12 +805,12 @@
           <ZedLevel>-1</ZedLevel>
         </PrjFrameParentDef>
         <PrjFrameParentDef>
-          <ObjectId>Document\TX13</ObjectId>
+          <ObjectId>Document\TX35_672410024</ObjectId>
           <Rect>
-            <Left>1513</Left>
-            <Top>1325</Top>
-            <Width>819</Width>
-            <Height>306</Height>
+            <Left>1550</Left>
+            <Top>1322</Top>
+            <Width>850</Width>
+            <Height>350</Height>
           </Rect>
           <MinimizedRect>
             <Left>0</Left>
@@ -913,12 +913,12 @@
       <IsActive>false</IsActive>
       <ChildObjects>
         <PrjFrameParentDef>
-          <ObjectId>Document\TX09</ObjectId>
+          <ObjectId>Document\TX36_437084671</ObjectId>
           <Rect>
-            <Left>2850</Left>
-            <Top>1406</Top>
-            <Width>819</Width>
-            <Height>306</Height>
+            <Left>2881</Left>
+            <Top>994</Top>
+            <Width>850</Width>
+            <Height>350</Height>
           </Rect>
           <MinimizedRect>
             <Left>0</Left>
