@@ -225,6 +225,7 @@
       <v>Likes Per Post</v>
     </WindowTitle>
     <GraphMode>GRAPH_MODE_BAR</GraphMode>
+    <TotalString></TotalString>
     <ErrorMessageOverrides>
       <StringExpr>
         <v>vLikeCountForFeedItems not set to 1 in config file.
@@ -1329,7 +1330,6 @@ It is actually recommended at present not to use this.</v>
     <SheetPrintDrawBackGround>false</SheetPrintDrawBackGround>
     <StrDevModeExtra></StrDevModeExtra>
   </PrintSettings>
-  <ActivePropertyPage>3</ActivePropertyPage>
   <DoctorSpecial>0</DoctorSpecial>
   <DoctorMapField></DoctorMapField>
   <Detached>false</Detached>
@@ -2416,6 +2416,7 @@ It is actually recommended at present not to use this.</v>
     <DynamicImage></DynamicImage>
     <TrellisProperties></TrellisProperties>
     <MekkoChartMode>MEKKOCHART_NORMALIZED</MekkoChartMode>
+    <TruncateLabel>true</TruncateLabel>
   </ChartProperties>
   <TableProperties>
     <VerticalLabels>false</VerticalLabels>

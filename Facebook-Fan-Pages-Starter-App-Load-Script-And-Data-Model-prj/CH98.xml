@@ -213,6 +213,7 @@
       <v>Sentiment vs Poster Gender</v>
     </WindowTitle>
     <GraphMode>GRAPH_MODE_GRID</GraphMode>
+    <TotalString></TotalString>
     <ErrorMessageOverrides>
       <StringExpr></StringExpr>
       <StringExpr></StringExpr>
@@ -1461,7 +1462,6 @@ See docs.</v>
     <SheetPrintDrawBackGround>false</SheetPrintDrawBackGround>
     <StrDevModeExtra></StrDevModeExtra>
   </PrintSettings>
-  <ActivePropertyPage>1</ActivePropertyPage>
   <DoctorSpecial>0</DoctorSpecial>
   <DoctorMapField></DoctorMapField>
   <Detached>false</Detached>
@@ -2546,6 +2546,7 @@ See docs.</v>
     <DynamicImage></DynamicImage>
     <TrellisProperties></TrellisProperties>
     <MekkoChartMode>MEKKOCHART_NORMALIZED</MekkoChartMode>
+    <TruncateLabel>true</TruncateLabel>
   </ChartProperties>
   <TableProperties>
     <VerticalLabels>false</VerticalLabels>

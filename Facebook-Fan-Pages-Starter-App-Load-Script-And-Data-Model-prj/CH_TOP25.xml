@@ -43,9 +43,9 @@
       <Bmp enctype="base64"></Bmp>
       <BmpMode>0</BmpMode>
       <Detached>false</Detached>
-      <AllowMinimize>true</AllowMinimize>
+      <AllowMinimize>false</AllowMinimize>
       <AutoMinimize>false</AutoMinimize>
-      <AllowMaximize>true</AllowMaximize>
+      <AllowMaximize>false</AllowMaximize>
       <AllowInfo>false</AllowInfo>
       <PrintIcon>false</PrintIcon>
       <CopyIcon>false</CopyIcon>
@@ -213,6 +213,7 @@
       <v>Top 25 Contributors</v>
     </WindowTitle>
     <GraphMode>GRAPH_MODE_BAR</GraphMode>
+    <TotalString></TotalString>
     <ErrorMessageOverrides></ErrorMessageOverrides>
     <MiniChartLook>false</MiniChartLook>
   </GraphLayout>
@@ -1055,7 +1056,6 @@
     <SheetPrintDrawBackGround>false</SheetPrintDrawBackGround>
     <StrDevModeExtra></StrDevModeExtra>
   </PrintSettings>
-  <ActivePropertyPage>1</ActivePropertyPage>
   <DoctorSpecial>0</DoctorSpecial>
   <DoctorMapField></DoctorMapField>
   <Detached>false</Detached>
@@ -2076,6 +2076,7 @@
     <DynamicImage></DynamicImage>
     <TrellisProperties></TrellisProperties>
     <MekkoChartMode>MEKKOCHART_NORMALIZED</MekkoChartMode>
+    <TruncateLabel>true</TruncateLabel>
   </ChartProperties>
   <TableProperties>
     <VerticalLabels>false</VerticalLabels>

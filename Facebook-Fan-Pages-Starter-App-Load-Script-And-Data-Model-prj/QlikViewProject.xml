@@ -1,4 +1,4 @@
-﻿<!-- Last project change: 2014-03-21 09:49:06 (2014-03-21 08:49:06) -->
+﻿<!-- Last project change: 2014-05-11 20:54:29 (2014-05-11 18:54:29) -->
 <PrjQlikViewProject>
   <GLOBAL>
     <AllPropertiesFileName>AllProperties.xml</AllPropertiesFileName>
@@ -1460,6 +1460,13 @@
         <String>Document\CH_LANGUAGE</String>
         <String>Document\CH_COUNTRY</String>
       </ObjectIds>
+      <ObjectLabels>
+        <StringExpr></StringExpr>
+        <StringExpr></StringExpr>
+        <StringExpr></StringExpr>
+        <StringExpr></StringExpr>
+        <StringExpr></StringExpr>
+      </ObjectLabels>
     </PrjContainerMembers>
   </ContainerMembers>
 </PrjQlikViewProject>

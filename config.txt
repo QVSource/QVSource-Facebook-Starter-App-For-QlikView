@@ -198,10 +198,13 @@ let vShowScrapSheets = 0;
 //
 let vIgnoreCache = 'true';
 	    
+//
 // If the has_at_least_this_many_likes value is less than or equal to this we assume this is 
 // the actual like count. If it is greater than this we make extra table requests (and therefore 
 // API calls) to establish correct number.
-let vLikeCountThreshold = 25;
+//
+// NOTE - This should probably be set as 24 unless otherwise stated.
+let vLikeCountThreshold = 24;
 
 // Same as above but for comments.
-let vCommentCountThreshold = 25;
+let vCommentCountThreshold = 24;

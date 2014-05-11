@@ -14,6 +14,10 @@ The content below is copied from the change log in the first tab of the load scr
 
 Change Log
 ----------
+1.9.2.5 - 11/05/14
+------------------
+* Fixed issue where real like and comment counts were not coming through if greater than 25 (by setting vLikeCountThreshold and vCommentCountThreshold to 24).
+
 1.9.2.4 - 21/03/14
 ------------------
 * Fixed old QVSource logos.

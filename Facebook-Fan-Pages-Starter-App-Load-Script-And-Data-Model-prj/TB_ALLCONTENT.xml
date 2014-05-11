@@ -213,6 +213,7 @@
       <v>All Posts And Comments</v>
     </WindowTitle>
     <GraphMode>GRAPH_MODE_STRAIGHTTABLE</GraphMode>
+    <TotalString></TotalString>
     <ErrorMessageOverrides></ErrorMessageOverrides>
     <MiniChartLook>false</MiniChartLook>
   </GraphLayout>
@@ -4063,7 +4064,6 @@
     <SheetPrintDrawBackGround>false</SheetPrintDrawBackGround>
     <StrDevModeExtra></StrDevModeExtra>
   </PrintSettings>
-  <ActivePropertyPage>1</ActivePropertyPage>
   <DoctorSpecial>0</DoctorSpecial>
   <DoctorMapField></DoctorMapField>
   <Detached>false</Detached>
@@ -5502,6 +5502,7 @@
     <DynamicImage></DynamicImage>
     <TrellisProperties></TrellisProperties>
     <MekkoChartMode>MEKKOCHART_NORMALIZED</MekkoChartMode>
+    <TruncateLabel>true</TruncateLabel>
   </ChartProperties>
   <TableProperties>
     <VerticalLabels>false</VerticalLabels>
@@ -6007,8 +6008,8 @@
     </DefaultExprCellVariations>
     <StraightShowOthers>false</StraightShowOthers>
     <InterFieldSortOrder>
-      <int>6</int>
       <int>5</int>
+      <int>6</int>
       <int>1</int>
       <int>4</int>
       <int>0</int>
@@ -8408,8 +8409,8 @@
             <SortCriteria>
               <SortByState>0</SortByState>
               <SortByFrequency>0</SortByFrequency>
-              <SortByNumeric>-1</SortByNumeric>
-              <SortByAscii>-1</SortByAscii>
+              <SortByNumeric>1</SortByNumeric>
+              <SortByAscii>1</SortByAscii>
               <SortByLoadOrder>0</SortByLoadOrder>
               <SortByExpression>0</SortByExpression>
               <Expression></Expression>
