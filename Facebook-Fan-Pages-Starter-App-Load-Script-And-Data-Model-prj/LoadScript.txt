@@ -1,5 +1,17 @@
 ﻿///$tab Change Log
 /*
+2.0.0.0 - 05/08/14
+------------------
+* YOU MUST HAVE QVSource version 1.5.4.6 or later to use this application
+* upgraded to ONLY WORK with the Facebook Pages and Groups Connector (v2)
+* If you are looking for a version of this application to work with Facebook Pagess and Groups Connector v1, then please look here: https://github.com/QVSource/QVSource-Facebook-Starter-App-For-QlikView/releases
+* BREAKING CHANGE:  Removed Sentimental (formerly Chatterbox) connectivity - this is because Sentimental have now removed their API from Mashape and as such we are no longer able to offer it either. If you have used this
+then please update the config.txt file to utilise a different Sentiment Analytics API engine
+* Changed 'since' parameter to 'StartDate' for the FeedItems' load URL string
+* Replaced remaining port 5555 references to use the variable
+* Fixed issue where script was testing for feeditem comments being 'true', but should have been testing for 'True'
+* Fixed issue where the FB_Feed table had duplicate rows
+
 1.9.2.5 - 11/05/14
 ------------------
 * Fixed issue where real like and comment counts were not coming through if greater than 25 (by setting vLikeCountThreshold and vCommentCountThreshold to 24).
@@ -388,7 +400,7 @@ sub runSentiment(idColumnAlias, resultsColPrefix, sentimentEngine)
 				//language as $(resultsColPrefix)_Sentiment_language,
 				//status_info as $(resultsColPrefix)_Sentiment_status_info
 			FROM
-			[$(vQVSourceBaseUrl)/QVSource/TextAnalyserV2/?table=Sentiment&processParams$(vProcessParam)=$(vParamsFile)&format=qvx&appID=$(vQVSourceAppId)]
+			[$(vQVSourceBaseUrl)/QVSource/TextAnalyserV2/?table=Sentiment&processParams$(vProcessParam)=$(vParamsFile)&appID=$(vQVSourceAppId)]
 			(qvx)
 			where status = 'OK';
 			
@@ -410,7 +422,7 @@ sub runSentiment(idColumnAlias, resultsColPrefix, sentimentEngine)
 					//language as $(resultsColPrefix)_Sentiment_language,
 					//status_info as $(resultsColPrefix)_Sentiment_status_info
 				FROM
-				[$(vQVSourceBaseUrl)/QVSource/TextAnalyserV2/?table=Sentiment&api=$(sentimentEngine)&text=$(text)&Sentiment140_Language=es&format=qvx&appID=$(vQVSourceAppId)]
+				[$(vQVSourceBaseUrl)/QVSource/TextAnalyserV2/?table=Sentiment&api=$(sentimentEngine)&text=$(text)&Sentiment140_Language=es&appID=$(vQVSourceAppId)]
 				(qvx)
 				where status = 'OK';// and not exists(FeedItem_Sentiment_key, '$(api)_$(id)');
 				
@@ -529,7 +541,7 @@ MODEL ID 3830 is trained on ~10 000 english product reviews.
 //			    AsyncKey,
 //			    Result
 //			FROM
-//			[$(vQVSourceBaseUrl)/QVSource/SentimentAnalyser/?table=AddText&clearAsyncResults=$(vCurrentAsyncKey)&format=qvx&appID=$(vQVSourceAppId)]
+//			[$(vQVSourceBaseUrl)/QVSource/SentimentAnalyser/?table=AddText&clearAsyncResults=$(vCurrentAsyncKey)&appID=$(vQVSourceAppId)]
 //			(qvx);
 //			
 //			for j=0 to $(noItems)-1
@@ -544,7 +556,7 @@ MODEL ID 3830 is trained on ~10 000 english product reviews.
 //				      AsyncRequest,
 //				      AsyncStatus
 //				FROM
-//			    [$(vQVSourceBaseUrl)/QVSource/SentimentAnalyser/?table=AddText&SentimentEngine=Saplo&Saplo_collection_id=$(vSaploCollectionId)&Message=$(text)&format=qvx&asyncKey=$(vCurrentAsyncKey)&asyncRowKey=$(id)&appID=$(vQVSourceAppId)]
+//			    [$(vQVSourceBaseUrl)/QVSource/SentimentAnalyser/?table=AddText&SentimentEngine=Saplo&Saplo_collection_id=$(vSaploCollectionId)&Message=$(text)&asyncKey=$(vCurrentAsyncKey)&asyncRowKey=$(id)&appID=$(vQVSourceAppId)]
 //			   	(qvx);
 //			   								 
 //				call logQVSourceError(scripterrordetails, 'SentimentAnalyser\Queue_Feed_Async_Sentiment\$(api)_$(id)');
@@ -569,7 +581,7 @@ MODEL ID 3830 is trained on ~10 000 english product reviews.
 //		        text_id as AddText_text_id,
 //		        url as AddText_url
 //		    FROM
-//		    [$(vQVSourceBaseUrl)/QVSource/SentimentAnalyser/?table=AddText&getAsyncResults=$(vCurrentAsyncKey)&format=qvx&appID=$(vQVSourceAppId)]
+//		    [$(vQVSourceBaseUrl)/QVSource/SentimentAnalyser/?table=AddText&getAsyncResults=$(vCurrentAsyncKey)&appID=$(vQVSourceAppId)]
 //		    (qvx);
 //					    				
 //			Saplo_StillToScore_WithAddedStatusOK:
@@ -630,7 +642,7 @@ MODEL ID 3830 is trained on ~10 000 english product reviews.
 //			value as CollectionPredict_value,
 //			text_id as CollectionPredict_text_id
 //		FROM
-//		[$(vQVSourceBaseUrl)/QVSource/TextAnalyser/?table=CollectionPredict&SentimentEngine=Saplo&Saplo_model_id=$(vSaploModelId)&Saplo_collection_id=$(vSaploCollectionId)&Saplo_text_id=$(vCurrentId)&format=qvx&appID=$(vQVSourceAppId)]
+//		[$(vQVSourceBaseUrl)/QVSource/TextAnalyser/?table=CollectionPredict&SentimentEngine=Saplo&Saplo_model_id=$(vSaploModelId)&Saplo_collection_id=$(vSaploCollectionId)&Saplo_text_id=$(vCurrentId)&appID=$(vQVSourceAppId)]
 //		(qvx)
 //		Order by CollectionPredict_text_id asc;
 //		
@@ -672,7 +684,7 @@ MODEL ID 3830 is trained on ~10 000 english product reviews.
 //				    AsyncKey,
 //				    Result
 //				FROM
-//				[$(vQVSourceBaseUrl)/QVSource/SentimentAnalyser/?table=AddText&clearAsyncResults=$(vCurrentAsyncKey)&format=qvx&appID=$(vQVSourceAppId)]
+//				[$(vQVSourceBaseUrl)/QVSource/SentimentAnalyser/?table=AddText&clearAsyncResults=$(vCurrentAsyncKey)&appID=$(vQVSourceAppId)]
 //				(qvx);
 //				
 //				for j=0 to 10//$(noItems)-1
@@ -687,7 +699,7 @@ MODEL ID 3830 is trained on ~10 000 english product reviews.
 //					      AsyncRequest,
 //					      AsyncStatus
 //					FROM
-//				    [$(vQVSourceBaseUrl)/QVSource/SentimentAnalyser/?table=AddText&SentimentEngine=Saplo&Saplo_collection_id=$(vSaploCollectionId)&Message=$(text)&format=qvx&asyncKey=$(vCurrentAsyncKey)&asyncRowKey=$(id)&appID=$(vQVSourceAppId)]
+//				    [$(vQVSourceBaseUrl)/QVSource/SentimentAnalyser/?table=AddText&SentimentEngine=Saplo&Saplo_collection_id=$(vSaploCollectionId)&Message=$(text)&asyncKey=$(vCurrentAsyncKey)&asyncRowKey=$(id)&appID=$(vQVSourceAppId)]
 //				   	(qvx);
 //				   								 
 //					call logQVSourceError(scripterrordetails, 'SentimentAnalyser\Queue_Feed_Async_Sentiment\$(api)_$(id)');
@@ -712,7 +724,7 @@ MODEL ID 3830 is trained on ~10 000 english product reviews.
 //			        text_id as AddText_text_id,
 //			        url as AddText_url
 //			    FROM
-//			    [$(vQVSourceBaseUrl)/QVSource/SentimentAnalyser/?table=AddText&getAsyncResults=$(vCurrentAsyncKey)&format=qvx&appID=$(vQVSourceAppId)]
+//			    [$(vQVSourceBaseUrl)/QVSource/SentimentAnalyser/?table=AddText&getAsyncResults=$(vCurrentAsyncKey)&appID=$(vQVSourceAppId)]
 //			    (qvx);
 //						    				
 //				Saplo_StillToScore_WithAddedStatusOK:
@@ -742,7 +754,7 @@ MODEL ID 3830 is trained on ~10 000 english product reviews.
 //				    AsyncKey,
 //				    Result
 //				FROM
-//				[$(vQVSourceBaseUrl)/QVSource/SentimentAnalyser/?table=Predict&clearAsyncResults=$(vCurrentAsyncKey)&format=qvx&appID=$(vQVSourceAppId)]
+//				[$(vQVSourceBaseUrl)/QVSource/SentimentAnalyser/?table=Predict&clearAsyncResults=$(vCurrentAsyncKey)&appID=$(vQVSourceAppId)]
 //				(qvx);
 //	
 //				LET noRows = NoOfRows('Saplo_StillToScore_WithAddedStatusOK');
@@ -759,7 +771,7 @@ MODEL ID 3830 is trained on ~10 000 english product reviews.
 //					      AsyncRequest,
 //					      AsyncStatus
 //				    FROM
-//				    [$(vQVSourceBaseUrl)/QVSource/SentimentAnalyser/?table=Predict&SentimentEngine=Saplo&Saplo_collection_id=$(vSaploCollectionId)&Saplo_text_id=$(saploId)&Saplo_model_id=$(vSaploModelId)&asyncKey=$(vCurrentAsyncKey)&asyncRowKey=$(id)&format=qvx&appID=$(vQVSourceAppId)]
+//				    [$(vQVSourceBaseUrl)/QVSource/SentimentAnalyser/?table=Predict&SentimentEngine=Saplo&Saplo_collection_id=$(vSaploCollectionId)&Saplo_text_id=$(saploId)&Saplo_model_id=$(vSaploModelId)&asyncKey=$(vCurrentAsyncKey)&asyncRowKey=$(id)&appID=$(vQVSourceAppId)]
 //				    (qvx);
 //				     
 //				next
@@ -781,7 +793,7 @@ MODEL ID 3830 is trained on ~10 000 english product reviews.
 //				'sv' as $(resultsColPrefix)_Sentiment_language,
 //				'' as $(resultsColPrefix)_Sentiment_status_info
 //			    FROM
-//			    [$(vQVSourceBaseUrl)/QVSource/SentimentAnalyser/?table=Predict&getAsyncResults=$(vCurrentAsyncKey)&format=qvx&appID=$(vQVSourceAppId)]
+//			    [$(vQVSourceBaseUrl)/QVSource/SentimentAnalyser/?table=Predict&getAsyncResults=$(vCurrentAsyncKey)&appID=$(vQVSourceAppId)]
 //			    (qvx);
 //		
 //		 	else
@@ -805,7 +817,7 @@ MODEL ID 3830 is trained on ~10 000 english product reviews.
 ////				        text_id as AddText_text_id,
 ////				        url as AddText_url
 ////				    FROM
-////				    [http://localhost:5555/QVSource/SentimentAnalyser/?table=AddText&SentimentEngine=Saplo&Saplo_collection_id=$(vSaploCollectionId)&Message=$(text)&format=qvx&appID=$(vQVSourceAppId)]
+////				    [http://localhost:5555/QVSource/SentimentAnalyser/?table=AddText&SentimentEngine=Saplo&Saplo_collection_id=$(vSaploCollectionId)&Message=$(text)&appID=$(vQVSourceAppId)]
 ////				    (qvx);
 ////				 
 ////					call logQVSourceError(scripterrordetails, 'SentimentAnalyser\Feed\$(api)_$(id)');
@@ -879,7 +891,7 @@ if(vGetLatestData=1) then
 			products as Page_products,
 			can_post as Page_can_post
 		FROM
-		[$(vQVSourceBaseUrl)/QVSource/FacebookProConnector/?table=Page&FacebookPageOrId=$(page)&noCache=true&format=qvx&appID=$(vQVSourceAppId)]
+		[$(vQVSourceBaseUrl)/QVSource/FacebookFanPagesConnectorV2/?table=Page&FacebookPageOrId=$(page)&noCache=true&appID=$(vQVSourceAppId)]
 		(qvx); 			
 
 		call logQVSourceError(scripterrordetails, 'FacebookPro\Page\$(page)');
@@ -920,9 +932,9 @@ if(vGetLatestData=1) then
 	    let pageID = peek('page_id', $(i), 'temp_pagesID');
 	       
 	    if(vIsFirstTime=1) then
-	    	let loadUrl='$(vQVSourceBaseUrl)/QVSource/FacebookProConnector/?table=FeedItems&FacebookPageOrId=$(pageID)&since=$(vOldestFeedCreatedDateForInitialReload)&noCache=$(vIgnoreCache)&format=qvx&appID=$(vQVSourceAppId)';
+	    	let loadUrl='$(vQVSourceBaseUrl)/QVSource/FacebookFanPagesConnectorV2/?table=FeedItems&FacebookPageOrId=$(pageID)&StartDate=$(vOldestFeedCreatedDateForInitialReload)&noCache=$(vIgnoreCache)&appID=$(vQVSourceAppId)';
 	    else
-	    	let loadUrl='$(vQVSourceBaseUrl)/QVSource/FacebookProConnector/?table=FeedItems&FacebookPageOrId=$(pageID)&since=$(vOldestFeedCreatedDateForSubsequentReloads)&noCache=$(vIgnoreCache)&format=qvx&appID=$(vQVSourceAppId)';	    	
+	    	let loadUrl='$(vQVSourceBaseUrl)/QVSource/FacebookFanPagesConnectorV2/?table=FeedItems&FacebookPageOrId=$(pageID)&StartDate=$(vOldestFeedCreatedDateForSubsequentReloads)&noCache=$(vIgnoreCache)&appID=$(vQVSourceAppId)';	    	
 	    endif
 	    
  		FB_Feed:
@@ -999,7 +1011,7 @@ if(vGetLatestData=1) then
 				rowKey as FeedItem_id,
 				total_count as FeedItem_comments_count_aboveThresholdCount
 			FROM																										 
-			[$(vQVSourceBaseUrl)/QVSource/FacebookFanPagesConnector/?table=CommentCountForItem&appID=$(vQVSourceAppId)&processParamsAsync=$(vParamsFile)&format=qvx]
+			[$(vQVSourceBaseUrl)/QVSource/FacebookFanPagesConnectorV2/?table=CommentCountForItem&appID=$(vQVSourceAppId)&processParamsAsync=$(vParamsFile)]
 			(qvx);
 			
 			FB_Feed2:
@@ -1043,7 +1055,7 @@ if(vGetLatestData=1) then
 				rowKey as FeedItem_id,
 				total_count as FeedItem_likes_count_aboveThresholdCount
 			FROM																										 
-			[$(vQVSourceBaseUrl)/QVSource/FacebookFanPagesConnector/?table=LikeCountForItem&appID=$(vQVSourceAppId)&processParamsAsync=$(vParamsFile)&format=qvx]
+			[$(vQVSourceBaseUrl)/QVSource/FacebookFanPagesConnectorV2/?table=LikeCountForItem&appID=$(vQVSourceAppId)&processParamsAsync=$(vParamsFile)]
 			(qvx);
 
 			FB_Feed2:
@@ -1061,20 +1073,20 @@ if(vGetLatestData=1) then
 			rename field FeedItem_likes_count_tmp to FeedItem_likes_count;
 	endif
 	
-	FB_Feed2:
-	load
-	*
-	resident FB_Feed;
+//	FB_Feed2:
+//	load
+//	*
+//	resident FB_Feed;
 	
 	trace 'Establishing number of feed items with comments to load in this run...';
 
-	FB_FeedItemsLoadedInThisRun:
+	FB_FeedItemsWithCommentsLoadedInThisRun:
 	load
 	page as FB_FeedItemsLoadedInThisRun_page,
 	FeedItem_id as FB_FeedItemsLoadedInThisRun_id
 	resident
 	FB_Feed
-	where FeedItem_has_comments = 'true';
+	where FeedItem_has_comments = 'True';
 	
 	if not isnull(size) then	
 		FB_Feed:
@@ -1102,7 +1114,7 @@ let size = filesize('$(fb_pro_comments)');
 
 if(vGetLatestData=1) then
 
-	LET noRows = NoOfRows('FB_FeedItemsLoadedInThisRun');
+	LET noRows = NoOfRows('FB_FeedItemsWithCommentsLoadedInThisRun');
 
 	if vAsyncComments = 1 then
 		
@@ -1115,7 +1127,7 @@ if(vGetLatestData=1) then
 		    FB_FeedItemsLoadedInThisRun_id as ObjectId,
 		    '$(vNoOfCommentsToLoadPerFeedItem)' as MaxNumberOfItems
 		resident
-		FB_FeedItemsLoadedInThisRun;
+		FB_FeedItemsWithCommentsLoadedInThisRun;
 		 
 		store Params into '$(vParamsFile)' (txt);
 				
@@ -1145,7 +1157,7 @@ if(vGetLatestData=1) then
 				parent_created_time as CommentsAndRepliesForItem_parent_created_time,
 				parent_likes_count as CommentsAndRepliesForItem_parent_likes_count
 			FROM
-			[http://localhost:5555/QVSource/FacebookFanPagesConnector/?table=CommentsAndRepliesForItem&appID=$(vQVSourceAppId)&processParamsAsync=$(vParamsFile)&noCache=$(vIgnoreCache)&format=qvx]
+			[$(vQVSourceBaseUrl)/QVSource/FacebookFanPagesConnectorV2/?table=CommentsAndRepliesForItem&appID=$(vQVSourceAppId)&processParamsAsync=$(vParamsFile)&noCache=$(vIgnoreCache)]
 			(qvx);
 
 		endif
@@ -1156,8 +1168,8 @@ if(vGetLatestData=1) then
 		
 		for i=0 to $(noRows)-1
 				
-			let feedID = peek('FB_FeedItemsLoadedInThisRun_id', $(i), 'FB_FeedItemsLoadedInThisRun');
-			let page = peek('FB_FeedItemsLoadedInThisRun_page', $(i), 'FB_FeedItemsLoadedInThisRun');
+			let feedID = peek('FB_FeedItemsLoadedInThisRun_id', $(i), 'FB_FeedItemsWithCommentsLoadedInThisRun');
+			let page = peek('FB_FeedItemsLoadedInThisRun_page', $(i), 'FB_FeedItemsWithCommentsLoadedInThisRun');
 						
 			TempCommentAndReplies:
 			LOAD
@@ -1181,7 +1193,7 @@ if(vGetLatestData=1) then
 				parent_created_time as CommentsAndRepliesForItem_parent_created_time,
 				parent_likes_count as CommentsAndRepliesForItem_parent_likes_count
 			FROM
-			[http://localhost:5555/QVSource/FacebookFanPagesConnector/?table=CommentsAndRepliesForItem&ObjectId=$(feedID)&MaxNumberOfItems=$(vNoOfCommentsToLoadPerFeedItem)&noCache=$(vIgnoreCache)&format=qvx]
+			[$(vQVSourceBaseUrl)/QVSource/FacebookFanPagesConnectorV2/?table=CommentsAndRepliesForItem&ObjectId=$(feedID)&MaxNumberOfItems=$(vNoOfCommentsToLoadPerFeedItem)&noCache=$(vIgnoreCache)]
 			(qvx);
 
 			//call logQVSourceError(scripterrordetails, 'FacebookPro\Comments');
@@ -1249,7 +1261,7 @@ if(vGetLatestData=1) then
 end if 
 
 if vDeleteTempTables = 1 then
-	drop table FB_FeedItemsLoadedInThisRun;
+	drop table FB_FeedItemsWithCommentsLoadedInThisRun;
 endif
 ///$tab Sentiment
 LET noRows = NoOfRows('SentimentAPIs');
@@ -1459,7 +1471,7 @@ if vLoadPostersAndCommenterInfo = 1 then
 					description as Poster_description,
 					general_info as Poster_general_info
 				FROM
-				[$(vQVSourceBaseUrl)/QVSource/FacebookProConnector/?table=User&processParamsAsync=$(vParamsFile)&format=qvx&appID=$(vQVSourceAppId)]
+				[$(vQVSourceBaseUrl)/QVSource/FacebookFanPagesConnectorV2/?table=User&processParamsAsync=$(vParamsFile)&appID=$(vQVSourceAppId)]
 				(qvx);
 			
 			else
@@ -1514,7 +1526,7 @@ if vLoadPostersAndCommenterInfo = 1 then
 						description as Poster_description,
 						general_info as Poster_general_info
 					FROM
-					[$(vQVSourceBaseUrl)/QVSource/FacebookProConnector/?table=User&UserId=$(posterID)&format=qvx&appID=$(vQVSourceAppId)]
+					[$(vQVSourceBaseUrl)/QVSource/FacebookFanPagesConnectorV2/?table=User&UserId=$(posterID)&appID=$(vQVSourceAppId)]
 					(qvx);
 					
 					call logQVSourceError(scripterrordetails, 'FacebookPro\Posters\$(posterID)');		
@@ -1654,7 +1666,7 @@ if vLoadPostersAndCommenterInfo = 1 then
 					description as Commenter_description,
 					general_info as Commenter_general_info
 				FROM
-				[$(vQVSourceBaseUrl)/QVSource/FacebookProConnector/?table=User&processParamsAsync=$(vParamsFile)&format=qvx&appID=$(vQVSourceAppId)]
+				[$(vQVSourceBaseUrl)/QVSource/FacebookFanPagesConnectorV2/?table=User&processParamsAsync=$(vParamsFile)&appID=$(vQVSourceAppId)]
 				(qvx);
 				
 			else
@@ -1709,7 +1721,7 @@ if vLoadPostersAndCommenterInfo = 1 then
 						description as Commenter_description,
 						general_info as Commenter_general_info
 					FROM
-					[$(vQVSourceBaseUrl)/QVSource/FacebookProConnector/?table=User&UserId=$(commenterID)&format=qvx&appID=$(vQVSourceAppId)]
+					[$(vQVSourceBaseUrl)/QVSource/FacebookFanPagesConnectorV2/?table=User&UserId=$(commenterID)&appID=$(vQVSourceAppId)]
 					(qvx); 
 					
 					call logQVSourceError(scripterrordetails, 'FacebookPro\Commenters\$(commenterID)');		

@@ -97,9 +97,12 @@ let vLoadLikeCountForFeedItems = 1;
 // Random
 // *Saplo 
 // *Viralheat
-// *Chatterbox
+//
 // * NOT SUPPORTED IN THIS VERSION (1.8.5+ OF QVW / 1.4.0.4+ OF QVSOURCE)) We will endeavour to add support back for these 
 // soon but it should be straightforward to adjust the load script to support these.
+//
+// BREAKING CHANGE: Please note that Sentimental (formally Chatterbox) have removed their API from Mashape. As such
+// this sentiment API engine is longer supported and you should switch to an alternative.
 //
 // NOTE:
 // - You may need to ensure you have API keys configured in QVSource for the selections you make here with 

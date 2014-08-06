@@ -1,8 +1,10 @@
-QVSource Facebook Fan Page Starter App For QlikView
+QVSource Facebook Fan Page & Groups Starter App For QlikView
 ===================================================
-IMPORTANT - You will need QVSource 1.4.7.1 or later to run this application. Please contact us for advanced access to this, otherwise it should be released in early August 2013.
+IMPORTANT - You will need QVSource 1.5.4.6 or later to run this application as it ONLY works with the Facebook Pages & Groups Connector v2.
 
-This is a starter QlikView application showing how to get started using the [QVSource Facebook Pages and Groups Connector](http://wiki.qvsource.com/Facebook-Pages-Connector-for-QlikView.ashx) for QlikView.
+If you are using an older version of QVSource or the Facebook Fan Pages Connector v1, then you need to use an older version of this application, which can be found [here](https://github.com/QVSource/QVSource-Facebook-Starter-App-For-QlikView/releases)
+
+This is a starter QlikView application showing how to get started using the [QVSource Facebook Pages and Groups Connector](http://wiki.qvsource.com/Facebook-Fan-Pages-And-Groups-Connector-For-QlikView-(v2).ashx) for QlikView.
 
 Full documentation for this template application can be found [here](http://wiki.qvsource.com/QlikView-Connector-for-Facebook-Pages-Demo-Application.ashx).
 
@@ -14,6 +16,18 @@ The content below is copied from the change log in the first tab of the load scr
 
 Change Log
 ----------
+2.0.0.0 - 05/08/14
+------------------
+* YOU MUST HAVE QVSource version 1.5.4.6 or later to use this application
+* upgraded to ONLY WORK with the Facebook Pages and Groups Connector (v2)
+* If you are looking for a version of this application to work with Facebook Pagess and Groups Connector v1, then please look here: https://github.com/QVSource/QVSource-Facebook-Starter-App-For-QlikView/releases
+* BREAKING CHANGE:  Removed Sentimental (formerly Chatterbox) connectivity - this is because Sentimental have now removed their API from Mashape and as such we are no longer able to offer it either. If you have used this
+then please update the config.txt file to utilise a different Sentiment Analytics API engine
+* Changed 'since' parameter to 'StartDate' for the FeedItems' load URL string
+* Replaced remaining port 5555 references to use the variable
+* Fixed issue where script was testing for feeditem comments being 'true', but should have been testing for 'True'
+* Fixed issue where the FB_Feed table had duplicate rows
+
 1.9.2.5 - 11/05/14
 ------------------
 * Fixed issue where real like and comment counts were not coming through if greater than 25 (by setting vLikeCountThreshold and vCommentCountThreshold to 24).

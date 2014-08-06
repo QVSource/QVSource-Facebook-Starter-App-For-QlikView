@@ -213,7 +213,6 @@
       <v>Gender of Posters</v>
     </WindowTitle>
     <GraphMode>GRAPH_MODE_BAR</GraphMode>
-    <TotalString></TotalString>
     <ErrorMessageOverrides>
       <StringExpr></StringExpr>
       <StringExpr></StringExpr>
@@ -2095,7 +2094,6 @@ See docs.</v>
     <DynamicImage></DynamicImage>
     <TrellisProperties></TrellisProperties>
     <MekkoChartMode>MEKKOCHART_NORMALIZED</MekkoChartMode>
-    <TruncateLabel>true</TruncateLabel>
   </ChartProperties>
   <TableProperties>
     <VerticalLabels>false</VerticalLabels>
