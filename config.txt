@@ -160,8 +160,14 @@ let VEmailNotificationAddress = ''; // 'username@domain.com';
 // With this turned off only a couple of gender and locale related charts in the demo app will not be 
 // available.
 //
-let vLoadPostersAndCommenterInfo = 0;
+// *****************************************************
+// PLEASE NOTE THAT THIS IS NO LONGER SUPPORTED - IT
+// SEEMS FACEBOOK HAVE REMOVED GENDER AND LOCATION FROM 
+// THE RESPONSE
+//
+let vLoadPostersAndCommenterInfo = 0; // SHOULD BE 0 NOW
 let vLoadPostersAndCommenterInfoAsync = vUseAsyncWherePossible; // should be 0 or 1.
+// *****************************************************
 
 //
 // Colours for sentiment charts.

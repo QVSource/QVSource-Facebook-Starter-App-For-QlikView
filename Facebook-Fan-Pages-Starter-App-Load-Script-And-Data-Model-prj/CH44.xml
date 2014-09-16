@@ -213,6 +213,7 @@
       <v>Sentiment Vs Gender</v>
     </WindowTitle>
     <GraphMode>GRAPH_MODE_BAR</GraphMode>
+    <TotalString></TotalString>
     <ErrorMessageOverrides>
       <StringExpr>
         <v>Extraction of additional user info is not 
@@ -1918,6 +1919,9 @@ See docs.</v>
     <DynamicImage></DynamicImage>
     <TrellisProperties></TrellisProperties>
     <MekkoChartMode>MEKKOCHART_NORMALIZED</MekkoChartMode>
+    <TruncateLabel>true</TruncateLabel>
+    <ScaleChartSizeRects></ScaleChartSizeRects>
+    <FastChangeRefSizeRect></FastChangeRefSizeRect>
   </ChartProperties>
   <TableProperties>
     <VerticalLabels>false</VerticalLabels>

@@ -2047,7 +2047,7 @@
         </Label>
         <Field>
           <Name>AllContent_page</Name>
-          <Type>NOT_PRESENT</Type>
+          <Type>PRESENT</Type>
         </Field>
         <SortCriteria>
           <SortByState>0</SortByState>

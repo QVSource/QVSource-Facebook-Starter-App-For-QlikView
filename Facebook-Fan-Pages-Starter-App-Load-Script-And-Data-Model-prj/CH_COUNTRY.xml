@@ -43,9 +43,9 @@
       <Bmp enctype="base64"></Bmp>
       <BmpMode>0</BmpMode>
       <Detached>false</Detached>
-      <AllowMinimize>true</AllowMinimize>
+      <AllowMinimize>false</AllowMinimize>
       <AutoMinimize>false</AutoMinimize>
-      <AllowMaximize>true</AllowMaximize>
+      <AllowMaximize>false</AllowMaximize>
       <AllowInfo>false</AllowInfo>
       <PrintIcon>false</PrintIcon>
       <CopyIcon>false</CopyIcon>
@@ -213,6 +213,7 @@
       <v>Country</v>
     </WindowTitle>
     <GraphMode>GRAPH_MODE_BAR</GraphMode>
+    <TotalString></TotalString>
     <ErrorMessageOverrides>
       <StringExpr></StringExpr>
       <StringExpr></StringExpr>
@@ -220,10 +221,16 @@
       <StringExpr></StringExpr>
       <StringExpr></StringExpr>
       <StringExpr>
-        <v>Extraction of additional user info is not 
-enabled in the config file.
-See docs.</v>
+        <v>Extraction of additional user info is no longer supported.</v>
       </StringExpr>
+      <StringExpr></StringExpr>
+      <StringExpr></StringExpr>
+      <StringExpr></StringExpr>
+      <StringExpr></StringExpr>
+      <StringExpr></StringExpr>
+      <StringExpr></StringExpr>
+      <StringExpr></StringExpr>
+      <StringExpr></StringExpr>
     </ErrorMessageOverrides>
     <MiniChartLook>false</MiniChartLook>
   </GraphLayout>
@@ -1926,6 +1933,9 @@ See docs.</v>
     <DynamicImage></DynamicImage>
     <TrellisProperties></TrellisProperties>
     <MekkoChartMode>MEKKOCHART_NORMALIZED</MekkoChartMode>
+    <TruncateLabel>true</TruncateLabel>
+    <ScaleChartSizeRects></ScaleChartSizeRects>
+    <FastChangeRefSizeRect></FastChangeRefSizeRect>
   </ChartProperties>
   <TableProperties>
     <VerticalLabels>false</VerticalLabels>

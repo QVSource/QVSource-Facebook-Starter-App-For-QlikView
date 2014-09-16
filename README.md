@@ -12,10 +12,16 @@ It also makes use of the [Sentiment and Text Analytics Connector](http://wiki.qv
 
 If you are a QlikView + QVSource user you can simply click the ["Download ZIP"](https://github.com/QVSource/QVSource-Facebook-Starter-App-For-QlikView/archive/master.zip) button on GitHub to grab this application.
 
-The content below is copied from the change log in the first tab of the load script.
+The content below is copied from the change log in the first tab of the load
+1.9.2.6.
 
 Change Log
 ----------
+2.0.0.1 - 16/09/14
+------------------
+* Fixed issue where Page column on "All Posts And Comments" table of the Users tab (on All Content side of data model) always showed only one of the pages.
+* Added notes to config file (vLoadPostersAndCommenterInfo) and UI that extraction of additional user info (e.g. gender, location) is no longer supported. Seems Facebook have removed this from the API (in the instance where you are getting info for posters/commenters on a Fan Page who you are not connected to).
+
 2.0.0.0 - 05/08/14
 ------------------
 * YOU MUST HAVE QVSource version 1.5.4.6 or later to use this application

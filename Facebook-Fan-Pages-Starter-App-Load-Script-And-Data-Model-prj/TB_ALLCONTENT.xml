@@ -213,6 +213,7 @@
       <v>All Posts And Comments</v>
     </WindowTitle>
     <GraphMode>GRAPH_MODE_STRAIGHTTABLE</GraphMode>
+    <TotalString></TotalString>
     <ErrorMessageOverrides></ErrorMessageOverrides>
     <MiniChartLook>false</MiniChartLook>
   </GraphLayout>
@@ -363,7 +364,7 @@
     </ExpressionData>
     <ExpressionData>
       <Definition>
-        <v>=page</v>
+        <v>=AllContent_page</v>
       </Definition>
       <Enable>true</Enable>
       <Present>false</Present>
@@ -5501,6 +5502,9 @@
     <DynamicImage></DynamicImage>
     <TrellisProperties></TrellisProperties>
     <MekkoChartMode>MEKKOCHART_NORMALIZED</MekkoChartMode>
+    <TruncateLabel>true</TruncateLabel>
+    <ScaleChartSizeRects></ScaleChartSizeRects>
+    <FastChangeRefSizeRect></FastChangeRefSizeRect>
   </ChartProperties>
   <TableProperties>
     <VerticalLabels>false</VerticalLabels>
@@ -9561,7 +9565,7 @@
           <InternalId>-1</InternalId>
           <ExpressionData>
             <Definition>
-              <v>=page</v>
+              <v>=AllContent_page</v>
             </Definition>
             <Enable>true</Enable>
             <Present>false</Present>

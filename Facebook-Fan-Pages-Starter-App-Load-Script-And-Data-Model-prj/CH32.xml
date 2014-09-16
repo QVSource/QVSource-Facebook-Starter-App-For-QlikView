@@ -213,6 +213,7 @@
       <v>Comments/Posts Count</v>
     </WindowTitle>
     <GraphMode>GRAPH_MODE_COMBO</GraphMode>
+    <TotalString></TotalString>
     <ErrorMessageOverrides></ErrorMessageOverrides>
     <MiniChartLook>false</MiniChartLook>
   </GraphLayout>
@@ -2855,6 +2856,9 @@
     <DynamicImage></DynamicImage>
     <TrellisProperties></TrellisProperties>
     <MekkoChartMode>MEKKOCHART_NORMALIZED</MekkoChartMode>
+    <TruncateLabel>true</TruncateLabel>
+    <ScaleChartSizeRects></ScaleChartSizeRects>
+    <FastChangeRefSizeRect></FastChangeRefSizeRect>
   </ChartProperties>
   <TableProperties>
     <VerticalLabels>false</VerticalLabels>

@@ -317,16 +317,16 @@
     <String>1</String>
     <String>AllContent</String>
     <String>104</String>
-    <String>2</String>
+    <String>1</String>
     <String>AllContent</String>
-    <String>AllContentSentiment</String>
     <String>105</String>
     <String>2</String>
     <String>AllContent</String>
-    <String>AllUsers</String>
+    <String>AllContentSentiment</String>
     <String>106</String>
-    <String>1</String>
+    <String>2</String>
     <String>AllContent</String>
+    <String>AllUsers</String>
     <String>107</String>
     <String>1</String>
     <String>AllContent</String>
@@ -341,7 +341,7 @@
     <String>AllContent</String>
     <String>111</String>
     <String>1</String>
-    <String>AllUsers</String>
+    <String>AllContent</String>
     <String>112</String>
     <String>1</String>
     <String>AllUsers</String>
@@ -359,7 +359,7 @@
     <String>AllUsers</String>
     <String>117</String>
     <String>1</String>
-    <String>AllContentSentiment</String>
+    <String>AllUsers</String>
     <String>118</String>
     <String>1</String>
     <String>AllContentSentiment</String>
@@ -367,6 +367,9 @@
     <String>1</String>
     <String>AllContentSentiment</String>
     <String>120</String>
+    <String>1</String>
+    <String>AllContentSentiment</String>
+    <String>121</String>
     <String>1</String>
     <String>AllContentSentiment</String>
   </FieldSrcTables>
@@ -2002,7 +2005,7 @@
     <Mode>0</Mode>
   </TableViewData>
   <Bookmarks></Bookmarks>
-  <SavedByVersion>11.20.11922.0409</SavedByVersion>
+  <SavedByVersion>11.20.12577.0409</SavedByVersion>
   <ForceBackEndMacroExecution>false</ForceBackEndMacroExecution>
   <FieldTags>
     <ScriptBased>
@@ -2074,6 +2077,7 @@
           <String>FeedItem_is_self_posted</String>
           <String>FeedItem_from_category</String>
           <String>FeedItem_UpdateType</String>
+          <String>FeedItem_message_urlEncoded</String>
           <String>FeedItems_comment_link</String>
           <String>FeedItems_like_link</String>
           <String>FeedItem_picture</String>
@@ -2090,8 +2094,10 @@
           <String>FeedItem_application_namespace</String>
           <String>Comment_page</String>
           <String>Comment_created</String>
+          <String>Comment_message_urlEncoded</String>
           <String>InReplyToCommentId</String>
           <String>Comment_isReplyToComment</String>
+          <String>AllContent_page</String>
           <String>AllContent_type</String>
           <String>AllContent_id</String>
           <String>AllUsers_gender</String>
@@ -2142,6 +2148,8 @@
           <String>FeedItem_from_name</String>
           <String>FeedItem_from_category</String>
           <String>FeedItem_UpdateType</String>
+          <String>FeedItem_message</String>
+          <String>FeedItem_message_urlEncoded</String>
           <String>FeedItems_comment_link</String>
           <String>FeedItems_like_link</String>
           <String>FeedItem_picture</String>
@@ -2165,10 +2173,14 @@
           <String>Comment_page</String>
           <String>Comment_created</String>
           <String>Comment_user_name</String>
+          <String>Comment_message</String>
+          <String>Comment_message_urlEncoded</String>
           <String>InReplyToCommentId</String>
           <String>Comment_isReplyToComment</String>
+          <String>AllContent_page</String>
           <String>AllContent_type</String>
           <String>AllContent_id</String>
+          <String>AllContent_message</String>
           <String>AllUsers_name</String>
           <String>AllUsers_gender</String>
           <String>AllUsers_profilepage</String>
@@ -2205,6 +2217,7 @@
           <String>FeedItem_has_at_least_this_many_comments</String>
           <String>FeedItem_shares_count</String>
           <String>FeedItem_from_id</String>
+          <String>FeedItem_application_id</String>
           <String>FeedItem_comments_count</String>
           <String>FeedItem_likes_count</String>
           <String>FeedItem_created_qvdatetime_GMT</String>
@@ -2246,6 +2259,7 @@
           <String>FeedItem_has_at_least_this_many_comments</String>
           <String>FeedItem_shares_count</String>
           <String>FeedItem_from_id</String>
+          <String>FeedItem_application_id</String>
           <String>FeedItem_comments_count</String>
           <String>FeedItem_likes_count</String>
           <String>FeedItem_created_month_local</String>

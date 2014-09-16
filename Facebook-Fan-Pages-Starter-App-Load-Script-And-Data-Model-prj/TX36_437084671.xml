@@ -243,7 +243,7 @@
     </BkgColor>
     <BkgImageSettings>
       <ImageStyle>
-        <StretchMode>IMAGE_KEEPASPECT</StretchMode>
+        <StretchMode>IMAGE_NOSTRETCH</StretchMode>
         <ImgFallBack>0</ImgFallBack>
       </ImageStyle>
       <HorizontalAdjust>0</HorizontalAdjust>

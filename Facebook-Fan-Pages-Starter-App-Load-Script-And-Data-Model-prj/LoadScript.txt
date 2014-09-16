@@ -1,5 +1,10 @@
 ﻿///$tab Change Log
 /*
+2.0.0.1 - 16/09/14
+------------------
+* Fixed issue where Page column on "All Posts And Comments" table of the Users tab (on All Content side of data model) always showed only one of the pages.
+* Added notes to config file (vLoadPostersAndCommenterInfo) and UI that extraction of additional user info (e.g. gender, location) is no longer supported. Seems Facebook have removed this from the API (in the instance where you are getting info for posters/commenters on a Fan Page who you are not connected to).
+
 2.0.0.0 - 05/08/14
 ------------------
 * YOU MUST HAVE QVSource version 1.5.4.6 or later to use this application
@@ -1868,6 +1873,7 @@ if vLoadPostersAndCommenterInfo = 1 then
 	AllContent:
 	load
 	page as page,
+	page as AllContent_page,
 	'Post' as AllContent_type,
 	FeedItem_id as AllContent_id,
 	Poster_id as AllUsers_id,
@@ -1882,6 +1888,7 @@ if vLoadPostersAndCommenterInfo = 1 then
 	AllContent:
 	load
 	Comment_page as page,
+	Comment_page as AllContent_page,
 	//'Comment' as AllContent_type,
 	if(Comment_isReplyToComment = 'true', 'CommentReply', 'Comment') as AllContent_type,
 	Comment_id as AllContent_id,
@@ -1923,6 +1930,7 @@ ELSE
 	AllContent:
 	load
 	page as page,
+	page as AllContent_page,
 	'Post' as AllContent_type,
 	FeedItem_id as AllContent_id,
 	Poster_id as AllUsers_id,
@@ -1937,6 +1945,7 @@ ELSE
 	AllContent:
 	load
 	Comment_page as page,
+	Comment_page as AllContent_page,
 	//'Comment' as AllContent_type,
 	if(Comment_isReplyToComment = 'true', 'CommentReply', 'Comment') as AllContent_type,
 	Comment_id as AllContent_id,
@@ -1953,11 +1962,11 @@ ELSE
 	load distinct
 	Poster_id as AllUsers_id,
 	FeedItem_from_name as AllUsers_name,
-	'not enabled' as AllUsers_gender,
-	'not enabled' as AllUsers_profilepage,
-	'not enabled' as AllUsers_locale,
-	'not enabled' as AllUsers_language,
-	'not enabled' as AllUsers_country
+	'no longer supported' as AllUsers_gender,
+	'no longer supported' as AllUsers_profilepage,
+	'no longer supported' as AllUsers_locale,
+	'no longer supported' as AllUsers_language,
+	'no longer supported' as AllUsers_country
 	resident
 	FB_Feed;
 	
@@ -1965,11 +1974,11 @@ ELSE
 	load distinct
 	Commenter_id as AllUsers_id,
 	Comment_user_name as AllUsers_name,
-	'not enabled' as AllUsers_gender,
-	'not enabled' as AllUsers_profilepage,
-	'not enabled' as AllUsers_locale,
-	'not enabled' as AllUsers_language,
-	'not enabled' as AllUsers_country
+	'no longer supported' as AllUsers_gender,
+	'no longer supported' as AllUsers_profilepage,
+	'no longer supported' as AllUsers_locale,
+	'no longer supported' as AllUsers_language,
+	'no longer supported' as AllUsers_country
 	resident
 	FB_Comments;
 	
@@ -2001,3 +2010,5 @@ CommentItem_Sentiment_score as AllContentSentiment_Score,
 if(CommentItem_Sentiment_score > 0, 'Positive', if(CommentItem_Sentiment_score < 0, 'Negative', 'Neutral')) as AllContentSentiment_SentimentType
 resident
 FB_Comment_Sentiment;
+
+exit script;
