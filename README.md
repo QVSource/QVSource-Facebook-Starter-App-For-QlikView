@@ -2,18 +2,15 @@ QVSource Facebook Fan Page & Groups Starter App For QlikView
 ===================================================
 **IMPORTANT** - If you are using QVSource 1.6.5.3 or later you will need to update the parts of the load script in this application which use the [Sentiment Analysis & Text Analytics Connector](http://wiki.qvsource.com/Sentiment-Analysis-And-Text-Analytics-Connector-For-QlikView.ashx) according to the instructions [here](http://wiki.qvsource.com/Upgrading-to-version-1_1-of-the-Sentiment-Analysis-And-Text-Analytics-Connector.ashx). We plan to update this starter app soon with these changes.
 
-If you are using an older version of QVSource or the Facebook Fan Pages Connector v1, then you need to use an older version of this application, which can be found [here](https://github.com/QVSource/QVSource-Facebook-Starter-App-For-QlikView/releases)
-
 This is a starter QlikView application showing how to get started using the [QVSource Facebook Pages and Groups Connector](http://wiki.qvsource.com/Facebook-Fan-Pages-And-Groups-Connector-For-QlikView-(v2).ashx) for QlikView.
 
-Full documentation for this template application can be found [here](http://wiki.qvsource.com/QlikView-Connector-for-Facebook-Pages-Demo-Application.ashx).
+Further documentation for this template application can be found [here](http://wiki.qvsource.com/QlikView-Connector-for-Facebook-Pages-Demo-Application.ashx).
 
 It also makes use of the [Sentiment and Text Analytics Connector](http://wiki.qvsource.com/Sentiment-Analysis-And-Text-Analytics-Connector-For-QlikView.ashx) to score comments and posts.
 
 If you are a QlikView + QVSource user you can simply click the ["Download ZIP"](https://github.com/QVSource/QVSource-Facebook-Starter-App-For-QlikView/archive/master.zip) button on GitHub to grab this application.
 
-The content below is copied from the change log in the first tab of the load
-1.9.2.6.
+The content below is copied from the change log in the first tab of the load script tab.
 
 Change Log
 ----------
