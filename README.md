@@ -1,6 +1,6 @@
 QVSource Facebook Fan Page & Groups Starter App For QlikView
 ===================================================
-IMPORTANT - You will need QVSource 1.5.4.6 or later to run this application as it ONLY works with the Facebook Pages & Groups Connector v2.
+**IMPORTANT** - If you are using QVSource 1.6.5.3 or later you will need to update the parts of the load script in this application which use the [Sentiment Analysis & Text Analytics Connector](http://wiki.qvsource.com/Sentiment-Analysis-And-Text-Analytics-Connector-For-QlikView.ashx) according to the instructions [here](http://wiki.qvsource.com/Upgrading-to-version-1_1-of-the-Sentiment-Analysis-And-Text-Analytics-Connector.ashx). We plan to update this starter app soon with these changes.
 
 If you are using an older version of QVSource or the Facebook Fan Pages Connector v1, then you need to use an older version of this application, which can be found [here](https://github.com/QVSource/QVSource-Facebook-Starter-App-For-QlikView/releases)
 
