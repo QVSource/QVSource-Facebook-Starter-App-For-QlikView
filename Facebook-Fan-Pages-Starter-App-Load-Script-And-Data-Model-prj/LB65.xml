@@ -246,10 +246,11 @@
     <SuppressSearchHighlight>false</SuppressSearchHighlight>
     <TextColor></TextColor>
     <PreferredTextSearchMode>TEXT_SEARCH_NONE</PreferredTextSearchMode>
+    <CellBorders>false</CellBorders>
   </Layout>
   <Def>
     <Name>FeedItem_message</Name>
-    <Type>PRESENT</Type>
+    <Type>NOT_PRESENT</Type>
   </Def>
   <Title></Title>
   <PrintSettings>
@@ -349,6 +350,7 @@
     <SortByLoadOrder>0</SortByLoadOrder>
     <SortByExpression>0</SortByExpression>
     <Expression></Expression>
+    <SortByGreyness>0</SortByGreyness>
   </SortCriteria>
   <NumberPresentation></NumberPresentation>
   <ExpandedNodes></ExpandedNodes>

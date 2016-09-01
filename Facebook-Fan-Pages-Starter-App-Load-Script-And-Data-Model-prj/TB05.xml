@@ -217,7 +217,7 @@
         <Label></Label>
         <Field>
           <Name>AllContent_id</Name>
-          <Type>PRESENT</Type>
+          <Type>NOT_PRESENT</Type>
         </Field>
         <SortCriteria>
           <SortByState>0</SortByState>
@@ -227,6 +227,7 @@
           <SortByLoadOrder>0</SortByLoadOrder>
           <SortByExpression>0</SortByExpression>
           <Expression></Expression>
+          <SortByGreyness>0</SortByGreyness>
         </SortCriteria>
         <ColWidth>756</ColWidth>
         <TextAdjust>0</TextAdjust>
@@ -368,7 +369,7 @@
         <Label></Label>
         <Field>
           <Name>AllContentSentiment_Engine</Name>
-          <Type>PRESENT</Type>
+          <Type>NOT_PRESENT</Type>
         </Field>
         <SortCriteria>
           <SortByState>0</SortByState>
@@ -378,6 +379,7 @@
           <SortByLoadOrder>0</SortByLoadOrder>
           <SortByExpression>0</SortByExpression>
           <Expression></Expression>
+          <SortByGreyness>0</SortByGreyness>
         </SortCriteria>
         <ColWidth>544</ColWidth>
         <TextAdjust>0</TextAdjust>
@@ -662,7 +664,7 @@
         <Label></Label>
         <Field>
           <Name>AllContentSentiment_Score</Name>
-          <Type>PRESENT</Type>
+          <Type>NOT_PRESENT</Type>
         </Field>
         <SortCriteria>
           <SortByState>0</SortByState>
@@ -672,6 +674,7 @@
           <SortByLoadOrder>0</SortByLoadOrder>
           <SortByExpression>0</SortByExpression>
           <Expression></Expression>
+          <SortByGreyness>0</SortByGreyness>
         </SortCriteria>
         <ColWidth>491</ColWidth>
         <TextAdjust>0</TextAdjust>
@@ -813,7 +816,7 @@
         <Label></Label>
         <Field>
           <Name>AllContentSentiment_Status</Name>
-          <Type>PRESENT</Type>
+          <Type>NOT_PRESENT</Type>
         </Field>
         <SortCriteria>
           <SortByState>0</SortByState>
@@ -823,6 +826,7 @@
           <SortByLoadOrder>0</SortByLoadOrder>
           <SortByExpression>0</SortByExpression>
           <Expression></Expression>
+          <SortByGreyness>0</SortByGreyness>
         </SortCriteria>
         <ColWidth>503</ColWidth>
         <TextAdjust>0</TextAdjust>

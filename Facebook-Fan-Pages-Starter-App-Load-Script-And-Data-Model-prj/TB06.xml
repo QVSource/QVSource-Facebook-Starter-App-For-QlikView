@@ -227,6 +227,7 @@
           <SortByLoadOrder>0</SortByLoadOrder>
           <SortByExpression>0</SortByExpression>
           <Expression></Expression>
+          <SortByGreyness>0</SortByGreyness>
         </SortCriteria>
         <ColWidth>756</ColWidth>
         <TextAdjust>0</TextAdjust>
@@ -378,6 +379,7 @@
           <SortByLoadOrder>0</SortByLoadOrder>
           <SortByExpression>0</SortByExpression>
           <Expression></Expression>
+          <SortByGreyness>0</SortByGreyness>
         </SortCriteria>
         <ColWidth>928</ColWidth>
         <TextAdjust>0</TextAdjust>
@@ -805,7 +807,7 @@
         <Label></Label>
         <Field>
           <Name>CommentItem_Sentiment_score</Name>
-          <Type>PRESENT</Type>
+          <Type>NOT_PRESENT</Type>
         </Field>
         <SortCriteria>
           <SortByState>0</SortByState>
@@ -815,6 +817,7 @@
           <SortByLoadOrder>0</SortByLoadOrder>
           <SortByExpression>0</SortByExpression>
           <Expression></Expression>
+          <SortByGreyness>0</SortByGreyness>
         </SortCriteria>
         <ColWidth>578</ColWidth>
         <TextAdjust>0</TextAdjust>
@@ -956,7 +959,7 @@
         <Label></Label>
         <Field>
           <Name>CommentItem_Sentiment_status</Name>
-          <Type>PRESENT</Type>
+          <Type>NOT_PRESENT</Type>
         </Field>
         <SortCriteria>
           <SortByState>0</SortByState>
@@ -966,6 +969,7 @@
           <SortByLoadOrder>0</SortByLoadOrder>
           <SortByExpression>0</SortByExpression>
           <Expression></Expression>
+          <SortByGreyness>0</SortByGreyness>
         </SortCriteria>
         <ColWidth>591</ColWidth>
         <TextAdjust>0</TextAdjust>

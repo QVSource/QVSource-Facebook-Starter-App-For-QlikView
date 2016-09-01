@@ -7,371 +7,152 @@
     <bool>false</bool>
     <bool>false</bool>
     <bool>false</bool>
-    <bool>false</bool>
-    <bool>false</bool>
-    <bool>false</bool>
-    <bool>false</bool>
-    <bool>false</bool>
-    <bool>false</bool>
-    <bool>false</bool>
   </AlwaysLoose>
   <FieldSrcTables>
     <String>6</String>
-    <String>4</String>
+    <String>2</String>
     <String>FacebookSites</String>
-    <String>FB_Page</String>
     <String>FB_Feed</String>
-    <String>AllContent</String>
     <String>7</String>
     <String>1</String>
     <String>FacebookSites</String>
     <String>8</String>
-    <String>1</String>
-    <String>QVSourceStatus</String>
+    <String>2</String>
+    <String>FB_Feed</String>
+    <String>FB_Comments</String>
     <String>9</String>
     <String>1</String>
-    <String>QVSourceStatus</String>
+    <String>FB_Feed</String>
     <String>10</String>
     <String>1</String>
-    <String>QVSourceStatus</String>
+    <String>FB_Feed</String>
     <String>11</String>
     <String>1</String>
-    <String>QVSourceStatus</String>
+    <String>FB_Feed</String>
     <String>12</String>
     <String>1</String>
-    <String>QVSourceStatus</String>
+    <String>FB_Feed</String>
     <String>13</String>
     <String>1</String>
-    <String>QVSourceStatus</String>
+    <String>FB_Feed</String>
     <String>14</String>
     <String>1</String>
-    <String>QVSourceStatus</String>
+    <String>FB_Feed</String>
     <String>15</String>
     <String>1</String>
-    <String>QVSourceStatus</String>
+    <String>FB_Feed</String>
     <String>16</String>
     <String>1</String>
-    <String>QVSourceStatus</String>
+    <String>FB_Feed</String>
     <String>17</String>
     <String>1</String>
-    <String>QVSourceStatus</String>
+    <String>FB_Feed</String>
     <String>18</String>
     <String>1</String>
-    <String>QVSourceConnectorStatus</String>
+    <String>FB_Feed</String>
     <String>19</String>
     <String>1</String>
-    <String>QVSourceConnectorStatus</String>
+    <String>FB_Feed</String>
     <String>20</String>
     <String>1</String>
-    <String>QVSourceConnectorStatus</String>
-    <String>21</String>
-    <String>3</String>
-    <String>FB_Feed_Sentiment</String>
     <String>FB_Feed</String>
-    <String>FB_Comments</String>
+    <String>21</String>
+    <String>1</String>
+    <String>FB_Feed</String>
     <String>22</String>
-    <String>2</String>
-    <String>FB_Comment_Sentiment</String>
-    <String>FB_Comments</String>
+    <String>1</String>
+    <String>FB_Feed</String>
     <String>23</String>
     <String>1</String>
-    <String>FB_Feed_Sentiment</String>
+    <String>FB_Feed</String>
     <String>24</String>
     <String>1</String>
-    <String>FB_Feed_Sentiment</String>
+    <String>FB_Feed</String>
     <String>25</String>
     <String>1</String>
-    <String>FB_Feed_Sentiment</String>
+    <String>FB_Feed</String>
     <String>26</String>
     <String>1</String>
-    <String>FB_Comment_Sentiment</String>
+    <String>FB_Feed</String>
     <String>27</String>
     <String>1</String>
-    <String>FB_Comment_Sentiment</String>
+    <String>FB_Feed</String>
     <String>28</String>
     <String>1</String>
-    <String>FB_Comment_Sentiment</String>
+    <String>FB_Feed</String>
     <String>29</String>
     <String>1</String>
-    <String>FB_Page</String>
+    <String>FB_Feed</String>
     <String>30</String>
     <String>1</String>
-    <String>FB_Page</String>
+    <String>FB_Feed</String>
     <String>31</String>
     <String>1</String>
-    <String>FB_Page</String>
+    <String>FB_Feed</String>
     <String>32</String>
     <String>1</String>
-    <String>FB_Page</String>
+    <String>FB_Feed</String>
     <String>33</String>
     <String>1</String>
-    <String>FB_Page</String>
+    <String>FB_Comments</String>
     <String>34</String>
     <String>1</String>
-    <String>FB_Page</String>
+    <String>FB_Comments</String>
     <String>35</String>
     <String>1</String>
-    <String>FB_Page</String>
+    <String>FB_Comments</String>
     <String>36</String>
-    <String>1</String>
-    <String>FB_Page</String>
+    <String>2</String>
+    <String>FB_Comments</String>
+    <String>FB_Replies</String>
     <String>37</String>
     <String>1</String>
-    <String>FB_Page</String>
+    <String>FB_Comments</String>
     <String>38</String>
     <String>1</String>
-    <String>FB_Page</String>
+    <String>FB_Comments</String>
     <String>39</String>
     <String>1</String>
-    <String>FB_Page</String>
+    <String>FB_Comments</String>
     <String>40</String>
     <String>1</String>
-    <String>FB_Page</String>
+    <String>FB_Comments</String>
     <String>41</String>
     <String>1</String>
-    <String>FB_Page</String>
+    <String>FB_Comments</String>
     <String>42</String>
     <String>1</String>
-    <String>FB_Page</String>
+    <String>FB_Comments</String>
     <String>43</String>
     <String>1</String>
-    <String>FB_Page</String>
+    <String>FB_Replies</String>
     <String>44</String>
     <String>1</String>
-    <String>FB_Page</String>
+    <String>FB_Replies</String>
     <String>45</String>
     <String>1</String>
-    <String>FB_Page</String>
+    <String>FB_Replies</String>
     <String>46</String>
     <String>1</String>
-    <String>FB_Feed</String>
+    <String>FB_Replies</String>
     <String>47</String>
     <String>1</String>
-    <String>FB_Feed</String>
+    <String>FB_Replies</String>
     <String>48</String>
     <String>1</String>
-    <String>FB_Feed</String>
+    <String>FB_Replies</String>
     <String>49</String>
     <String>1</String>
-    <String>FB_Feed</String>
+    <String>FB_Replies</String>
     <String>50</String>
     <String>1</String>
-    <String>FB_Feed</String>
+    <String>FB_Replies</String>
     <String>51</String>
     <String>1</String>
-    <String>FB_Feed</String>
+    <String>FB_Replies</String>
     <String>52</String>
     <String>1</String>
-    <String>FB_Feed</String>
-    <String>53</String>
-    <String>1</String>
-    <String>FB_Feed</String>
-    <String>54</String>
-    <String>1</String>
-    <String>FB_Feed</String>
-    <String>55</String>
-    <String>1</String>
-    <String>FB_Feed</String>
-    <String>56</String>
-    <String>1</String>
-    <String>FB_Feed</String>
-    <String>57</String>
-    <String>1</String>
-    <String>FB_Feed</String>
-    <String>58</String>
-    <String>1</String>
-    <String>FB_Feed</String>
-    <String>59</String>
-    <String>1</String>
-    <String>FB_Feed</String>
-    <String>60</String>
-    <String>1</String>
-    <String>FB_Feed</String>
-    <String>61</String>
-    <String>1</String>
-    <String>FB_Feed</String>
-    <String>62</String>
-    <String>1</String>
-    <String>FB_Feed</String>
-    <String>63</String>
-    <String>1</String>
-    <String>FB_Feed</String>
-    <String>64</String>
-    <String>1</String>
-    <String>FB_Feed</String>
-    <String>65</String>
-    <String>1</String>
-    <String>FB_Feed</String>
-    <String>66</String>
-    <String>1</String>
-    <String>FB_Feed</String>
-    <String>67</String>
-    <String>1</String>
-    <String>FB_Feed</String>
-    <String>68</String>
-    <String>1</String>
-    <String>FB_Feed</String>
-    <String>69</String>
-    <String>1</String>
-    <String>FB_Feed</String>
-    <String>70</String>
-    <String>1</String>
-    <String>FB_Feed</String>
-    <String>71</String>
-    <String>1</String>
-    <String>FB_Feed</String>
-    <String>72</String>
-    <String>1</String>
-    <String>FB_Feed</String>
-    <String>73</String>
-    <String>1</String>
-    <String>FB_Feed</String>
-    <String>74</String>
-    <String>1</String>
-    <String>FB_Feed</String>
-    <String>75</String>
-    <String>1</String>
-    <String>FB_Feed</String>
-    <String>76</String>
-    <String>1</String>
-    <String>FB_Feed</String>
-    <String>77</String>
-    <String>1</String>
-    <String>FB_Feed</String>
-    <String>78</String>
-    <String>1</String>
-    <String>FB_Feed</String>
-    <String>79</String>
-    <String>1</String>
-    <String>FB_Feed</String>
-    <String>80</String>
-    <String>1</String>
-    <String>FB_Feed</String>
-    <String>81</String>
-    <String>1</String>
-    <String>FB_Feed</String>
-    <String>82</String>
-    <String>1</String>
-    <String>FB_Feed</String>
-    <String>83</String>
-    <String>1</String>
-    <String>FB_Feed</String>
-    <String>84</String>
-    <String>1</String>
-    <String>FB_Feed</String>
-    <String>85</String>
-    <String>1</String>
-    <String>FB_Feed</String>
-    <String>86</String>
-    <String>1</String>
-    <String>FB_Feed</String>
-    <String>87</String>
-    <String>1</String>
-    <String>FB_Comments</String>
-    <String>88</String>
-    <String>1</String>
-    <String>FB_Comments</String>
-    <String>89</String>
-    <String>1</String>
-    <String>FB_Comments</String>
-    <String>90</String>
-    <String>1</String>
-    <String>FB_Comments</String>
-    <String>91</String>
-    <String>1</String>
-    <String>FB_Comments</String>
-    <String>92</String>
-    <String>1</String>
-    <String>FB_Comments</String>
-    <String>93</String>
-    <String>1</String>
-    <String>FB_Comments</String>
-    <String>94</String>
-    <String>1</String>
-    <String>FB_Comments</String>
-    <String>95</String>
-    <String>1</String>
-    <String>FB_Comments</String>
-    <String>96</String>
-    <String>1</String>
-    <String>FB_Comments</String>
-    <String>97</String>
-    <String>1</String>
-    <String>FB_Comments</String>
-    <String>98</String>
-    <String>1</String>
-    <String>FB_Comments</String>
-    <String>99</String>
-    <String>1</String>
-    <String>FB_Comments</String>
-    <String>100</String>
-    <String>1</String>
-    <String>FB_Comments</String>
-    <String>101</String>
-    <String>1</String>
-    <String>FB_Comments</String>
-    <String>102</String>
-    <String>1</String>
-    <String>FB_Comments</String>
-    <String>103</String>
-    <String>1</String>
-    <String>AllContent</String>
-    <String>104</String>
-    <String>1</String>
-    <String>AllContent</String>
-    <String>105</String>
-    <String>2</String>
-    <String>AllContent</String>
-    <String>AllContentSentiment</String>
-    <String>106</String>
-    <String>2</String>
-    <String>AllContent</String>
-    <String>AllUsers</String>
-    <String>107</String>
-    <String>1</String>
-    <String>AllContent</String>
-    <String>108</String>
-    <String>1</String>
-    <String>AllContent</String>
-    <String>109</String>
-    <String>1</String>
-    <String>AllContent</String>
-    <String>110</String>
-    <String>1</String>
-    <String>AllContent</String>
-    <String>111</String>
-    <String>1</String>
-    <String>AllContent</String>
-    <String>112</String>
-    <String>1</String>
-    <String>AllUsers</String>
-    <String>113</String>
-    <String>1</String>
-    <String>AllUsers</String>
-    <String>114</String>
-    <String>1</String>
-    <String>AllUsers</String>
-    <String>115</String>
-    <String>1</String>
-    <String>AllUsers</String>
-    <String>116</String>
-    <String>1</String>
-    <String>AllUsers</String>
-    <String>117</String>
-    <String>1</String>
-    <String>AllUsers</String>
-    <String>118</String>
-    <String>1</String>
-    <String>AllContentSentiment</String>
-    <String>119</String>
-    <String>1</String>
-    <String>AllContentSentiment</String>
-    <String>120</String>
-    <String>1</String>
-    <String>AllContentSentiment</String>
-    <String>121</String>
-    <String>1</String>
-    <String>AllContentSentiment</String>
+    <String>FB_Replies</String>
   </FieldSrcTables>
   <TableViewData>
     <Pos></Pos>
@@ -416,8 +197,8 @@
           </TableViewTableWinSaveInfo>
           <TableViewTableWinSaveInfo>
             <Pos>
-              <Left>1285</Left>
-              <Top>325</Top>
+              <Left>1071</Left>
+              <Top>498</Top>
               <Width>341</Width>
               <Height>82</Height>
             </Pos>
@@ -767,8 +548,8 @@
           </TableViewTableWinSaveInfo>
           <TableViewTableWinSaveInfo>
             <Pos>
-              <Left>391</Left>
-              <Top>174</Top>
+              <Left>1265</Left>
+              <Top>238</Top>
               <Width>170</Width>
               <Height>64</Height>
             </Pos>
@@ -821,8 +602,8 @@
           </TableViewTableWinSaveInfo>
           <TableViewTableWinSaveInfo>
             <Pos>
-              <Left>1130</Left>
-              <Top>297</Top>
+              <Left>806</Left>
+              <Top>18</Top>
               <Width>137</Width>
               <Height>46</Height>
             </Pos>
@@ -1379,8 +1160,8 @@
           </TableViewTableWinSaveInfo>
           <TableViewTableWinSaveInfo>
             <Pos>
-              <Left>1421</Left>
-              <Top>307</Top>
+              <Left>640</Left>
+              <Top>166</Top>
               <Width>200</Width>
               <Height>82</Height>
             </Pos>
@@ -1523,8 +1304,8 @@
           </TableViewTableWinSaveInfo>
           <TableViewTableWinSaveInfo>
             <Pos>
-              <Left>1005</Left>
-              <Top>282</Top>
+              <Left>987</Left>
+              <Top>191</Top>
               <Width>201</Width>
               <Height>352</Height>
             </Pos>
@@ -1532,19 +1313,19 @@
           </TableViewTableWinSaveInfo>
           <TableViewTableWinSaveInfo>
             <Pos>
-              <Left>606</Left>
-              <Top>112</Top>
+              <Left>844</Left>
+              <Top>195</Top>
               <Width>369</Width>
-              <Height>775</Height>
+              <Height>496</Height>
             </Pos>
             <Caption>FB_Feed</Caption>
           </TableViewTableWinSaveInfo>
           <TableViewTableWinSaveInfo>
             <Pos>
-              <Left>1234</Left>
-              <Top>719</Top>
+              <Left>504</Left>
+              <Top>165</Top>
               <Width>263</Width>
-              <Height>341</Height>
+              <Height>226</Height>
             </Pos>
             <Caption>FB_Comments</Caption>
           </TableViewTableWinSaveInfo>
@@ -1658,8 +1439,8 @@
           </TableViewTableWinSaveInfo>
           <TableViewTableWinSaveInfo>
             <Pos>
-              <Left>290</Left>
-              <Top>82</Top>
+              <Left>403</Left>
+              <Top>131</Top>
               <Width>313</Width>
               <Height>324</Height>
             </Pos>
@@ -1881,6 +1662,141 @@
             </Pos>
             <Caption>FB_Feed2</Caption>
           </TableViewTableWinSaveInfo>
+          <TableViewTableWinSaveInfo>
+            <Pos>
+              <Left>596</Left>
+              <Top>238</Top>
+              <Width>402</Width>
+              <Height>208</Height>
+            </Pos>
+            <Caption>FacebookFanPagesConnector_Feed</Caption>
+          </TableViewTableWinSaveInfo>
+          <TableViewTableWinSaveInfo>
+            <Pos>
+              <Left>601</Left>
+              <Top>94</Top>
+              <Width>383</Width>
+              <Height>81</Height>
+            </Pos>
+            <Caption>FB_FeedItemsWithCommentsLoadedInThisRun</Caption>
+          </TableViewTableWinSaveInfo>
+          <TableViewTableWinSaveInfo>
+            <Pos>
+              <Left>772</Left>
+              <Top>21</Top>
+              <Width>463</Width>
+              <Height>208</Height>
+            </Pos>
+            <Caption>FacebookFanPagesConnector_CommentsAndRepliesForItem</Caption>
+          </TableViewTableWinSaveInfo>
+          <TableViewTableWinSaveInfo>
+            <Pos>
+              <Left>36</Left>
+              <Top>635</Top>
+              <Width>423</Width>
+              <Height>208</Height>
+            </Pos>
+            <Caption>TempCommentAndReplies</Caption>
+          </TableViewTableWinSaveInfo>
+          <TableViewTableWinSaveInfo>
+            <Pos>
+              <Left>565</Left>
+              <Top>499</Top>
+              <Width>100</Width>
+              <Height>46</Height>
+            </Pos>
+            <Caption>$orphan_Comment_id</Caption>
+          </TableViewTableWinSaveInfo>
+          <TableViewTableWinSaveInfo>
+            <Pos>
+              <Left>898</Left>
+              <Top>321</Top>
+              <Width>100</Width>
+              <Height>46</Height>
+            </Pos>
+            <Caption>$orphan_Reply_loaddate</Caption>
+          </TableViewTableWinSaveInfo>
+          <TableViewTableWinSaveInfo>
+            <Pos>
+              <Left>898</Left>
+              <Top>558</Top>
+              <Width>100</Width>
+              <Height>46</Height>
+            </Pos>
+            <Caption>$orphan_Reply_loadtimestamp</Caption>
+          </TableViewTableWinSaveInfo>
+          <TableViewTableWinSaveInfo>
+            <Pos>
+              <Left>631</Left>
+              <Top>232</Top>
+              <Width>100</Width>
+              <Height>46</Height>
+            </Pos>
+            <Caption>$orphan_Reply_created</Caption>
+          </TableViewTableWinSaveInfo>
+          <TableViewTableWinSaveInfo>
+            <Pos>
+              <Left>898</Left>
+              <Top>83</Top>
+              <Width>100</Width>
+              <Height>46</Height>
+            </Pos>
+            <Caption>$orphan_Reply_id</Caption>
+          </TableViewTableWinSaveInfo>
+          <TableViewTableWinSaveInfo>
+            <Pos>
+              <Left>631</Left>
+              <Top>54</Top>
+              <Width>100</Width>
+              <Height>46</Height>
+            </Pos>
+            <Caption>$orphan_Replier_id</Caption>
+          </TableViewTableWinSaveInfo>
+          <TableViewTableWinSaveInfo>
+            <Pos>
+              <Left>351</Left>
+              <Top>72</Top>
+              <Width>100</Width>
+              <Height>46</Height>
+            </Pos>
+            <Caption>$orphan_Replier__user_name</Caption>
+          </TableViewTableWinSaveInfo>
+          <TableViewTableWinSaveInfo>
+            <Pos>
+              <Left>381</Left>
+              <Top>536</Top>
+              <Width>380</Width>
+              <Height>46</Height>
+            </Pos>
+            <Caption>$orphan_Reply_message</Caption>
+          </TableViewTableWinSaveInfo>
+          <TableViewTableWinSaveInfo>
+            <Pos>
+              <Left>351</Left>
+              <Top>287</Top>
+              <Width>100</Width>
+              <Height>46</Height>
+            </Pos>
+            <Caption>$orphan_Reply_message_urlEncoded</Caption>
+          </TableViewTableWinSaveInfo>
+          <TableViewTableWinSaveInfo>
+            <Pos>
+              <Left>100</Left>
+              <Top>420</Top>
+              <Width>394</Width>
+              <Height>46</Height>
+            </Pos>
+            <Caption>$orphan_Reply_likes_count</Caption>
+          </TableViewTableWinSaveInfo>
+          <TableViewTableWinSaveInfo>
+            <Pos>
+              <Left>36</Left>
+              <Top>93</Top>
+              <Width>394</Width>
+              <Height>220</Height>
+            </Pos>
+            <Caption>FB_Replies</Caption>
+          </TableViewTableWinSaveInfo>
         </Tables>
         <BroomPoints></BroomPoints>
         <ConnectionPoints></ConnectionPoints>
@@ -2005,7 +1921,7 @@
     <Mode>0</Mode>
   </TableViewData>
   <Bookmarks></Bookmarks>
-  <SavedByVersion>11.20.12577.0409</SavedByVersion>
+  <SavedByVersion>12.0.20000.0</SavedByVersion>
   <ForceBackEndMacroExecution>false</ForceBackEndMacroExecution>
   <FieldTags>
     <ScriptBased>
@@ -2017,8 +1933,6 @@
           <String>page</String>
           <String>FeedItem_id</String>
           <String>Comment_id</String>
-          <String>AllContent_id</String>
-          <String>AllUsers_id</String>
         </FieldNames>
       </FieldTagData>
       <FieldTagData>
@@ -2051,63 +1965,21 @@
           <String>$Info</String>
           <String>page</String>
           <String>Site</String>
-          <String>Version</String>
-          <String>ServerMode</String>
-          <String>Path</String>
-          <String>Licensed</String>
-          <String>LicenseExpires</String>
-          <String>IsLicensedAsServer</String>
-          <String>ConnectorName</String>
-          <String>ConnectorVersion</String>
-          <String>ConnectorLicensed</String>
           <String>FeedItem_id</String>
+          <String>Feed_created_time_qvtime</String>
+          <String>Feed_object_id</String>
+          <String>Feed_picture</String>
+          <String>Feed_status_type</String>
+          <String>Feed_to_name</String>
+          <String>Feed_type</String>
+          <String>Feed_updated_time_qvtime</String>
           <String>Comment_id</String>
-          <String>SentimentEngine</String>
-          <String>FeedItem_Sentiment_status</String>
-          <String>SentimentEngineComment</String>
-          <String>CommentItem_Sentiment_status</String>
-          <String>Page_name</String>
-          <String>Page_picture</String>
-          <String>Page_link</String>
-          <String>Page_category</String>
-          <String>Page_website</String>
-          <String>Page_username</String>
-          <String>Page_founded</String>
-          <String>Page_can_post</String>
-          <String>FeedItem_is_self_posted</String>
-          <String>FeedItem_from_category</String>
-          <String>FeedItem_UpdateType</String>
-          <String>FeedItem_message_urlEncoded</String>
-          <String>FeedItems_comment_link</String>
-          <String>FeedItems_like_link</String>
-          <String>FeedItem_picture</String>
-          <String>FeedItem_link</String>
-          <String>FeedItem_source</String>
-          <String>FeedItem_icon</String>
-          <String>FeedItem_created</String>
-          <String>FeedItem_updated</String>
-          <String>FeedItem_object_id</String>
-          <String>FeedItem_has_likes</String>
-          <String>FeedItem_has_comments</String>
-          <String>FeedItem_status_type</String>
-          <String>FeedItem_to_category</String>
-          <String>FeedItem_application_namespace</String>
-          <String>Comment_page</String>
-          <String>Comment_created</String>
           <String>Comment_message_urlEncoded</String>
-          <String>InReplyToCommentId</String>
-          <String>Comment_isReplyToComment</String>
-          <String>AllContent_page</String>
-          <String>AllContent_type</String>
-          <String>AllContent_id</String>
-          <String>AllUsers_gender</String>
-          <String>AllUsers_profilepage</String>
-          <String>AllUsers_locale</String>
-          <String>AllUsers_language</String>
-          <String>AllUsers_country</String>
-          <String>AllContentSentiment_Engine</String>
-          <String>AllContentSentiment_Status</String>
-          <String>AllContentSentiment_SentimentType</String>
+          <String>Reply_id</String>
+          <String>Replier_id</String>
+          <String>Replier_user_name</String>
+          <String>Reply_message</String>
+          <String>Reply_message_urlEncoded</String>
         </FieldNames>
       </FieldTagData>
       <FieldTagData>
@@ -2118,78 +1990,29 @@
           <String>$Info</String>
           <String>page</String>
           <String>Site</String>
-          <String>Version</String>
-          <String>ServerMode</String>
-          <String>Path</String>
-          <String>Licensed</String>
-          <String>LicenseExpires</String>
-          <String>IsLicensedAsServer</String>
-          <String>ConnectorName</String>
-          <String>ConnectorVersion</String>
-          <String>ConnectorLicensed</String>
           <String>FeedItem_id</String>
+          <String>Feed_caption</String>
+          <String>Feed_created_time_qvtime</String>
+          <String>Feed_description</String>
+          <String>Feed_from_name</String>
+          <String>Feed_link</String>
+          <String>Feed_message</String>
+          <String>Feed_name</String>
+          <String>Feed_object_id</String>
+          <String>Feed_picture</String>
+          <String>Feed_status_type</String>
+          <String>Feed_to_name</String>
+          <String>Feed_type</String>
+          <String>Feed_updated_time_qvtime</String>
           <String>Comment_id</String>
-          <String>SentimentEngine</String>
-          <String>FeedItem_Sentiment_status</String>
-          <String>SentimentEngineComment</String>
-          <String>CommentItem_Sentiment_status</String>
-          <String>Page_name</String>
-          <String>Page_picture</String>
-          <String>Page_link</String>
-          <String>Page_category</String>
-          <String>Page_website</String>
-          <String>Page_username</String>
-          <String>Page_founded</String>
-          <String>Page_company_overview</String>
-          <String>Page_mission</String>
-          <String>Page_products</String>
-          <String>Page_can_post</String>
-          <String>FeedItem_is_self_posted</String>
-          <String>FeedItem_from_name</String>
-          <String>FeedItem_from_category</String>
-          <String>FeedItem_UpdateType</String>
-          <String>FeedItem_message</String>
-          <String>FeedItem_message_urlEncoded</String>
-          <String>FeedItems_comment_link</String>
-          <String>FeedItems_like_link</String>
-          <String>FeedItem_picture</String>
-          <String>FeedItem_link</String>
-          <String>FeedItem_source</String>
-          <String>FeedItem_name</String>
-          <String>FeedItem_caption</String>
-          <String>FeedItem_description</String>
-          <String>FeedItem_icon</String>
-          <String>FeedItem_created</String>
-          <String>FeedItem_updated</String>
-          <String>FeedItem_object_id</String>
-          <String>FeedItem_has_likes</String>
-          <String>FeedItem_has_comments</String>
-          <String>FeedItem_status_type</String>
-          <String>FeedItem_to_name</String>
-          <String>FeedItem_to_category</String>
-          <String>FeedItem_story</String>
-          <String>FeedItem_application_name</String>
-          <String>FeedItem_application_namespace</String>
-          <String>Comment_page</String>
-          <String>Comment_created</String>
           <String>Comment_user_name</String>
           <String>Comment_message</String>
           <String>Comment_message_urlEncoded</String>
-          <String>InReplyToCommentId</String>
-          <String>Comment_isReplyToComment</String>
-          <String>AllContent_page</String>
-          <String>AllContent_type</String>
-          <String>AllContent_id</String>
-          <String>AllContent_message</String>
-          <String>AllUsers_name</String>
-          <String>AllUsers_gender</String>
-          <String>AllUsers_profilepage</String>
-          <String>AllUsers_locale</String>
-          <String>AllUsers_language</String>
-          <String>AllUsers_country</String>
-          <String>AllContentSentiment_Engine</String>
-          <String>AllContentSentiment_Status</String>
-          <String>AllContentSentiment_SentimentType</String>
+          <String>Reply_id</String>
+          <String>Replier_id</String>
+          <String>Replier_user_name</String>
+          <String>Reply_message</String>
+          <String>Reply_message_urlEncoded</String>
         </FieldNames>
       </FieldTagData>
       <FieldTagData>
@@ -2198,46 +2021,22 @@
           <String>$Rows</String>
           <String>$Fields</String>
           <String>$FieldNo</String>
-          <String>Version_Major</String>
-          <String>Version_Minor</String>
-          <String>Version_Build</String>
-          <String>Version_Revision</String>
-          <String>FeedItem_Sentiment_score</String>
-          <String>CommentItem_Sentiment_score</String>
-          <String>Page_loaddatetime</String>
-          <String>Page_loaddate</String>
-          <String>Page_loadtimestamp</String>
-          <String>Page_page_id</String>
-          <String>Page_likes</String>
-          <String>Page_loaddate_Month</String>
-          <String>FeedItem_loaddate</String>
-          <String>FeedItem_loadtimestamp</String>
-          <String>Poster_id</String>
-          <String>FeedItem_has_at_least_this_many_likes</String>
-          <String>FeedItem_has_at_least_this_many_comments</String>
-          <String>FeedItem_shares_count</String>
-          <String>FeedItem_from_id</String>
-          <String>FeedItem_application_id</String>
-          <String>FeedItem_comments_count</String>
-          <String>FeedItem_likes_count</String>
-          <String>FeedItem_created_qvdatetime_GMT</String>
-          <String>FeedItem_created_qvdatetime_local</String>
-          <String>FeedItem_created_month_local</String>
-          <String>FeedItem_created_qvdate_local</String>
+          <String>Feed_created_time</String>
+          <String>Feed_created_time_qvdatetime</String>
+          <String>Feed_created_time_qvdate</String>
+          <String>Feed_updated_time</String>
+          <String>Feed_updated_time_qvdatetime</String>
+          <String>Feed_updated_time_qvdate</String>
+          <String>CommentsAndRepliesForItem_loadtimestamp</String>
+          <String>CommentsAndRepliesForItem_created</String>
           <String>Comment_loaddate</String>
-          <String>Comment_loadtimestamp</String>
-          <String>Comment_likes_count</String>
-          <String>Comment_count</String>
-          <String>Comment_created_qvdatetime_GMT</String>
-          <String>Comment_created_qvdatetime_local</String>
-          <String>Comment_created_month_local</String>
-          <String>Comment_created_qvdate_local</String>
-          <String>AllUsers_id</String>
-          <String>AllContent_created_date_local</String>
-          <String>AllContent_created_datetime_local</String>
-          <String>AllContent_created_month_local</String>
-          <String>AllContent_likes_count</String>
-          <String>AllContentSentiment_Score</String>
+          <String>Comment_like_count</String>
+          <String>Comment_reply_count</String>
+          <String>Reply_loaddate</String>
+          <String>Reply_loadtimestamp</String>
+          <String>Reply_created</String>
+          <String>Reply_like_count</String>
+          <String>Reply_comment_count</String>
         </FieldNames>
       </FieldTagData>
       <FieldTagData>
@@ -2246,61 +2045,36 @@
           <String>$Rows</String>
           <String>$Fields</String>
           <String>$FieldNo</String>
-          <String>Version_Major</String>
-          <String>Version_Minor</String>
-          <String>Version_Build</String>
-          <String>Version_Revision</String>
-          <String>Page_loaddate</String>
-          <String>Page_page_id</String>
-          <String>Page_likes</String>
-          <String>Page_loaddate_Month</String>
-          <String>Poster_id</String>
-          <String>FeedItem_has_at_least_this_many_likes</String>
-          <String>FeedItem_has_at_least_this_many_comments</String>
-          <String>FeedItem_shares_count</String>
-          <String>FeedItem_from_id</String>
-          <String>FeedItem_application_id</String>
-          <String>FeedItem_comments_count</String>
-          <String>FeedItem_likes_count</String>
-          <String>FeedItem_created_month_local</String>
-          <String>FeedItem_created_qvdate_local</String>
-          <String>Comment_likes_count</String>
-          <String>Comment_count</String>
-          <String>Comment_created_month_local</String>
-          <String>Comment_created_qvdate_local</String>
-          <String>AllUsers_id</String>
-          <String>AllContent_created_date_local</String>
-          <String>AllContent_created_month_local</String>
-          <String>AllContent_likes_count</String>
+          <String>Feed_created_time_qvdate</String>
+          <String>Feed_updated_time_qvdate</String>
+          <String>Comment_like_count</String>
+          <String>Comment_reply_count</String>
+          <String>Reply_like_count</String>
+          <String>Reply_comment_count</String>
         </FieldNames>
       </FieldTagData>
       <FieldTagData>
         <Tag>$timestamp</Tag>
         <FieldNames>
-          <String>Page_loaddatetime</String>
-          <String>Page_loaddate</String>
-          <String>Page_loadtimestamp</String>
-          <String>FeedItem_loaddate</String>
-          <String>FeedItem_loadtimestamp</String>
-          <String>FeedItem_created_qvdatetime_GMT</String>
-          <String>FeedItem_created_qvdatetime_local</String>
-          <String>FeedItem_created_qvdate_local</String>
+          <String>Feed_created_time</String>
+          <String>Feed_created_time_qvdatetime</String>
+          <String>Feed_created_time_qvdate</String>
+          <String>Feed_updated_time</String>
+          <String>Feed_updated_time_qvdatetime</String>
+          <String>Feed_updated_time_qvdate</String>
+          <String>CommentsAndRepliesForItem_loadtimestamp</String>
+          <String>CommentsAndRepliesForItem_created</String>
           <String>Comment_loaddate</String>
-          <String>Comment_loadtimestamp</String>
-          <String>Comment_created_qvdatetime_GMT</String>
-          <String>Comment_created_qvdatetime_local</String>
-          <String>Comment_created_qvdate_local</String>
-          <String>AllContent_created_date_local</String>
-          <String>AllContent_created_datetime_local</String>
+          <String>Reply_loaddate</String>
+          <String>Reply_loadtimestamp</String>
+          <String>Reply_created</String>
         </FieldNames>
       </FieldTagData>
       <FieldTagData>
         <Tag>$date</Tag>
         <FieldNames>
-          <String>Page_loaddate</String>
-          <String>FeedItem_created_qvdate_local</String>
-          <String>Comment_created_qvdate_local</String>
-          <String>AllContent_created_date_local</String>
+          <String>Feed_created_time_qvdate</String>
+          <String>Feed_updated_time_qvdate</String>
         </FieldNames>
       </FieldTagData>
     </ScriptBased>
@@ -2414,4 +2188,11 @@
   <TableComments></TableComments>
   <CreatePrjFolder>false</CreatePrjFolder>
   <LinkedTables></LinkedTables>
+  <AppObjectEntries></AppObjectEntries>
+  <GenericDimensions></GenericDimensions>
+  <GenericMeasures></GenericMeasures>
+  <GenericBookmarks></GenericBookmarks>
+  <ConnectionInfo></ConnectionInfo>
+  <GenericDerivedDefinitions></GenericDerivedDefinitions>
+  <GenericDerivedFields></GenericDerivedFields>
 </DocInternals>

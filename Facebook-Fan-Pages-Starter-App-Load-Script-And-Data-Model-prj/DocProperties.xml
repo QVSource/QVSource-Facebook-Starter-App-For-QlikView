@@ -4,7 +4,6 @@
   <UsePassiveFtp>false</UsePassiveFtp>
   <IgnoreInfoLost>false</IgnoreInfoLost>
   <GenerateLogfile>true</GenerateLogfile>
-  <OpeningExec></OpeningExec>
   <OpenPicTimeout>0</OpenPicTimeout>
   <OpenPicCloseOnClick>0</OpenPicCloseOnClick>
   <OpenPicCloseWhenLoaded>0</OpenPicCloseWhenLoaded>
@@ -826,6 +825,11 @@
         <String>December</String>
       </LongMonthNames>
     </CalendarStrings>
+    <FirstWeekDay>0</FirstWeekDay>
+    <BrokenWeeks>false</BrokenWeeks>
+    <ReferenceDay>0</ReferenceDay>
+    <FirstMonthOfYear>0</FirstMonthOfYear>
+    <Collation></Collation>
   </LocaleInfo>
   <HasWorkingDirectory>true</HasWorkingDirectory>
   <IsPurged>false</IsPurged>
@@ -843,7 +847,7 @@
       <int>3</int>
     </InterOrder>
   </BookmarkSortOrder>
-  <ScriptTabActiveTab>11</ScriptTabActiveTab>
+  <ScriptTabActiveTab>6</ScriptTabActiveTab>
   <ModuleSystemAccessIntended>1</ModuleSystemAccessIntended>
   <InhibitAggressiveQvdCleaning>false</InhibitAggressiveQvdCleaning>
   <Alerts></Alerts>
@@ -1255,30 +1259,37 @@
     <EditorBreakpoint>
       <bufferName></bufferName>
       <lineIx>1008</lineIx>
-    </EditorBreakpoint>
-    <EditorBreakpoint>
-      <bufferName></bufferName>
-      <lineIx>502</lineIx>
-    </EditorBreakpoint>
-    <EditorBreakpoint>
-      <bufferName></bufferName>
-      <lineIx>1110</lineIx>
-    </EditorBreakpoint>
-    <EditorBreakpoint>
-      <bufferName></bufferName>
-      <lineIx>986</lineIx>
-    </EditorBreakpoint>
-    <EditorBreakpoint>
-      <bufferName></bufferName>
-      <lineIx>910</lineIx>
-    </EditorBreakpoint>
-    <EditorBreakpoint>
-      <bufferName></bufferName>
-      <lineIx>1086</lineIx>
+      <Enabled>false</Enabled>
     </EditorBreakpoint>
     <EditorBreakpoint>
       <bufferName></bufferName>
       <lineIx>853</lineIx>
+      <Enabled>false</Enabled>
+    </EditorBreakpoint>
+    <EditorBreakpoint>
+      <bufferName></bufferName>
+      <lineIx>1110</lineIx>
+      <Enabled>false</Enabled>
+    </EditorBreakpoint>
+    <EditorBreakpoint>
+      <bufferName></bufferName>
+      <lineIx>986</lineIx>
+      <Enabled>false</Enabled>
+    </EditorBreakpoint>
+    <EditorBreakpoint>
+      <bufferName></bufferName>
+      <lineIx>910</lineIx>
+      <Enabled>false</Enabled>
+    </EditorBreakpoint>
+    <EditorBreakpoint>
+      <bufferName></bufferName>
+      <lineIx>1086</lineIx>
+      <Enabled>false</Enabled>
+    </EditorBreakpoint>
+    <EditorBreakpoint>
+      <bufferName></bufferName>
+      <lineIx>572</lineIx>
+      <Enabled>false</Enabled>
     </EditorBreakpoint>
   </breakpointList>
   <IdleSecondsBeforeClose>0</IdleSecondsBeforeClose>
@@ -1318,4 +1329,17 @@
   <Extensions></Extensions>
   <ExtensionDescriptions></ExtensionDescriptions>
   <AllowServerAnnotation>true</AllowServerAnnotation>
+  <LastReloadTimeAsISOString>2016-09-01T17:20:08.000+0200</LastReloadTimeAsISOString>
+  <AppProperties>
+    <Title></Title>
+    <LastReloadTime>2016-09-01T17:20:08.000+0200</LastReloadTime>
+    <MigrationHash></MigrationHash>
+    <SavedInProductVersion></SavedInProductVersion>
+    <Thumbnail></Thumbnail>
+  </AppProperties>
+  <LocalizedMainSection></LocalizedMainSection>
+  <FavoriteVariables></FavoriteVariables>
+  <SearchFields></SearchFields>
+  <GreynessFields></GreynessFields>
+  <CompatibelPivotCalcMode>true</CompatibelPivotCalcMode>
 </DocProperties>
