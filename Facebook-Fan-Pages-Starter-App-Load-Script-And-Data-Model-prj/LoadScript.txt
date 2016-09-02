@@ -25,7 +25,7 @@ let vQwcPort = '5555';
 // An identifier for the app - used for error logging. Should be
 // unique across all Qlik Web Connectors based applications reloading on a given machine.
 //
-let vQwcAppId = 'Twitter_Demo';
+let vQwcAppId = 'Facebook_Demo';
  
 //
 // Used if you have setup a multi-user environment (e.g. with remote access enabled.)
