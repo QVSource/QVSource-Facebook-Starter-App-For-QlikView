@@ -832,7 +832,7 @@
     <Collation></Collation>
   </LocaleInfo>
   <HasWorkingDirectory>true</HasWorkingDirectory>
-  <IsPurged>false</IsPurged>
+  <IsPurged>true</IsPurged>
   <Contact></Contact>
   <TimerPollInterval>1</TimerPollInterval>
   <BookmarkSortOrder>
@@ -847,7 +847,7 @@
       <int>3</int>
     </InterOrder>
   </BookmarkSortOrder>
-  <ScriptTabActiveTab>6</ScriptTabActiveTab>
+  <ScriptTabActiveTab>5</ScriptTabActiveTab>
   <ModuleSystemAccessIntended>1</ModuleSystemAccessIntended>
   <InhibitAggressiveQvdCleaning>false</InhibitAggressiveQvdCleaning>
   <Alerts></Alerts>
@@ -1329,10 +1329,10 @@
   <Extensions></Extensions>
   <ExtensionDescriptions></ExtensionDescriptions>
   <AllowServerAnnotation>true</AllowServerAnnotation>
-  <LastReloadTimeAsISOString>2016-09-01T17:20:08.000+0200</LastReloadTimeAsISOString>
+  <LastReloadTimeAsISOString>2016-09-02T14:56:19.000+0200</LastReloadTimeAsISOString>
   <AppProperties>
     <Title></Title>
-    <LastReloadTime>2016-09-01T17:20:08.000+0200</LastReloadTime>
+    <LastReloadTime>2016-09-02T14:56:19.000+0200</LastReloadTime>
     <MigrationHash></MigrationHash>
     <SavedInProductVersion></SavedInProductVersion>
     <Thumbnail></Thumbnail>

@@ -7,70 +7,72 @@
     <bool>false</bool>
     <bool>false</bool>
     <bool>false</bool>
+    <bool>false</bool>
   </AlwaysLoose>
   <FieldSrcTables>
     <String>6</String>
-    <String>2</String>
+    <String>3</String>
     <String>FacebookSites</String>
+    <String>FB_Page</String>
     <String>FB_Feed</String>
     <String>7</String>
     <String>1</String>
     <String>FacebookSites</String>
     <String>8</String>
+    <String>1</String>
+    <String>FB_Page</String>
+    <String>9</String>
+    <String>1</String>
+    <String>FB_Page</String>
+    <String>10</String>
+    <String>1</String>
+    <String>FB_Page</String>
+    <String>11</String>
+    <String>1</String>
+    <String>FB_Page</String>
+    <String>12</String>
+    <String>1</String>
+    <String>FB_Page</String>
+    <String>13</String>
+    <String>1</String>
+    <String>FB_Page</String>
+    <String>14</String>
+    <String>1</String>
+    <String>FB_Page</String>
+    <String>15</String>
+    <String>1</String>
+    <String>FB_Page</String>
+    <String>16</String>
+    <String>1</String>
+    <String>FB_Page</String>
+    <String>17</String>
+    <String>1</String>
+    <String>FB_Page</String>
+    <String>18</String>
+    <String>1</String>
+    <String>FB_Page</String>
+    <String>19</String>
+    <String>1</String>
+    <String>FB_Page</String>
+    <String>20</String>
+    <String>1</String>
+    <String>FB_Page</String>
+    <String>21</String>
+    <String>1</String>
+    <String>FB_Page</String>
+    <String>22</String>
+    <String>1</String>
+    <String>FB_Page</String>
+    <String>23</String>
+    <String>1</String>
+    <String>FB_Page</String>
+    <String>24</String>
+    <String>1</String>
+    <String>FB_Page</String>
+    <String>25</String>
     <String>2</String>
     <String>FB_Feed</String>
     <String>FB_Comments</String>
-    <String>9</String>
-    <String>1</String>
-    <String>FB_Feed</String>
-    <String>10</String>
-    <String>1</String>
-    <String>FB_Feed</String>
-    <String>11</String>
-    <String>1</String>
-    <String>FB_Feed</String>
-    <String>12</String>
-    <String>1</String>
-    <String>FB_Feed</String>
-    <String>13</String>
-    <String>1</String>
-    <String>FB_Feed</String>
-    <String>14</String>
-    <String>1</String>
-    <String>FB_Feed</String>
-    <String>15</String>
-    <String>1</String>
-    <String>FB_Feed</String>
-    <String>16</String>
-    <String>1</String>
-    <String>FB_Feed</String>
-    <String>17</String>
-    <String>1</String>
-    <String>FB_Feed</String>
-    <String>18</String>
-    <String>1</String>
-    <String>FB_Feed</String>
-    <String>19</String>
-    <String>1</String>
-    <String>FB_Feed</String>
-    <String>20</String>
-    <String>1</String>
-    <String>FB_Feed</String>
-    <String>21</String>
-    <String>1</String>
-    <String>FB_Feed</String>
-    <String>22</String>
-    <String>1</String>
-    <String>FB_Feed</String>
-    <String>23</String>
-    <String>1</String>
-    <String>FB_Feed</String>
-    <String>24</String>
-    <String>1</String>
-    <String>FB_Feed</String>
-    <String>25</String>
-    <String>1</String>
-    <String>FB_Feed</String>
     <String>26</String>
     <String>1</String>
     <String>FB_Feed</String>
@@ -94,63 +96,117 @@
     <String>FB_Feed</String>
     <String>33</String>
     <String>1</String>
-    <String>FB_Comments</String>
+    <String>FB_Feed</String>
     <String>34</String>
     <String>1</String>
-    <String>FB_Comments</String>
+    <String>FB_Feed</String>
     <String>35</String>
     <String>1</String>
-    <String>FB_Comments</String>
+    <String>FB_Feed</String>
     <String>36</String>
+    <String>1</String>
+    <String>FB_Feed</String>
+    <String>37</String>
+    <String>1</String>
+    <String>FB_Feed</String>
+    <String>38</String>
+    <String>1</String>
+    <String>FB_Feed</String>
+    <String>39</String>
+    <String>1</String>
+    <String>FB_Feed</String>
+    <String>40</String>
+    <String>1</String>
+    <String>FB_Feed</String>
+    <String>41</String>
+    <String>1</String>
+    <String>FB_Feed</String>
+    <String>42</String>
+    <String>1</String>
+    <String>FB_Feed</String>
+    <String>43</String>
+    <String>1</String>
+    <String>FB_Feed</String>
+    <String>44</String>
+    <String>1</String>
+    <String>FB_Feed</String>
+    <String>45</String>
+    <String>1</String>
+    <String>FB_Feed</String>
+    <String>46</String>
+    <String>1</String>
+    <String>FB_Feed</String>
+    <String>47</String>
+    <String>1</String>
+    <String>FB_Feed</String>
+    <String>48</String>
+    <String>1</String>
+    <String>FB_Feed</String>
+    <String>49</String>
+    <String>1</String>
+    <String>FB_Feed</String>
+    <String>50</String>
+    <String>1</String>
+    <String>FB_Feed</String>
+    <String>51</String>
+    <String>1</String>
+    <String>FB_Comments</String>
+    <String>52</String>
+    <String>1</String>
+    <String>FB_Comments</String>
+    <String>53</String>
+    <String>1</String>
+    <String>FB_Comments</String>
+    <String>54</String>
     <String>2</String>
     <String>FB_Comments</String>
     <String>FB_Replies</String>
-    <String>37</String>
+    <String>55</String>
     <String>1</String>
     <String>FB_Comments</String>
-    <String>38</String>
+    <String>56</String>
     <String>1</String>
     <String>FB_Comments</String>
-    <String>39</String>
+    <String>57</String>
     <String>1</String>
     <String>FB_Comments</String>
-    <String>40</String>
+    <String>58</String>
     <String>1</String>
     <String>FB_Comments</String>
-    <String>41</String>
+    <String>59</String>
     <String>1</String>
     <String>FB_Comments</String>
-    <String>42</String>
+    <String>60</String>
     <String>1</String>
     <String>FB_Comments</String>
-    <String>43</String>
+    <String>61</String>
     <String>1</String>
     <String>FB_Replies</String>
-    <String>44</String>
+    <String>62</String>
     <String>1</String>
     <String>FB_Replies</String>
-    <String>45</String>
+    <String>63</String>
     <String>1</String>
     <String>FB_Replies</String>
-    <String>46</String>
+    <String>64</String>
     <String>1</String>
     <String>FB_Replies</String>
-    <String>47</String>
+    <String>65</String>
     <String>1</String>
     <String>FB_Replies</String>
-    <String>48</String>
+    <String>66</String>
     <String>1</String>
     <String>FB_Replies</String>
-    <String>49</String>
+    <String>67</String>
     <String>1</String>
     <String>FB_Replies</String>
-    <String>50</String>
+    <String>68</String>
     <String>1</String>
     <String>FB_Replies</String>
-    <String>51</String>
+    <String>69</String>
     <String>1</String>
     <String>FB_Replies</String>
-    <String>52</String>
+    <String>70</String>
     <String>1</String>
     <String>FB_Replies</String>
   </FieldSrcTables>
@@ -548,8 +604,8 @@
           </TableViewTableWinSaveInfo>
           <TableViewTableWinSaveInfo>
             <Pos>
-              <Left>1265</Left>
-              <Top>238</Top>
+              <Left>558</Left>
+              <Top>462</Top>
               <Width>170</Width>
               <Height>64</Height>
             </Pos>
@@ -1304,26 +1360,26 @@
           </TableViewTableWinSaveInfo>
           <TableViewTableWinSaveInfo>
             <Pos>
-              <Left>987</Left>
-              <Top>191</Top>
-              <Width>201</Width>
+              <Left>324</Left>
+              <Top>318</Top>
+              <Width>203</Width>
               <Height>352</Height>
             </Pos>
             <Caption>FB_Page</Caption>
           </TableViewTableWinSaveInfo>
           <TableViewTableWinSaveInfo>
             <Pos>
-              <Left>844</Left>
-              <Top>195</Top>
+              <Left>853</Left>
+              <Top>208</Top>
               <Width>369</Width>
-              <Height>496</Height>
+              <Height>497</Height>
             </Pos>
             <Caption>FB_Feed</Caption>
           </TableViewTableWinSaveInfo>
           <TableViewTableWinSaveInfo>
             <Pos>
-              <Left>504</Left>
-              <Top>165</Top>
+              <Left>502</Left>
+              <Top>81</Top>
               <Width>263</Width>
               <Height>226</Height>
             </Pos>
@@ -1790,8 +1846,8 @@
           </TableViewTableWinSaveInfo>
           <TableViewTableWinSaveInfo>
             <Pos>
-              <Left>36</Left>
-              <Top>93</Top>
+              <Left>45</Left>
+              <Top>54</Top>
               <Width>394</Width>
               <Height>220</Height>
             </Pos>
@@ -1799,7 +1855,17 @@
           </TableViewTableWinSaveInfo>
         </Tables>
         <BroomPoints></BroomPoints>
-        <ConnectionPoints></ConnectionPoints>
+        <ConnectionPoints>
+          <TableViewConnectionPointSaveInfo>
+            <Pos>
+              <x>787</x>
+              <y>347</y>
+            </Pos>
+            <Fields>
+              <String>page</String>
+            </Fields>
+          </TableViewConnectionPointSaveInfo>
+        </ConnectionPoints>
         <ZoomFactor>3FE8000000000000</ZoomFactor>
       </InternalView>
       <SourceView>
@@ -1965,8 +2031,22 @@
           <String>$Info</String>
           <String>page</String>
           <String>Site</String>
+          <String>Page_status</String>
+          <String>Page_about</String>
+          <String>Page_category</String>
+          <String>Page_company_overview</String>
+          <String>Page_general_info</String>
+          <String>Page_link</String>
+          <String>Page_mission</String>
+          <String>Page_name</String>
+          <String>Page_products</String>
+          <String>Page_username</String>
+          <String>Page_website</String>
+          <String>Page_picture_url</String>
           <String>FeedItem_id</String>
+          <String>Feed_caption</String>
           <String>Feed_created_time_qvtime</String>
+          <String>Feed_message_urlEncoded</String>
           <String>Feed_object_id</String>
           <String>Feed_picture</String>
           <String>Feed_status_type</String>
@@ -1976,9 +2056,6 @@
           <String>Comment_id</String>
           <String>Comment_message_urlEncoded</String>
           <String>Reply_id</String>
-          <String>Replier_id</String>
-          <String>Replier_user_name</String>
-          <String>Reply_message</String>
           <String>Reply_message_urlEncoded</String>
         </FieldNames>
       </FieldTagData>
@@ -1990,6 +2067,19 @@
           <String>$Info</String>
           <String>page</String>
           <String>Site</String>
+          <String>Page_status</String>
+          <String>Page_about</String>
+          <String>Page_category</String>
+          <String>Page_company_overview</String>
+          <String>Page_description</String>
+          <String>Page_general_info</String>
+          <String>Page_link</String>
+          <String>Page_mission</String>
+          <String>Page_name</String>
+          <String>Page_products</String>
+          <String>Page_username</String>
+          <String>Page_website</String>
+          <String>Page_picture_url</String>
           <String>FeedItem_id</String>
           <String>Feed_caption</String>
           <String>Feed_created_time_qvtime</String>
@@ -1997,6 +2087,7 @@
           <String>Feed_from_name</String>
           <String>Feed_link</String>
           <String>Feed_message</String>
+          <String>Feed_message_urlEncoded</String>
           <String>Feed_name</String>
           <String>Feed_object_id</String>
           <String>Feed_picture</String>
@@ -2006,10 +2097,8 @@
           <String>Feed_updated_time_qvtime</String>
           <String>Comment_id</String>
           <String>Comment_user_name</String>
-          <String>Comment_message</String>
           <String>Comment_message_urlEncoded</String>
           <String>Reply_id</String>
-          <String>Replier_id</String>
           <String>Replier_user_name</String>
           <String>Reply_message</String>
           <String>Reply_message_urlEncoded</String>
@@ -2021,6 +2110,8 @@
           <String>$Rows</String>
           <String>$Fields</String>
           <String>$FieldNo</String>
+          <String>Page_likes</String>
+          <String>Page_talking_about_count</String>
           <String>Feed_created_time</String>
           <String>Feed_created_time_qvdatetime</String>
           <String>Feed_created_time_qvdate</String>
@@ -2045,6 +2136,8 @@
           <String>$Rows</String>
           <String>$Fields</String>
           <String>$FieldNo</String>
+          <String>Page_likes</String>
+          <String>Page_talking_about_count</String>
           <String>Feed_created_time_qvdate</String>
           <String>Feed_updated_time_qvdate</String>
           <String>Comment_like_count</String>

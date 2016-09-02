@@ -322,8 +322,6 @@ load
 resident FB_Page 
 group by page, Page_id;
 
-drop table FB_Page;
-
 let fb_pro_feed = 'FB_Feed.qvd';
 
 let size_fb_pro_feed = filesize('$(fb_pro_feed)');
@@ -515,7 +513,7 @@ let size_fb_pro_replies = filesize('$(fb_pro_replies)');
 
 if not isnull(size_fb_pro_replies) then	
 	FB_Replies:
-	LOAD * FROM '$(fb_pro_comments)' (qvd)
+	LOAD * FROM '$(fb_pro_replies)' (qvd)
 	WHERE NOT EXISTS (Reply_id);
 endif	
 	
