@@ -363,7 +363,9 @@ for i=0 to $(noRows)-1
 	    from_name as Feed_from_name,
 	    link as Feed_link,
 	    message as Feed_message,
-	    // TODO: Need message URL encoded version of this.
+	    // If you are using version 1.1.0 of this connector or later you should be able to replace the following line with:
+	    // message_urlEncoded as Feed_message_urlEncoded,
+		'Not yet implemented' as Feed_message_urlEncoded,
 	    name as Feed_name,
 	    object_id as Feed_object_id,
 	    picture as Feed_picture,
@@ -431,8 +433,9 @@ LET noRows = NoOfRows('FB_FeedItemsWithCommentsLoadedInThisRun');
 	    time#(subfield(created_time, 'T', 2), 'hh:mm:ss+0000') as CommentsAndRepliesForItem_created_time_qvtime,
 	    from_name as CommentsAndRepliesForItem_from_name,
 	    message as CommentsAndRepliesForItem_message,
+	    // If you are using version 1.1.0 of this connector or later you should be able to replace the following line with:
+	    // message_urlEncoded as CommentsAndRepliesForItem_message_urlEncoded,
 		'Not yet implemented' as CommentsAndRepliesForItem_message_urlEncoded,
-	    // TODO: Need message URL encoded version of this.
 	    parent_id as CommentsAndRepliesForItem_parent_id,
 	    comment_count as CommentsAndRepliesForItem_comment_count,
 	    like_count as CommentsAndRepliesForItem_like_count
